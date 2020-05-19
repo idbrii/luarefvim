@@ -4,6 +4,11 @@
 " Last Change: May, 26, 2005
 " Version: 0.1
 
+" Only apply syntax to our help docs (which are actually lua reference).
+if -1 == stridx(expand('%:p'), expand("<sfile>:p:h:h:h") .'/doc/')
+    finish
+endif
+
 " add three syntax classes: bold, emph (italic) and code -- similarly to html
 syn match helpIgnoreBold     "#[a-zA-Z0-9&()\`\'\"\-\+\*=\[\]\{\}\.,;: ]\+#" contains=helpMatchBold
 syn match helpMatchBold      "[a-zA-Z0-9&()\`\'\"\-\+\*=\[\]\{\}\.,;: ]\+"   contained
