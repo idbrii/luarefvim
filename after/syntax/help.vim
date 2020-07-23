@@ -19,6 +19,21 @@ syn match helpMatchEmph      "[a-zA-Z0-9&()\`\'\"\-\+\*=\[\]\{\}\.,;: ]\+"   con
 syn match helpIgnoreCode     "\$[a-zA-Z0-9@\\\*/\._=()\-+%<>&\^|!~\?:,\[\];{}#\`\'\" ]\+\$" contains=helpMatchCode
 syn match helpMatchCode      "[a-zA-Z0-9@\\\*/\._=()\-+%<>&\^|!~\?:,\[\];{}#\`\'\" ]\+"   contained
 
+syn clear helpHyperTextJump
+" helpHyperTextJump copied from $VIMRUNTIME/ftplugin/help.vim
+if has("ebcdic")
+    syn match helpHyperTextJump	"\\\@<!|[^"*|]\+|" contains=helpBar,helpHideLrv,helpHideLove
+else
+    syn match helpHyperTextJump	"\\\@<!|[#-)!+-~]\+|" contains=helpBar,helpHideLrv,helpHideLove
+endif
+if has("conceal")
+    syn match helpHideLrv		contained "\<lrv-" conceal
+    syn match helpHideLove		contained "\<love-" conceal
+else
+    syn match helpHideLrv		contained "\<lrv-"
+    syn match helpHideLove		contained "\<love-"
+endif
+
 " syn high links
 hi def link helpIgnoreBold     Ignore
 hi def link helpIgnoreEmph     Ignore
@@ -26,4 +41,4 @@ hi def link helpIgnoreCode     Ignore
 hi def link helpMatchBold      Function
 hi def link helpMatchEmph      Special
 hi def link helpMatchCode      Comment
-
+hi def link helpHideLrv        Ignore
