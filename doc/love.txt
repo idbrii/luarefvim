@@ -458,7 +458,7 @@ Variants:
 
                 The index of the display that changed orientation.
 
-            `orientation`: |love-DisplayOrientation|
+            `orientation`: <DisplayOrientation>
 
                 The new orientation.
 
@@ -534,7 +534,7 @@ Variants:
 
         arguments:
 
-            `file`: |love-DroppedFile|
+            `file`: <DroppedFile>
 
                 The unopened File object representing the file that was
                 dropped.
@@ -1230,7 +1230,7 @@ Variants:
 
         returns:
 
-            `mainLoop`: |love-function|
+            `mainLoop`: |lrv-function|
 
                 Function which handlers one frame, including events and
                 rendering when called.
@@ -1361,7 +1361,7 @@ The unofficial Android and iOS ports of LÖVE 0.9.2 reported touch positions as 
 
         arguments:
 
-            `id`: |love-light userdata|
+            `id`: |lrv-lightuserdata|
 
                 The identifier for the touch press.
 
@@ -1410,7 +1410,7 @@ The unofficial Android and iOS ports of LÖVE 0.9.2 reported touch positions as 
 
         arguments:
 
-            `id`: |love-light userdata|
+            `id`: |lrv-lightuserdata|
 
                 The identifier for the touch press.
 
@@ -1463,7 +1463,7 @@ The unofficial Android and iOS ports of LÖVE 0.9.2 reported touch positions as 
 
         arguments:
 
-            `id`: |love-light userdata|
+            `id`: |lrv-lightuserdata|
 
                 The identifier for the touch press.
 
@@ -4976,7 +4976,7 @@ Variants:
 
         returns:
 
-            `compressedData`: |love-value|
+            `compressedData`: <value>
 
                 CompressedData/string which contains the compressed version of
                 rawstring.
@@ -5007,7 +5007,7 @@ Variants:
 
         returns:
 
-            `compressedData`: |love-value|
+            `compressedData`: <value>
 
                 CompressedData/string which contains the compressed version of
                 data.
@@ -5055,7 +5055,7 @@ Variants:
 
         returns:
 
-            `decoded`: |love-value|
+            `decoded`: <value>
 
                 ByteData/string which contains the decoded version of source.
 
@@ -5079,7 +5079,7 @@ Variants:
 
         returns:
 
-            `decoded`: |love-value|
+            `decoded`: <value>
 
                 ByteData/string which contains the decoded version of source.
 
@@ -5121,7 +5121,7 @@ Variants:
 
         returns:
 
-            `decompressedData`: |love-value|
+            `decompressedData`: <value>
 
                 Data/string containing the raw decompressed data.
 
@@ -5141,7 +5141,7 @@ Variants:
 
         returns:
 
-            `decompressedData`: |love-value|
+            `decompressedData`: <value>
 
                 Data/string containing the raw decompressed data.
 
@@ -5166,7 +5166,7 @@ Variants:
 
         returns:
 
-            `decompressedData`: |love-value|
+            `decompressedData`: <value>
 
                 Data/string containing the raw decompressed data.
 
@@ -5207,7 +5207,7 @@ Variants:
 
         returns:
 
-            `encoded`: |love-value|
+            `encoded`: <value>
 
                 ByteData/string which contains the encoded version of source.
 
@@ -5236,7 +5236,7 @@ Variants:
 
         returns:
 
-            `encoded`: |love-value|
+            `encoded`: <value>
 
                 ByteData/string which contains the encoded version of source.
 
@@ -5473,7 +5473,7 @@ Variants:
 
         returns:
 
-            `data`: |love-value|
+            `data`: <value>
 
                 Data/string which contains the serialized data.
 
@@ -5488,11 +5488,11 @@ Variants:
                 A string determining how the values are packed. Follows the
                 rules of Lua 5.3's string.pack format strings.
 
-            `v1`: |love-value|
+            `v1`: <value>
 
                 The first value (number, boolean, or string) to serialize.
 
-            `...`: |love-value|
+            `...`: <value>
 
                 Additional values to serialize.
 
@@ -5520,11 +5520,11 @@ Variants:
 
         returns:
 
-            `v1`: |love-value|
+            `v1`: <value>
 
                 The first value (number, boolean, or string) that was unpacked.
 
-            `...`: |love-value|
+            `...`: <value>
 
                 Additional unpacked values.
 
@@ -5554,11 +5554,11 @@ Variants:
 
         returns:
 
-            `v1`: |love-value|
+            `v1`: <value>
 
                 The first value (number, boolean, or string) that was unpacked.
 
-            `...`: |love-value|
+            `...`: <value>
 
                 Additional unpacked values.
 
@@ -5822,7 +5822,7 @@ Variants:
 
         returns:
 
-            `i`: |love-function|
+            `i`: |lrv-function|
 
                 Iterator function usable in a for loop.
 
@@ -5890,31 +5890,31 @@ Variants:
 
                 The name of the event.
 
-            `a`: |love-Variant|
+            `a`: <Variant>
 
                 First event argument.
 
-            `b`: |love-Variant|
+            `b`: <Variant>
 
                 Second event argument.
 
-            `c`: |love-Variant|
+            `c`: <Variant>
 
                 Third event argument.
 
-            `d`: |love-Variant|
+            `d`: <Variant>
 
                 Fourth event argument.
 
-            `e`: |love-Variant|
+            `e`: <Variant>
 
                 Fifth event argument.
 
-            `f`: |love-Variant|
+            `f`: <Variant>
 
                 Sixth event argument.
 
-            `...`: |love-Variant|
+            `...`: <Variant>
 
                 Further event arguments may follow.
 
@@ -5984,31 +5984,31 @@ Variants:
 
                 The name of event.
 
-            `a`: |love-Variant|
+            `a`: <Variant>
 
                 First event argument.
 
-            `b`: |love-Variant|
+            `b`: <Variant>
 
                 Second event argument.
 
-            `c`: |love-Variant|
+            `c`: <Variant>
 
                 Third event argument.
 
-            `d`: |love-Variant|
+            `d`: <Variant>
 
                 Fourth event argument.
 
-            `e`: |love-Variant|
+            `e`: <Variant>
 
                 Fifth event argument.
 
-            `f`: |love-Variant|
+            `f`: <Variant>
 
                 Sixth event argument.
 
-            `...`: |love-Variant|
+            `...`: <Variant>
 
                 Further event arguments may follow.
 
@@ -6418,7 +6418,7 @@ Variants:
 
                 The directory.
 
-            `callback`: |love-function|
+            `callback`: |lrv-function|
 
                 A function which is called for each file and folder in the
                 directory. The filename is passed to the function as an
@@ -6877,7 +6877,7 @@ Variants:
 
         returns:
 
-            `iterator`: |love-function|
+            `iterator`: |lrv-function|
 
                 A function that iterates over all the lines in the file
 
@@ -6905,7 +6905,7 @@ Variants:
 
         returns:
 
-            `chunk`: |love-function|
+            `chunk`: |lrv-function|
 
                 The loaded chunk.
 
@@ -7162,7 +7162,7 @@ Variants:
 
                 How many bytes have been read.
 
-            `contents`: |love-nil|
+            `contents`: |lrv-nil|
 
                 returns nil as content.
 
@@ -7186,7 +7186,7 @@ Variants:
 
         returns:
 
-            `contents`: |love-value|
+            `contents`: <value>
 
                 FileData or string containing the file contents.
 
@@ -7194,7 +7194,7 @@ Variants:
 
                 How many bytes have been read.
 
-            `contents`: |love-nil|
+            `contents`: |lrv-nil|
 
                 returns nil as content.
 
@@ -7811,7 +7811,7 @@ Variants:
 
         returns:
 
-            `iterator`: |love-function|
+            `iterator`: |lrv-function|
 
                 The iterator (can be used in for loops).
 
@@ -7889,7 +7889,7 @@ Variants:
 
         returns:
 
-            `contents`: |love-value|
+            `contents`: <value>
 
                 FileData or string containing the read bytes.
 
@@ -9182,7 +9182,7 @@ Variants:
 
         arguments:
 
-            `callback`: |love-function|
+            `callback`: |lrv-function|
 
                 Function which gets called once the screenshot has been
                 captured. An ImageData is passed into the function as its only
@@ -10482,7 +10482,7 @@ Variants:
 
         returns:
 
-            `winding`: |love-VertexWinding|
+            `winding`: <VertexWinding>
 
                 The winding mode being used. The default winding is
                 counterclockwise ('ccw').
@@ -11578,7 +11578,7 @@ Some Canvas formats have higher system requirements than the default format. Use
 
                     The type of Canvas to create.
 
-                `format`: |love-PixelFormat|
+                `format`: <PixelFormat>
 
                     The format of the Canvas.
 
@@ -11637,7 +11637,7 @@ Some Canvas formats have higher system requirements than the default format. Use
 
                     The type of Canvas to create.
 
-                `format`: |love-PixelFormat|
+                `format`: <PixelFormat>
 
                     The format of the Canvas.
 
@@ -11683,7 +11683,7 @@ Some Canvas formats have higher system requirements than the default format. Use
 
                 The desired height of the Canvas.
 
-            `format`: |love-CanvasFormat|
+            `format`: <CanvasFormat>
 
                 The desired texture format of the Canvas.
     6.  `canvas` = |love.graphics.newCanvas|( `width`, `height`,
@@ -11711,7 +11711,7 @@ If the number of MSAA samples specified is greater than the maximum supported by
 
                 The desired height of the Canvas.
 
-            `format`: |love-CanvasFormat|
+            `format`: <CanvasFormat>
 
                 The desired texture format of the Canvas.
 
@@ -11913,7 +11913,7 @@ If the file is a TrueType font, it will be size 12. Use the variant below to cre
 
                 The size of the font in pixels.
 
-            `hinting`: |love-HintingMode|
+            `hinting`: <HintingMode>
 
                 True Type hinting mode.
     3.  `font` = |love.graphics.newFont|( `filename`, `imagefilename` )
@@ -11953,7 +11953,7 @@ If the file is a TrueType font, it will be size 12. Use the variant below to cre
 
                 The size of the font in pixels.
 
-            `hinting`: |love-HintingMode|
+            `hinting`: <HintingMode>
 
                 True Type hinting mode.
 
@@ -12050,7 +12050,7 @@ Variants:
                     linear RGB rather than sRGB-encoded, if gamma-correct
                     rendering is enabled. Has no effect otherwise.
 
-                `mipmaps`: |love-boolean or table|
+                `mipmaps`: <boolean or table>
 
                     If true, mipmaps for the image will be automatically
                     generated (or taken from the images's file if possible, if
@@ -12077,7 +12077,7 @@ Variants:
                 The filepath to the image file (or a FileData or ImageData or
                 CompressedImageData object.)
 
-            `format`: |love-TextureFormat|
+            `format`: <TextureFormat>
 
                 The format to interpret the image's data as.
 
@@ -12621,18 +12621,18 @@ LÖVE provides several built-in variables for both pixel and vertex shaders. The
 
         returns:
 
-            `output_pos`: |love-vec4|
+            `output_pos`: <vec4>
 
                 The final transformed position of the current vertex.
 
         arguments:
 
-            `transform_projection`: |love-mat4|
+            `transform_projection`: <mat4>
 
                 The transformation matrix affected by love.graphics.translate
                 and friends combined with the orthographic projection matrix.
 
-            `vertex_position`: |love-vec4|
+            `vertex_position`: <vec4>
 
                 The raw un-transformed position of the current vertex.
 
@@ -13305,7 +13305,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -13398,7 +13398,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -13463,7 +13463,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -13730,7 +13730,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -13816,7 +13816,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -13905,7 +13905,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -13958,7 +13958,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -14477,16 +14477,16 @@ The RenderTargetSetup parameters can either be a Canvas|[1]|The Canvas to use fo
                 and active layers if applicable, and whether to use a stencil
                 and/or depth buffer.
 
-                `1`: |love-RenderTargetSetup|
+                `1`: <RenderTargetSetup>
 
                     The Canvas to render to.
 
-                `2`: |love-RenderTargetSetup|
+                `2`: <RenderTargetSetup>
 
                     An additional Canvas to render to, if multiple simultaneous
                     render targets are wanted.
 
-                `...`: |love-RenderTargetSetup|
+                `...`: <RenderTargetSetup>
 
                     Additional Canvases to render to, if multiple simultaneous
                     render targets are wanted.
@@ -14501,7 +14501,7 @@ The RenderTargetSetup parameters can either be a Canvas|[1]|The Canvas to use fo
                     Whether an internally managed depth buffer should be used,
                     if the depthstencil field isn't set.
 
-                `depthstencil`: |love-RenderTargetSetup|
+                `depthstencil`: <RenderTargetSetup>
 
                     An optional custom depth/stencil formatted Canvas to use
                     for the depth and/or stencil buffer.
@@ -14755,7 +14755,7 @@ Variants:
 
         arguments:
 
-            `winding`: |love-VertexWinding|
+            `winding`: <VertexWinding>
 
                 The winding mode to use. The default winding is
                 counterclockwise ('ccw').
@@ -14972,7 +14972,7 @@ Variants:
 
         arguments:
 
-            `rasterizer`: |love-Rasterizer|
+            `rasterizer`: <Rasterizer>
 
                 A rasterizer.
 
@@ -15236,7 +15236,7 @@ Variants:
 
         arguments:
 
-            `stencilfunction`: |love-function|
+            `stencilfunction`: |lrv-function|
 
                 Function which draws geometry. The stencil values of pixels,
                 rather than the color of each pixel, will be affected by the
@@ -15677,7 +15677,7 @@ Variants:
 
         returns:
 
-            `mode`: |love-MipmapMode|
+            `mode`: <MipmapMode>
 
                 The mipmap mode this Canvas was created with.
 
@@ -15846,7 +15846,7 @@ Variants:
 
         arguments:
 
-            `func`: |love-function|
+            `func`: |lrv-function|
 
                 A function performing drawing operations.
 
@@ -16901,7 +16901,7 @@ Custom named attributes can be accessed in a vertex shader by declaring them as 
 
                 The Mesh to get the vertex attribute from.
 
-            `step`: |love-VertexAttributeStep|
+            `step`: <VertexAttributeStep>
 
                 Whether the attribute will be per-vertex or per-instance when
                 the mesh is drawn.
@@ -16964,7 +16964,7 @@ Custom named attributes can be accessed in a vertex shader by declaring them as 
 
                 The Mesh to get the vertex attribute from.
 
-            `step`: |love-VertexAttributeStep|
+            `step`: <VertexAttributeStep>
 
                 Whether the attribute will be per-vertex or per-instance when
                 the mesh is drawn.
@@ -17799,7 +17799,7 @@ Variants:
                 Array of vertex indices to use when drawing. Values must be in
                 the range of Mesh:getVertexCount()-1
 
-            `datatype`: |love-IndexDataType|
+            `datatype`: <IndexDataType>
 
                 Datatype of the vertex indices array above.
 
@@ -21591,7 +21591,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -21754,7 +21754,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -22058,7 +22058,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -22160,7 +22160,7 @@ Variants:
                     A string of text which has a color specified by the
                     previous color.
 
-                `...`: |love-tables and strings|
+                `...`: <tables and strings>
 
                     Additional colors and strings.
 
@@ -22292,7 +22292,7 @@ Variants:
 
         returns:
 
-            `format`: |love-PixelFormat|
+            `format`: <PixelFormat>
 
                 The pixel format the Texture was created with.
 
@@ -23394,7 +23394,7 @@ Variants:
 
                 The height of the ImageData.
 
-            `format`: |love-PixelFormat|
+            `format`: <PixelFormat>
 
                 The pixel format of the ImageData.
 
@@ -23977,7 +23977,7 @@ Variants:
 
         arguments:
 
-            `pixelFunction`: |love-function|
+            `pixelFunction`: |lrv-function|
 
                 Function to apply to every pixel.
 
@@ -30224,7 +30224,7 @@ Variants:
 
         arguments:
 
-            `buttonN`: |love-MouseConstant|
+            `buttonN`: <MouseConstant>
 
                 A button to check.
 
@@ -33349,7 +33349,7 @@ Variants:
 
         returns:
 
-            `value`: |love-any|
+            `value`: <any>
 
                 The Lua value associated with the Body.
 
@@ -34374,7 +34374,7 @@ Variants:
 
         arguments:
 
-            `value`: |love-any|
+            `value`: <any>
 
                 The Lua value to associate with the Body.
 
@@ -36076,7 +36076,7 @@ Variants:
 
         returns:
 
-            `value`: |love-any|
+            `value`: <any>
 
                 The Lua value associated with the fixture.
 
@@ -36501,7 +36501,7 @@ Variants:
 
         arguments:
 
-            `value`: |love-any|
+            `value`: <any>
 
                 The Lua value to associate with the fixture.
 
@@ -37047,7 +37047,7 @@ Variants:
 
         returns:
 
-            `value`: |love-any|
+            `value`: <any>
 
                 The Lua value associated with the Joint.
 
@@ -37105,7 +37105,7 @@ Variants:
 
         arguments:
 
-            `value`: |love-any|
+            `value`: <any>
 
                 The Lua value to associate with the Joint.
 
@@ -40014,19 +40014,19 @@ Variants:
 
         returns:
 
-            `beginContact`: |love-function|
+            `beginContact`: |lrv-function|
 
                 Gets called when two fixtures begin to overlap.
 
-            `endContact`: |love-function|
+            `endContact`: |lrv-function|
 
                 Gets called when two fixtures cease to overlap.
 
-            `preSolve`: |love-function|
+            `preSolve`: |lrv-function|
 
                 Gets called before a collision gets resolved.
 
-            `postSolve`: |love-function|
+            `postSolve`: |lrv-function|
 
                 Gets called after the collision has been resolved.
 
@@ -40078,7 +40078,7 @@ Variants:
 
         returns:
 
-            `contactFilter`: |love-function|
+            `contactFilter`: |lrv-function|
 
                 The function that handles the contact filtering.
 
@@ -40317,7 +40317,7 @@ Variants:
 
                 The y position of the bottom-right point.
 
-            `callback`: |love-function|
+            `callback`: |lrv-function|
 
                 This function gets passed one argument, the fixture, and should
                 return a boolean. The search will continue if it is true or
@@ -40412,21 +40412,21 @@ Variants:
 
         arguments:
 
-            `beginContact`: |love-function|
+            `beginContact`: |lrv-function|
 
                 Gets called when two fixtures begin to overlap.
 
-            `endContact`: |love-function|
+            `endContact`: |lrv-function|
 
                 Gets called when two fixtures cease to overlap. This will also
                 be called outside of a world update, when colliding objects are
                 destroyed.
 
-            `preSolve`: |love-function|
+            `preSolve`: |lrv-function|
 
                 Gets called before a collision gets resolved.
 
-            `postSolve`: |love-function|
+            `postSolve`: |lrv-function|
 
                 Gets called after the collision has been resolved.
 
@@ -40457,7 +40457,7 @@ Variants:
 
         arguments:
 
-            `filter`: |love-function|
+            `filter`: |lrv-function|
 
                 The function handling the contact filtering.
 
@@ -41762,7 +41762,7 @@ Variants:
 
         returns:
 
-            `value`: |love-Variant|
+            `value`: <Variant>
 
                 The contents of the message.
 
@@ -41775,7 +41775,7 @@ Variants:
 
         returns:
 
-            `value`: |love-Variant|
+            `value`: <Variant>
 
                 The contents of the message or nil if the timeout expired.
 
@@ -41861,7 +41861,7 @@ Variants:
 
         returns:
 
-            `value`: |love-Variant|
+            `value`: <Variant>
 
                 The contents of the message.
 
@@ -41897,28 +41897,28 @@ Variants:
 
         returns:
 
-            `ret1`: |love-any|
+            `ret1`: <any>
 
                 The first return value of the given function (if any.)
 
-            `...`: |love-any|
+            `...`: <any>
 
                 Any other return values.
 
         arguments:
 
-            `func`: |love-function|
+            `func`: |lrv-function|
 
                 The function to call, the form of function(channel, arg1, arg2,
                 ...) end. The Channel is passed as the first argument to the
                 function when it is called.
 
-            `arg1`: |love-any|
+            `arg1`: <any>
 
                 Additional arguments that the given function will receive when
                 it is called.
 
-            `...`: |love-any|
+            `...`: <any>
 
                 Additional arguments that the given function will receive when
                 it is called.
@@ -41943,7 +41943,7 @@ Variants:
 
         returns:
 
-            `value`: |love-Variant|
+            `value`: <Variant>
 
                 The contents of the message.
 
@@ -41977,7 +41977,7 @@ Variants:
 
         arguments:
 
-            `value`: |love-Variant|
+            `value`: <Variant>
 
                 The contents of the message.
 
@@ -42008,7 +42008,7 @@ Variants:
 
         arguments:
 
-            `value`: |love-Variant|
+            `value`: <Variant>
 
                 The contents of the message.
     2.  `success` = |Channel:supply|( `value`, `timeout` )
@@ -42024,7 +42024,7 @@ Variants:
 
         arguments:
 
-            `value`: |love-Variant|
+            `value`: <Variant>
 
                 The contents of the message.
 
@@ -42154,15 +42154,15 @@ Variants:
 
         arguments:
 
-            `arg1`: |love-Variant|
+            `arg1`: <Variant>
 
                 A string, number, boolean, LÖVE object, or simple table.
 
-            `arg2`: |love-Variant|
+            `arg2`: <Variant>
 
                 A string, number, boolean, LÖVE object, or simple table.
 
-            `...`: |love-Variant|
+            `...`: <Variant>
 
                 You can continue passing values to the thread.
 
@@ -42454,7 +42454,7 @@ Variants:
 
         arguments:
 
-            `id`: |love-light userdata|
+            `id`: |lrv-lightuserdata|
 
                 The identifier of the touch-press. Use love.touch.getTouches,
                 love.touchpressed, or love.touchmoved to obtain touch id
@@ -42485,7 +42485,7 @@ Variants:
 
         arguments:
 
-            `id`: |love-light userdata|
+            `id`: |lrv-lightuserdata|
 
                 The identifier of the touch-press. Use love.touch.getTouches,
                 love.touchpressed, or love.touchmoved to obtain touch id
@@ -42922,7 +42922,7 @@ Variants:
 
         returns:
 
-            `orientation`: |love-DisplayOrientation|
+            `orientation`: <DisplayOrientation>
 
                 Current device display orientation.
 
