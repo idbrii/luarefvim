@@ -4,7 +4,7 @@
                        | |     / __ \\ \    / //  ____\ 
                        | |    | |  | |\ \  / / | |__    
                        | |    | |  | | \ \/ /  |  __|   
-                       | |____| |__| |  \  /   | |____  
+                       | | ___| | _| |  \  /   | |____  
                        \______|\____/    \/    \______/ 
 
                    The complete solution for Vim with LOVE.
@@ -228,7 +228,7 @@ Variants:
                         0 LÖVE automatically uses the user's desktop
                         dimensions.
 
-                    `height`: |lrv-string|
+                    `height`: |lrv-number|
 
                         Sets the window's dimensions. If these flags are set to
                         0 LÖVE automatically uses the user's desktop
