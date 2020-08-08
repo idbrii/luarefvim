@@ -5,7 +5,7 @@
 " Version: 0.1
 
 " Only apply syntax to our help docs (which are actually lua reference).
-if -1 == stridx(expand('%:p'), expand("<sfile>:p:h:h:h") .'/doc/')
+if -1 == stridx(resolve(expand('%:p')), resolve(expand("<sfile>:p:h:h:h") .'/doc/'))
     finish
 endif
 
