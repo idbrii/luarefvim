@@ -57,9 +57,9 @@ local seefmt = '(see %s)'
 if arg[1] == 'port' then
   seefmt = '(ver %s)'
   header = string.gsub(header, "by (.-)\n",
-    "%1\n<p>Tradu&ccedil;&atilde;o: S&eacute;rgio Queiroz de Medeiros", 1)
+    "%1\n<p>Tradução: Sérgio Queiroz de Medeiros", 1)
   header = string.gsub(header, "Lua (%d+.%d+) Reference Manual",
-    "Manual de Refer&ecirc;ncia de Lua %1")
+    "Manual de Referência de Lua %1")
   header = string.gsub(header, "All rights reserved",
     "Todos os direitos reservados")
 end
@@ -352,7 +352,7 @@ local Tex = {
   end,
   chapter = section"h1",
   Char = compose(verbfixed, prepos("'", "'")),
-  Cdots = fixed"&middot;&middot;&middot;",
+  Cdots = fixed"···",
   Close = fixed"}",
   col = Tag.td,
   defid = function (name)
@@ -364,10 +364,10 @@ local Tex = {
   end,
   def = verb,
   description = compose(nopara, Tag.ul),
-  Em = fixed("\4" .. "&mdash;" .. "\4"),
+  Em = fixed("\4" .. "—" .. "\4"),
   emph = Tag.em,
   emphx = Tag.em,    -- emphasis plus index (if there was an index)
-  En = fixed("&ndash;"),
+  En = fixed("–"),
   format = fixed"",
   ["false"] = fixed(Tag.b"false"),
   id = Tag.code,
@@ -377,7 +377,7 @@ local Tex = {
   ldots = fixed"...",
   x = id,
   itemize = compose(nopara, Tag.ul),
-  leq = fixed"&le;",
+  leq = fixed"≤",
   Lid = function (s)
     return makeref(lua2link(s))
   end,
@@ -397,7 +397,7 @@ local Tex = {
   refcode = makeref,
   refsec = makeref,
 
-  pi = fixed"&pi;",
+  pi = fixed"π",
   rep = Tag.em,
   Rw = rw,
   rw = rw,
@@ -494,7 +494,7 @@ local Tex = {
   bnfNter = prepos("", ""),
   bnfopt = prepos("[", "]"),
   bnfrep = prepos("{", "}"),
-  bnfter = compose(Tag.b, prepos("&lsquo;", "&rsquo;")),
+  bnfter = compose(Tag.b, prepos("‘", "’")),
   producbody = function (s)
     s = string.gsub(s, "%s+", " ")
     s = string.gsub(s, "\4", "\n\t\t")
@@ -509,7 +509,7 @@ local Tex = {
     if push ~= "?" and string.find(push, "%W") then
       push = "(" .. push .. ")"
     end
-    --~ err = (err == "-") and "&ndash;" or Tag.em(err)
+    err = (err == "-") and "–" or Tag.em(err)
     return Tag.span(
       string.format("[-%s, +%s, %s]", pop, push, err),
       {class="apii"}
