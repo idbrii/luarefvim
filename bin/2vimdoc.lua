@@ -77,11 +77,15 @@ local function concat (f, g)
   return function (s) return f(s) .. g(s) end
 end
 
+local function right_align_line(line)
+  local nspaces = 78 - line:len()
+  return ('%s%s'):format(string.rep(' ', nspaces), line)
+end
+
 local function definition(data)
-    local txt = (
-[[                                                  *lrv-%s*]]
-):format(data.link)
-    return txt, data.pretty
+  local txt = ("*lrv-%s*"):format(data.link)
+  txt = right_align_line(txt)
+  return txt, data.pretty
 end
 
 
@@ -453,13 +457,13 @@ local Tex = {
     local signature, description = string.match(e, "^%s*(.-)%s*|(.*)$")
     local name = string.match(signature, "(luaL?_[%w_]+)%)? +%(") or
     string.match(signature, "luaL?_[%w_]+")
-    -- TODO: use return values?
-    local link,text = anchor(name, name, name, name)
+    local link,fn_name = anchor(name, name, name, name)
     local apiicmd, ne = string.match(description, "^(.-</span>)(.*)")
     if apiicmd then
       apiicmd = string.match(apiicmd, '<span class="apii">(.+)</span>')
       if apiicmd then
-        apiicmd = ('                                                                 `%s`\n'):format(apiicmd)
+        apiicmd = ('`%s`'):format(apiicmd)
+        apiicmd = right_align_line(apiicmd)
         description = ne
       end
     end
@@ -467,10 +471,7 @@ local Tex = {
       apiicmd = ''
     end
     --io.stderr:write(e)
-    local txt = ([[
-                                                  *lrv-%s*
-%s%s%s
-]]):format(name, code_block(signature), apiicmd, description)
+    local txt = ("%s\n%s%s%s"):format(link, code_block(signature), apiicmd, description)
     return txt
   end,
 
