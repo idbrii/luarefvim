@@ -155,7 +155,7 @@ local function anchor (text, label, link, textlink)
   if labels[label] then
     error("label " .. label .. " already defined")
   end
-  labels[label] = {pretty = text, text = textlink, link = link}
+  labels[label] = {pretty = text, text = textlink, link = link, label = label}
   return definition(labels[label])
 end
 
@@ -170,8 +170,7 @@ local function ref (label)
     io.stderr:write("label ", label, " undefined\n")
     return "@@@@@@@"
   else
-    local text = l.text:gsub(" ", "_")
-    return ("|lrv-%s|"):format(text)
+    return ("|lrv-%s|"):format(l.link)
   end
 end
 
@@ -296,7 +295,7 @@ local function getparamtitle (what, h, nonum)
   end
   label = label or count
   if label then
-    local link,text = anchor(title, label, "section-"..count, count)
+    local link,text = anchor(title, label, "section-"..label, count)
     title = string.format("%s\n%s%s", link, c, text)
   else
     title = string.format("%s%s", c, title)
