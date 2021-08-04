@@ -197,7 +197,7 @@ Assignment, parameter passing, and function returns
 always manipulate references to such values;
 these operations do not imply any kind of copy.
 
-The library function |lrv-pdf-type| returns a string describing the type
+The library function |lrv-type| returns a string describing the type
 of a given value (see |lrv-section-predefined|).
 
 
@@ -226,18 +226,18 @@ Any table used as the value of `_ENV` is called an `environment`.
 
 Lua keeps a distinguished environment called the `global environment`.
 This value is kept at a special index in the C registry (see |lrv-section-registry|).
-In Lua, the global variable |lrv-pdf-_G| is initialized with this same value.
-(|lrv-pdf-_G| is never used internally.)
+In Lua, the global variable |lrv-_G| is initialized with this same value.
+(|lrv-_G| is never used internally.)
 
 When Lua loads a chunk,
 the default value for its `_ENV` upvalue
-is the global environment (see |lrv-pdf-load|).
+is the global environment (see |lrv-load|).
 Therefore, by default,
 free names in Lua code refer to entries in the global environment
 (and, therefore, they are also called `global variables`).
 Moreover, all standard libraries are loaded in the global environment
 and some functions there operate on that environment.
-You can use |lrv-pdf-load| (or |lrv-pdf-loadfile|)
+You can use |lrv-load| (or |lrv-loadfile|)
 to load a chunk with a different environment.
 (In C, you have to load the chunk and then change the value
 of its first upvalue.)
@@ -259,9 +259,9 @@ which can take appropriate measures
 (such as printing an error message).
 
 Lua code can explicitly generate an error by calling the
-|lrv-pdf-error| function.
+|lrv-section-error| function.
 If you need to catch errors in Lua,
-you can use |lrv-pdf-pcall| or |lrv-pdf-xpcall|
+you can use |lrv-pcall| or |lrv-xpcall|
 to call a given function in 'protected mode'.
 
 Whenever there is an error,
@@ -272,7 +272,7 @@ but programs may generate errors with
 any value as the error object.
 It is up to the Lua program or its host to handle such error objects.
 
-When you use |lrv-pdf-xpcall| or |lrv-lua_pcall|,
+When you use |lrv-xpcall| or |lrv-lua_pcall|,
 you may give a `message handler`
 to be called in case of errors.
 This function is called with the original error object
@@ -314,8 +314,8 @@ Unless stated otherwise,
 metamethods should be function values.
 
 You can query the metatable of any value
-using the |lrv-pdf-getmetatable| function.
-Lua queries metamethods in metatables using a raw access (see |lrv-pdf-rawget|).
+using the |lrv-getmetatable| function.
+Lua queries metamethods in metatables using a raw access (see |lrv-rawget|).
 So, to retrieve the metamethod for event `ev` in object `o`,
 Lua does the equivalent to the following code:
 >
@@ -323,7 +323,7 @@ Lua does the equivalent to the following code:
 <
 
 You can replace the metatable of tables
-using the |lrv-pdf-setmetatable| function.
+using the |lrv-setmetatable| function.
 You cannot change the metatable of other types from Lua code
 (except by using the debug library (|lrv-section-debuglib|));
 you should use the C API for that.
@@ -532,7 +532,7 @@ and therefore can trigger another metamethod.)
 Whenever there is a `__newindex` metamethod,
 Lua does not perform the primitive assignment.
 (If necessary,
-the metamethod itself can call |lrv-pdf-rawset|
+the metamethod itself can call |lrv-rawset|
 to do the assignment.)
 
 
@@ -560,7 +560,7 @@ Because metatables are regular tables,
 they can contain arbitrary fields,
 not only the event names defined above.
 Some functions in the standard library
-(e.g., |lrv-pdf-tostring|)
+(e.g., |lrv-tostring|)
 use other fields in metatables for their own purposes.
 
 
@@ -615,7 +615,7 @@ doing a complete collection every time Lua doubles its
 memory usage.
 
 You can change these numbers by calling |lrv-lua_gc| in C
-or |lrv-pdf-collectgarbage| in Lua.
+or |lrv-collectgarbage| in Lua.
 You can also use these functions to control
 the collector directly (e.g., stop and restart it).
 
@@ -759,20 +759,20 @@ Unlike threads in multithread systems, however,
 a coroutine only suspends its execution by explicitly calling
 a yield function.
 
-You create a coroutine by calling |lrv-pdf-coroutine.create|.
+You create a coroutine by calling |lrv-coroutine.create|.
 Its sole argument is a function
 that is the main function of the coroutine.
 The `create` function only creates a new coroutine and
 returns a handle to it (an object of type thread);
 it does not start the coroutine.
 
-You execute a coroutine by calling |lrv-pdf-coroutine.resume|.
-When you first call |lrv-pdf-coroutine.resume|,
+You execute a coroutine by calling |lrv-coroutine.resume|.
+When you first call |lrv-coroutine.resume|,
 passing as its first argument
-a thread returned by |lrv-pdf-coroutine.create|,
+a thread returned by |lrv-coroutine.create|,
 the coroutine starts its execution by
 calling its main function.
-Extra arguments passed to |lrv-pdf-coroutine.resume| are passed
+Extra arguments passed to |lrv-coroutine.resume| are passed
 as arguments to that function.
 After the coroutine starts running,
 it runs until it terminates or yields.
@@ -782,34 +782,34 @@ normally, when its main function returns
 (explicitly or implicitly, after the last instruction);
 and abnormally, if there is an unprotected error.
 In case of normal termination,
-|lrv-pdf-coroutine.resume| returns true,
+|lrv-coroutine.resume| returns true,
 plus any values returned by the coroutine main function.
-In case of errors, |lrv-pdf-coroutine.resume| returns false
+In case of errors, |lrv-coroutine.resume| returns false
 plus an error object.
 
-A coroutine yields by calling |lrv-pdf-coroutine.yield|.
+A coroutine yields by calling |lrv-coroutine.yield|.
 When a coroutine yields,
-the corresponding |lrv-pdf-coroutine.resume| returns immediately,
+the corresponding |lrv-coroutine.resume| returns immediately,
 even if the yield happens inside nested function calls
 (that is, not in the main function,
 but in a function directly or indirectly called by the main function).
-In the case of a yield, |lrv-pdf-coroutine.resume| also returns true,
-plus any values passed to |lrv-pdf-coroutine.yield|.
+In the case of a yield, |lrv-coroutine.resume| also returns true,
+plus any values passed to |lrv-coroutine.yield|.
 The next time you resume the same coroutine,
 it continues its execution from the point where it yielded,
-with the call to |lrv-pdf-coroutine.yield| returning any extra
-arguments passed to |lrv-pdf-coroutine.resume|.
+with the call to |lrv-coroutine.yield| returning any extra
+arguments passed to |lrv-coroutine.resume|.
 
-Like |lrv-pdf-coroutine.create|,
-the |lrv-pdf-coroutine.wrap| function also creates a coroutine,
+Like |lrv-coroutine.create|,
+the |lrv-coroutine.wrap| function also creates a coroutine,
 but instead of returning the coroutine itself,
 it returns a function that, when called, resumes the coroutine.
 Any arguments passed to this function
-go as extra arguments to |lrv-pdf-coroutine.resume|.
-|lrv-pdf-coroutine.wrap| returns all the values returned by |lrv-pdf-coroutine.resume|,
+go as extra arguments to |lrv-coroutine.resume|.
+|lrv-coroutine.wrap| returns all the values returned by |lrv-coroutine.resume|,
 except the first one (the boolean error code).
-Unlike |lrv-pdf-coroutine.resume|,
-|lrv-pdf-coroutine.wrap| does not catch errors;
+Unlike |lrv-coroutine.resume|,
+|lrv-coroutine.wrap| does not catch errors;
 any error is propagated to the caller.
 
 As an example of how coroutines work,
@@ -907,7 +907,7 @@ are two different, valid names.
 As a convention,
 programs should avoid creating
 names that start with an underscore followed by
-one or more uppercase letters (such as |lrv-pdf-_VERSION|).
+one or more uppercase letters (such as |lrv-_VERSION|).
 
 The following strings denote other tokens:
 >
@@ -1176,9 +1176,9 @@ and then Lua executes the compiled code
 with an interpreter for the virtual machine.
 
 Chunks can also be precompiled into binary form;
-see program `luac` and function |lrv-pdf-string.dump| for details.
+see program `luac` and function |lrv-string.dump| for details.
 Programs in source and compiled forms are interchangeable;
-Lua automatically detects the file type and acts accordingly (see |lrv-pdf-load|).
+Lua automatically detects the file type and acts accordingly (see |lrv-load|).
 
 
 
@@ -1670,7 +1670,7 @@ The conversion from numbers to strings uses a
 non-specified human-readable format.
 For complete control over how numbers are converted to strings,
 use the `format` function from the string library
-(see |lrv-pdf-string.format|).
+(see |lrv-string.format|).
 
 
 
@@ -2167,7 +2167,7 @@ This section describes the C API for Lua, that is,
 the set of C functions available to the host program to communicate
 with Lua.
 All API functions and related types and constants
-are declared in the header file `lua.h`.
+are declared in the header file lua.h.
 
 Even when we use the term "function",
 any facility in the API may be provided as a macro instead.
@@ -2179,7 +2179,7 @@ and so do not generate any hidden side-effects.
 As in most C libraries,
 the Lua API functions do not check their arguments for validity or consistency.
 However, you can change this behavior by compiling Lua
-with the macro `LUA_USE_APICHECK` defined.
+with the macro LUA_USE_APICHECK defined.
 
 The Lua library is fully reentrant:
 it has no global variables.
@@ -2244,7 +2244,7 @@ to ensure that the stack has enough space for pushing new elements.
 
 Whenever Lua calls C,
 it ensures that the stack has space for
-at least `LUA_MINSTACK` extra slots.
+at least LUA_MINSTACK extra slots.
 `LUA_MINSTACK` is defined as 20,
 so that usually you do not have to worry about stack space
 unless your code has loops pushing elements onto the stack.
@@ -2294,7 +2294,7 @@ that is, without the need to check whether 3 is a valid index.
 
 For functions that can be called with acceptable indices,
 any non-valid index is treated as if it
-contains a value of a virtual type `LUA_TNONE`,
+contains a value of a virtual type LUA_TNONE,
 which behaves like a nil value.
 
 
@@ -2331,7 +2331,7 @@ Lua provides a `registry`,
 a predefined table that can be used by any C code to
 store whatever Lua values it needs to store.
 The registry table is always located at pseudo-index
-`LUA_REGISTRYINDEX`.
+LUA_REGISTRYINDEX.
 Any C library can store data into this table,
 but it must take care to choose keys
 that are different from those used
@@ -2354,12 +2354,12 @@ These predefined values are indexed with integer keys
 defined as constants in `lua.h`.
 The following constants are defined:
 
-* '`LUA_RIDX_MAINTHREAD`: ' At this index the registry has
+* 'LUA_RIDX_MAINTHREAD: ' At this index the registry has
 the main thread of the state.
 (The main thread is the one created together with the state.)
 
 
-* '`LUA_RIDX_GLOBALS`: ' At this index the registry has
+* 'LUA_RIDX_GLOBALS: ' At this index the registry has
 the global environment.
 
 
@@ -2511,16 +2511,16 @@ it only passes this value from the original function to the
 continuation function.)
 For |lrv-lua_pcallk|,
 the status is the same value that would be returned by |lrv-lua_pcallk|,
-except that it is |lrv-pdf-LUA_YIELD| when being executed after a yield
-(instead of |lrv-pdf-LUA_OK|).
+except that it is |lrv-LUA_YIELD| when being executed after a yield
+(instead of |lrv-LUA_OK|).
 For |lrv-lua_yieldk| and |lrv-lua_callk|,
-the status is always |lrv-pdf-LUA_YIELD| when Lua calls the continuation.
+the status is always |lrv-LUA_YIELD| when Lua calls the continuation.
 (For these two functions,
 Lua will not call the continuation in case of errors,
 because they do not handle errors.)
 Similarly, when using |lrv-lua_callk|,
 you should call the continuation function
-with |lrv-pdf-LUA_OK| as the status.
+with |lrv-LUA_OK| as the status.
 (For |lrv-lua_yieldk|, there is not much point in calling
 directly the continuation function,
 because |lrv-lua_yieldk| usually does not return.)
@@ -2605,8 +2605,8 @@ that is, the size given when it was allocated or reallocated.
 When `ptr` is `NULL`,
 `osize` encodes the kind of object that Lua is allocating.
 `osize` is any of
-|lrv-pdf-LUA_TSTRING|, |lrv-pdf-LUA_TTABLE|, |lrv-pdf-LUA_TFUNCTION|,
-|lrv-pdf-LUA_TUSERDATA|, or |lrv-pdf-LUA_TTHREAD| when (and only when)
+|lrv-LUA_TSTRING|, |lrv-LUA_TTABLE|, |lrv-LUA_TFUNCTION|,
+|lrv-LUA_TUSERDATA|, or |lrv-LUA_TTHREAD| when (and only when)
 Lua is creating a new object of that type.
 When `osize` is some other value,
 Lua is allocating memory for something else.
@@ -2663,20 +2663,20 @@ The function follows the semantics of the corresponding Lua operator
 The value of `op` must be one of the following constants:
 
 
-* '`LUA_OPADD`: ' performs addition (`+`)
-* '`LUA_OPSUB`: ' performs subtraction (`-`)
-* '`LUA_OPMUL`: ' performs multiplication (`*`)
-* '`LUA_OPDIV`: ' performs float division (`/`)
-* '`LUA_OPIDIV`: ' performs floor division (`//`)
-* '`LUA_OPMOD`: ' performs modulo (`%`)
-* '`LUA_OPPOW`: ' performs exponentiation (`^`)
-* '`LUA_OPUNM`: ' performs mathematical negation (unary `-`)
-* '`LUA_OPBNOT`: ' performs bitwise NOT (`~`)
-* '`LUA_OPBAND`: ' performs bitwise AND (`&`)
-* '`LUA_OPBOR`: ' performs bitwise OR (`|`)
-* '`LUA_OPBXOR`: ' performs bitwise exclusive OR (`~`)
-* '`LUA_OPSHL`: ' performs left shift (`<<`)
-* '`LUA_OPSHR`: ' performs right shift (`>>`)
+* 'LUA_OPADD: ' performs addition (`+`)
+* 'LUA_OPSUB: ' performs subtraction (`-`)
+* 'LUA_OPMUL: ' performs multiplication (`*`)
+* 'LUA_OPDIV: ' performs float division (`/`)
+* 'LUA_OPIDIV: ' performs floor division (`//`)
+* 'LUA_OPMOD: ' performs modulo (`%`)
+* 'LUA_OPPOW: ' performs exponentiation (`^`)
+* 'LUA_OPUNM: ' performs mathematical negation (unary `-`)
+* 'LUA_OPBNOT: ' performs bitwise NOT (`~`)
+* 'LUA_OPBAND: ' performs bitwise AND (`&`)
+* 'LUA_OPBOR: ' performs bitwise OR (`|`)
+* 'LUA_OPBXOR: ' performs bitwise exclusive OR (`~`)
+* 'LUA_OPSHL: ' performs left shift (`<<`)
+* 'LUA_OPSHR: ' performs right shift (`>>`)
 
 
 
@@ -2709,7 +2709,7 @@ All arguments and the function value are popped from the stack
 when the function is called.
 The function results are pushed onto the stack when the function returns.
 The number of results is adjusted to `nresults`,
-unless `nresults` is `LUA_MULTRET`.
+unless `nresults` is LUA_MULTRET.
 In this case, all results from the function are pushed;
 Lua takes care that the returned values fit into the stack space,
 but it does not ensure any extra space in the stack.
@@ -2852,9 +2852,9 @@ Also returns 0 if any of the indices is not valid.
 The value of `op` must be one of the following constants:
 
 
-* '`LUA_OPEQ`: ' compares for equality (`==`)
-* '`LUA_OPLT`: ' compares for less than (`<`)
-* '`LUA_OPLE`: ' compares for less or equal (`<=`)
+* 'LUA_OPEQ: ' compares for equality (`==`)
+* 'LUA_OPLT: ' compares for less than (`<`)
+* 'LUA_OPLE: ' compares for less or equal (`<=`)
 
 
 
@@ -3004,7 +3004,7 @@ returns a boolean that tells whether the collector is running
 
 
 For more details about these options,
-see |lrv-pdf-collectgarbage|.
+see |lrv-collectgarbage|.
 
 
 
@@ -3156,7 +3156,7 @@ but that can be changed to `long` or `int`
 (See `LUA_INT_TYPE` in `luaconf.h`.)
 
 Lua also defines the constants
-`LUA_MININTEGER` and `LUA_MAXINTEGER`,
+LUA_MININTEGER and LUA_MAXINTEGER,
 with the minimum and the maximum values that fit in this type.
 
 
@@ -3358,15 +3358,15 @@ Otherwise, it pushes an error message.
 The return values of `lua_load` are:
 
 
-* '|lrv-pdf-LUA_OK|: ' no errors;
+* '|lrv-LUA_OK|: ' no errors;
 
-* '`LUA_ERRSYNTAX`: '
+* 'LUA_ERRSYNTAX: '
 syntax error during precompilation;
 
-* '|lrv-pdf-LUA_ERRMEM|: '
+* '|lrv-LUA_ERRMEM|: '
 memory allocation (out-of-memory) error;
 
-* '|lrv-pdf-LUA_ERRGCMM|: '
+* '|lrv-LUA_ERRGCMM|: '
 error while running a `__gc` metamethod.
 (This error has no relation with the chunk being loaded.
 It is generated by the garbage collector.)
@@ -3383,7 +3383,7 @@ which is used for error messages and in debug information (see |lrv-section-debu
 
 `lua_load` automatically detects whether the chunk is text or binary
 and loads it accordingly (see program `luac`).
-The string `mode` works as in function |lrv-pdf-load|,
+The string `mode` works as in function |lrv-load|,
 with the addition that
 a `NULL` value is equivalent to the string "`bt`".
 
@@ -3487,7 +3487,7 @@ Recall that |lrv-lua_tolstring| may change
 the value at the given index;
 this confuses the next call to |lrv-lua_next|.
 
-See function |lrv-pdf-next| for the caveats of modifying
+See function |lrv-next| for the caveats of modifying
 the table during its traversal.
 
 
@@ -3563,23 +3563,23 @@ The |lrv-lua_pcall| function returns one of the following constants
 (defined in `lua.h`):
 
 
-* '`LUA_OK` (0): '
+* 'LUA_OK (0): '
 success.
 
-* '`LUA_ERRRUN`: '
+* 'LUA_ERRRUN: '
 a runtime error.
 
 
-* '`LUA_ERRMEM`: '
+* 'LUA_ERRMEM: '
 memory allocation error.
 For such errors, Lua does not call the message handler.
 
 
-* '`LUA_ERRERR`: '
+* 'LUA_ERRERR: '
 error while running the message handler.
 
 
-* '`LUA_ERRGCMM`: '
+* 'LUA_ERRGCMM: '
 error while running a `__gc` metamethod.
 For such errors, Lua does not call the message handler
 (as this kind of error typically has no relation
@@ -4018,8 +4018,8 @@ This call returns when the coroutine suspends or finishes its execution.
 When it returns, the stack contains all values passed to |lrv-lua_yield|,
 or all values returned by the body function.
 |lrv-lua_resume| returns
-|lrv-pdf-LUA_YIELD| if the coroutine yields,
-|lrv-pdf-LUA_OK| if the coroutine finishes its execution
+|lrv-LUA_YIELD| if the coroutine yields,
+|lrv-LUA_OK| if the coroutine finishes its execution
 without errors,
 or an error code in case of errors (see |lrv-lua_pcall|).
 
@@ -4181,14 +4181,14 @@ which creates a Lua state from scratch.
 
 Returns the status of the thread `L`.
 
-The status can be 0 (|lrv-pdf-LUA_OK|) for a normal thread,
+The status can be 0 (|lrv-LUA_OK|) for a normal thread,
 an error code if the thread finished the execution
 of a |lrv-lua_resume| with an error,
-or `LUA_YIELD` if the thread is suspended.
+or LUA_YIELD if the thread is suspended.
 
-You can only call functions in threads with status |lrv-pdf-LUA_OK|.
-You can resume threads with status |lrv-pdf-LUA_OK|
-(to start a new coroutine) or |lrv-pdf-LUA_YIELD|
+You can only call functions in threads with status |lrv-LUA_OK|.
+You can resume threads with status |lrv-LUA_OK|
+(to start a new coroutine) or |lrv-LUA_YIELD|
 (to resume a coroutine).
 
 
@@ -4378,16 +4378,16 @@ Returns the type of the value in the given valid index,
 or `LUA_TNONE` for a non-valid (but acceptable) index.
 The types returned by |lrv-lua_type| are coded by the following constants
 defined in `lua.h`:
-`LUA_TNIL` (0),
-`LUA_TNUMBER`,
-`LUA_TBOOLEAN`,
-`LUA_TSTRING`,
-`LUA_TTABLE`,
-`LUA_TFUNCTION`,
-`LUA_TUSERDATA`,
-`LUA_TTHREAD`,
+LUA_TNIL (0),
+LUA_TNUMBER,
+LUA_TBOOLEAN,
+LUA_TSTRING,
+LUA_TTABLE,
+LUA_TFUNCTION,
+LUA_TUSERDATA,
+LUA_TTHREAD,
 and
-`LUA_TLIGHTUSERDATA`.
+LUA_TLIGHTUSERDATA.
 
 
 
@@ -4764,7 +4764,7 @@ the parameter `ar` must be a valid activation record that was
 filled by a previous call to |lrv-lua_getstack| or
 given as argument to a hook (see |lrv-lua_Hook|).
 The index `n` selects which local variable to inspect;
-see |lrv-pdf-debug.getlocal| for details about variable indices
+see |lrv-debug.getlocal| for details about variable indices
 and names.
 
 |lrv-lua_getlocal| pushes the variable's value onto the stack
@@ -4835,9 +4835,9 @@ Type for debugging hook functions.
 Whenever a hook is called, its `ar` argument has its field
 `event` set to the specific event that triggered the hook.
 Lua identifies these events with the following constants:
-`LUA_HOOKCALL`, `LUA_HOOKRET`,
-`LUA_HOOKTAILCALL`, `LUA_HOOKLINE`,
-and `LUA_HOOKCOUNT`.
+LUA_HOOKCALL, LUA_HOOKRET,
+LUA_HOOKTAILCALL, LUA_HOOKLINE,
+and LUA_HOOKCOUNT.
 Moreover, for line events, the field `currentline` is also set.
 To get the value of any other field in `ar`,
 the hook must call |lrv-lua_getinfo|.
@@ -4872,10 +4872,10 @@ Sets the debugging hook function.
 Argument `f` is the hook function.
 `mask` specifies on which events the hook will be called:
 it is formed by a bitwise OR of the constants
-`LUA_MASKCALL`,
-`LUA_MASKRET`,
-`LUA_MASKLINE`,
-and `LUA_MASKCOUNT`.
+LUA_MASKCALL,
+LUA_MASKRET,
+LUA_MASKLINE,
+and LUA_MASKCOUNT.
 The `count` argument is only meaningful when the mask
 includes `LUA_MASKCOUNT`.
 For each event, the hook is called as explained below:
@@ -5399,7 +5399,7 @@ as `return luaL_error(args)`.
 
 This function produces the return values for
 process-related functions in the standard library
-(|lrv-pdf-os.execute| and |lrv-pdf-io.close|).
+(|lrv-os.execute| and |lrv-io.close|).
 
 
 
@@ -5410,7 +5410,7 @@ process-related functions in the standard library
 
 This function produces the return values for
 file-related functions in the standard library
-(|lrv-pdf-io.open|, |lrv-pdf-os.rename|, |lrv-pdf-file:seek|, etc.).
+(|lrv-io.open|, |lrv-os.rename|, |lrv-file:seek|, etc.).
 
 
 
@@ -5538,7 +5538,7 @@ The first line in the file is ignored if it starts with a `#`.
 The string `mode` works as in function |lrv-lua_load|.
 
 This function returns the same results as |lrv-lua_load|,
-but it has an extra error code `LUA_ERRFILE`
+but it has an extra error code LUA_ERRFILE
 for file-related errors
 (e.g., it cannot open or read the file).
 
@@ -5735,7 +5735,7 @@ Otherwise, raises an error.
 <                                                                 `[-?, +?, m]`
 
 Equivalent to |lrv-luaL_prepbuffsize|
-with the predefined size `LUAL_BUFFERSIZE`.
+with the predefined size LUAL_BUFFERSIZE.
 
 
 
@@ -5789,8 +5789,8 @@ by calling `lua_rawgeti(L, t, r)`.
 Function |lrv-luaL_unref| frees a reference and its associated object.
 
 If the object at the top of the stack is |lrv-nil|,
-|lrv-luaL_ref| returns the constant `LUA_REFNIL`.
-The constant `LUA_NOREF` is guaranteed to be different
+|lrv-luaL_ref| returns the constant LUA_REFNIL.
+The constant LUA_NOREF is guaranteed to be different
 from any reference returned by |lrv-luaL_ref|.
 
 
@@ -5818,10 +5818,10 @@ in which both `name` and `func` are `NULL`.
                     lua_CFunction openf, int glb);
 <                                                                 `[-0, +1, e]`
 
-If `modname` is not already present in |lrv-pdf-package.loaded|,
+If `modname` is not already present in |lrv-package.loaded|,
 calls function `openf` with string `modname` as an argument
 and sets the call result in `package.loaded[modname]`,
-as if that function has been called through |lrv-pdf-require|.
+as if that function has been called through |lrv-require|.
 
 If `glb` is true,
 also stores the module into global `modname`.
@@ -5955,7 +5955,7 @@ The entry is removed from the table,
 so that the referred object can be collected.
 The reference `ref` is also freed to be used again.
 
-If `ref` is |lrv-pdf-LUA_NOREF| or |lrv-pdf-LUA_REFNIL|,
+If `ref` is |lrv-LUA_NOREF| or |lrv-LUA_REFNIL|,
 |lrv-luaL_unref| does nothing.
 
 
@@ -5990,11 +5990,11 @@ This function is used to build a prefix for error messages.
 The standard Lua libraries provide useful functions
 that are implemented directly through the C API.
 Some of these functions provide essential services to the language
-(e.g., |lrv-pdf-type| and |lrv-pdf-getmetatable|);
+(e.g., |lrv-type| and |lrv-getmetatable|);
 others provide access to "outside" services (e.g., I/O);
 and others could be implemented in Lua itself,
 but are quite useful or have critical performance requirements that
-deserve an implementation in C (e.g., |lrv-pdf-table.sort|).
+deserve an implementation in C (e.g., |lrv-table.sort|).
 
 All libraries are implemented through the official C API
 and are provided as separate C modules.
@@ -6032,17 +6032,17 @@ which opens all standard libraries.
 Alternatively,
 the host program can open them individually by using
 |lrv-luaL_requiref| to call
-`luaopen_base` (for the basic library),
-`luaopen_package` (for the package library),
-`luaopen_coroutine` (for the coroutine library),
-`luaopen_string` (for the string library),
-`luaopen_utf8` (for the UTF8 library),
-`luaopen_table` (for the table library),
-`luaopen_math` (for the mathematical library),
-`luaopen_io` (for the I/O library),
-`luaopen_os` (for the operating system library),
-and `luaopen_debug` (for the debug library).
-These functions are declared in `lualib.h`.
+luaopen_base (for the basic library),
+luaopen_package (for the package library),
+luaopen_coroutine (for the coroutine library),
+luaopen_string (for the string library),
+luaopen_utf8 (for the UTF8 library),
+luaopen_table (for the table library),
+luaopen_math (for the mathematical library),
+luaopen_io (for the I/O library),
+luaopen_os (for the operating system library),
+and luaopen_debug (for the debug library).
+These functions are declared in lualib.h.
 
                                                       *lrv-section-predefined*
 6.1 -- Basic Functions~
@@ -6052,9 +6052,12 @@ If you do not include this library in your application,
 you should check carefully whether you need to provide
 implementations for some of its facilities.
 
-<hr><h3>                                                              *lrv-pdf-assert*</h3>
+                                                                  *lrv-assert*
+>
+  assert (v [, message])
+<
 
-Calls |lrv-pdf-error| if
+Calls |lrv-section-error| if
 the value of its argument `v` is false (i.e., |lrv-nil| or false);
 otherwise, returns all its arguments.
 In case of error,
@@ -6063,7 +6066,10 @@ when absent, it defaults to "`assertion failed!`"
 
 
 
-<hr><h3>                                                      *lrv-pdf-collectgarbage*</h3>
+                                                          *lrv-collectgarbage*
+>
+  collectgarbage ([opt [, arg]])
+<
 
 This function is a generic interface to the garbage collector.
 It performs different functions according to its first argument, `opt`:
@@ -6124,7 +6130,10 @@ returns a boolean that tells whether the collector is running
 
 
 
-<hr><h3>                                                              *lrv-pdf-dofile*</h3>
+                                                                  *lrv-dofile*
+>
+  dofile ([filename])
+<
 Opens the named file and executes its contents as a Lua chunk.
 When called without arguments,
 `dofile` executes the contents of the standard input (`stdin`).
@@ -6134,7 +6143,10 @@ to its caller (that is, `dofile` does not run in protected mode).
 
 
 
-<hr><h3>                                                               *lrv-pdf-error*</h3>
+                                                                   *lrv-error*
+>
+  error (message [, level])
+<
 Terminates the last protected function called
 and returns `message` as the error object.
 Function `error` never returns.
@@ -6151,7 +6163,10 @@ to the message.
 
 
 
-<hr><h3>                                                                  *lrv-pdf-_G*</h3>
+                                                                      *lrv-_G*
+>
+  _G
+<
 A global variable (not a function) that
 holds the global environment (see |lrv-section-globalenv|).
 Lua itself does not use this variable;
@@ -6160,7 +6175,10 @@ nor vice versa.
 
 
 
-<hr><h3>                                                        *lrv-pdf-getmetatable*</h3>
+                                                            *lrv-getmetatable*
+>
+  getmetatable (object)
+<
 
 If `object` does not have a metatable, returns |lrv-nil|.
 Otherwise,
@@ -6170,7 +6188,10 @@ Otherwise, returns the metatable of the given object.
 
 
 
-<hr><h3>                                                              *lrv-pdf-ipairs*</h3>
+                                                                  *lrv-ipairs*
+>
+  ipairs (t)
+<
 
 Returns three values (an iterator function, the table `t`, and 0)
 so that the construction
@@ -6183,7 +6204,10 @@ up to the first nil value.
 
 
 
-<hr><h3>                                                                *lrv-pdf-load*</h3>
+                                                                    *lrv-load*
+>
+  load (chunk [, chunkname [, mode [, env]]])
+<
 
 Loads a chunk.
 
@@ -6207,7 +6231,7 @@ Other upvalues are initialized with |lrv-nil|.
 the resulting function will always have exactly one upvalue,
 the `_ENV` variable (see |lrv-section-globalenv|).
 However,
-when you load a binary chunk created from a function (see |lrv-pdf-string.dump|),
+when you load a binary chunk created from a function (see |lrv-string.dump|),
 the resulting function can have an arbitrary number of upvalues.)
 All upvalues are fresh, that is,
 they are not shared with any other function.
@@ -6231,16 +6255,22 @@ the interpreter.
 
 
 
-<hr><h3>                                                            *lrv-pdf-loadfile*</h3>
+                                                                *lrv-loadfile*
+>
+  loadfile ([filename [, mode [, env]]])
+<
 
-Similar to |lrv-pdf-load|,
+Similar to |lrv-load|,
 but gets the chunk from file `filename`
 or from the standard input,
 if no file name is given.
 
 
 
-<hr><h3>                                                                *lrv-pdf-next*</h3>
+                                                                    *lrv-next*
+>
+  next (table [, index])
+<
 
 Allows a program to traverse all fields of a table.
 Its first argument is a table and its second argument
@@ -6270,26 +6300,32 @@ In particular, you may clear existing fields.
 
 
 
-<hr><h3>                                                               *lrv-pdf-pairs*</h3>
+                                                                   *lrv-pairs*
+>
+  pairs (t)
+<
 
 If `t` has a metamethod `__pairs`,
 calls it with `t` as argument and returns the first three
 results from the call.
 
 Otherwise,
-returns three values: the |lrv-pdf-next| function, the table `t`, and |lrv-nil|,
+returns three values: the |lrv-next| function, the table `t`, and |lrv-nil|,
 so that the construction
 >
   for k,v in pairs(t) do body end
 <
 will iterate over all key–value pairs of table `t`.
 
-See function |lrv-pdf-next| for the caveats of modifying
+See function |lrv-next| for the caveats of modifying
 the table during its traversal.
 
 
 
-<hr><h3>                                                               *lrv-pdf-pcall*</h3>
+                                                                   *lrv-pcall*
+>
+  pcall (f [, arg1, ···])
+<
 
 Calls function `f` with
 the given arguments in `protected mode`.
@@ -6304,26 +6340,35 @@ In case of any error, `pcall` returns false plus the error message.
 
 
 
-<hr><h3>                                                               *lrv-pdf-print*</h3>
+                                                                   *lrv-print*
+>
+  print (···)
+<
 Receives any number of arguments
 and prints their values to `stdout`,
-using the |lrv-pdf-tostring| function to convert each argument to a string.
+using the |lrv-tostring| function to convert each argument to a string.
 `print` is not intended for formatted output,
 but only as a quick way to show a value,
 for instance for debugging.
 For complete control over the output,
-use |lrv-pdf-string.format| and |lrv-pdf-io.write|.
+use |lrv-string.format| and |lrv-io.write|.
 
 
 
-<hr><h3>                                                            *lrv-pdf-rawequal*</h3>
+                                                                *lrv-rawequal*
+>
+  rawequal (v1, v2)
+<
 Checks whether `v1` is equal to `v2`,
 without invoking the `__eq` metamethod.
 Returns a boolean.
 
 
 
-<hr><h3>                                                              *lrv-pdf-rawget*</h3>
+                                                                  *lrv-rawget*
+>
+  rawget (table, index)
+<
 Gets the real value of `table[index]`,
 without invoking the `__index` metamethod.
 `table` must be a table;
@@ -6331,7 +6376,10 @@ without invoking the `__index` metamethod.
 
 
 
-<hr><h3>                                                              *lrv-pdf-rawlen*</h3>
+                                                                  *lrv-rawlen*
+>
+  rawlen (v)
+<
 Returns the length of the object `v`,
 which must be a table or a string,
 without invoking the `__len` metamethod.
@@ -6339,7 +6387,10 @@ Returns an integer.
 
 
 
-<hr><h3>                                                              *lrv-pdf-rawset*</h3>
+                                                                  *lrv-rawset*
+>
+  rawset (table, index, value)
+<
 Sets the real value of `table[index]` to `value`,
 without invoking the `__newindex` metamethod.
 `table` must be a table,
@@ -6350,7 +6401,10 @@ This function returns `table`.
 
 
 
-<hr><h3>                                                              *lrv-pdf-select*</h3>
+                                                                  *lrv-select*
+>
+  select (index, ···)
+<
 
 If `index` is a number,
 returns all arguments after argument number `index`;
@@ -6360,7 +6414,10 @@ and `select` returns the total number of extra arguments it received.
 
 
 
-<hr><h3>                                                        *lrv-pdf-setmetatable*</h3>
+                                                            *lrv-setmetatable*
+>
+  setmetatable (table, metatable)
+<
 
 Sets the metatable for the given table.
 (To change the metatable of other types from Lua code,
@@ -6374,7 +6431,10 @@ This function returns `table`.
 
 
 
-<hr><h3>                                                            *lrv-pdf-tonumber*</h3>
+                                                                *lrv-tonumber*
+>
+  tonumber (e [, base])
+<
 
 When called with no `base`,
 `tonumber` tries to convert its argument to a number.
@@ -6399,11 +6459,14 @@ the function returns |lrv-nil|.
 
 
 
-<hr><h3>                                                            *lrv-pdf-tostring*</h3>
+                                                                *lrv-tostring*
+>
+  tostring (v)
+<
 Receives a value of any type and
 converts it to a string in a human-readable format.
 (For complete control of how numbers are converted,
-use |lrv-pdf-string.format|.)
+use |lrv-string.format|.)
 
 If the metatable of `v` has a `__tostring` field,
 then `tostring` calls the corresponding value
@@ -6412,7 +6475,10 @@ and uses the result of the call as its result.
 
 
 
-<hr><h3>                                                                *lrv-pdf-type*</h3>
+                                                                    *lrv-type*
+>
+  type (v)
+<
 Returns the type of its only argument, coded as a string.
 The possible results of this function are
 "`nil`" (a string, not the value |lrv-nil|),
@@ -6426,7 +6492,10 @@ and "`userdata`".
 
 
 
-<hr><h3>                                                            *lrv-pdf-_VERSION*</h3>
+                                                                *lrv-_VERSION*
+>
+  _VERSION
+<
 
 A global variable (not a function) that
 holds a string containing the running Lua version.
@@ -6434,9 +6503,12 @@ The current value of this variable is "`Lua 5.3`".
 
 
 
-<hr><h3>                                                              *lrv-pdf-xpcall*</h3>
+                                                                  *lrv-xpcall*
+>
+  xpcall (f, msgh [, arg1, ···])
+<
 
-This function is similar to |lrv-pdf-pcall|,
+This function is similar to |lrv-pcall|,
 except that it sets a new message handler `msgh`.
 
 
@@ -6447,10 +6519,13 @@ except that it sets a new message handler `msgh`.
 6.2 -- Coroutine Manipulation~
 
 This library comprises the operations to manipulate coroutines,
-which come inside the table `coroutine`.
+which come inside the table coroutine.
 See |lrv-section-coroutine| for a general description of coroutines.
 
-<hr><h3>                                                    *lrv-pdf-coroutine.create*</h3>
+                                                        *lrv-coroutine.create*
+>
+  coroutine.create (f)
+<
 
 Creates a new coroutine, with body `f`.
 `f` must be a function.
@@ -6459,7 +6534,10 @@ an object with type `"thread"`.
 
 
 
-<hr><h3>                                               *lrv-pdf-coroutine.isyieldable*</h3>
+                                                   *lrv-coroutine.isyieldable*
+>
+  coroutine.isyieldable ()
+<
 
 Returns true when the running coroutine can yield.
 
@@ -6468,7 +6546,10 @@ it is not inside a non-yieldable C function.
 
 
 
-<hr><h3>                                                    *lrv-pdf-coroutine.resume*</h3>
+                                                        *lrv-coroutine.resume*
+>
+  coroutine.resume (co [, val1, ···])
+<
 
 Starts or continues the execution of coroutine `co`.
 The first time you resume a coroutine,
@@ -6489,14 +6570,20 @@ If there is any error,
 
 
 
-<hr><h3>                                                   *lrv-pdf-coroutine.running*</h3>
+                                                       *lrv-coroutine.running*
+>
+  coroutine.running ()
+<
 
 Returns the running coroutine plus a boolean,
 true when the running coroutine is the main one.
 
 
 
-<hr><h3>                                                    *lrv-pdf-coroutine.status*</h3>
+                                                        *lrv-coroutine.status*
+>
+  coroutine.status (co)
+<
 
 Returns the status of coroutine `co`, as a string:
 `"running"`,
@@ -6510,7 +6597,10 @@ or if it has stopped with an error.
 
 
 
-<hr><h3>                                                      *lrv-pdf-coroutine.wrap*</h3>
+                                                          *lrv-coroutine.wrap*
+>
+  coroutine.wrap (f)
+<
 
 Creates a new coroutine, with body `f`.
 `f` must be a function.
@@ -6523,7 +6613,10 @@ In case of error, propagates the error.
 
 
 
-<hr><h3>                                                     *lrv-pdf-coroutine.yield*</h3>
+                                                         *lrv-coroutine.yield*
+>
+  coroutine.yield (···)
+<
 
 Suspends the execution of the calling coroutine.
 Any arguments to `yield` are passed as extra results to `resume`.
@@ -6538,34 +6631,37 @@ Any arguments to `yield` are passed as extra results to `resume`.
 The package library provides basic
 facilities for loading modules in Lua.
 It exports one function directly in the global environment:
-|lrv-pdf-require|.
-Everything else is exported in a table `package`.
+|lrv-require|.
+Everything else is exported in a table package.
 
-<hr><h3>                                                             *lrv-pdf-require*</h3>
+                                                                 *lrv-require*
+>
+  require (modname)
+<
 
 Loads the given module.
-The function starts by looking into the |lrv-pdf-package.loaded| table
+The function starts by looking into the |lrv-package.loaded| table
 to determine whether `modname` is already loaded.
 If it is, then `require` returns the value stored
 at `package.loaded[modname]`.
 Otherwise, it tries to find a loader for the module.
 
 To find a loader,
-`require` is guided by the |lrv-pdf-package.searchers| sequence.
+`require` is guided by the |lrv-package.searchers| sequence.
 By changing this sequence,
 we can change how `require` looks for a module.
 The following explanation is based on the default configuration
-for |lrv-pdf-package.searchers|.
+for |lrv-package.searchers|.
 
 First `require` queries `package.preload[modname]`.
 If it has a value,
 this value (which must be a function) is the loader.
 Otherwise `require` searches for a Lua loader using the
-path stored in |lrv-pdf-package.path|.
+path stored in |lrv-package.path|.
 If that also fails, it searches for a C loader using the
-path stored in |lrv-pdf-package.cpath|.
+path stored in |lrv-package.cpath|.
 If that also fails,
-it tries an all-in-one loader (see |lrv-pdf-package.searchers|).
+it tries an all-in-one loader (see |lrv-package.searchers|).
 
 Once a loader is found,
 `require` calls the loader with two arguments:
@@ -6586,7 +6682,10 @@ then `require` raises an error.
 
 
 
-<hr><h3>                                                      *lrv-pdf-package.config*</h3>
+                                                          *lrv-package.config*
+>
+  package.config
+<
 
 A string describing some compile-time configurations for packages.
 This string is a sequence of lines:
@@ -6614,33 +6713,42 @@ Default is '`-`'.
 
 
 
-<hr><h3>                                                       *lrv-pdf-package.cpath*</h3>
+                                                           *lrv-package.cpath*
+>
+  package.cpath
+<
 
-The path used by |lrv-pdf-require| to search for a C loader.
+The path used by |lrv-require| to search for a C loader.
 
-Lua initializes the C path |lrv-pdf-package.cpath| in the same way
-it initializes the Lua path |lrv-pdf-package.path|,
-using the environment variable `LUA_CPATH_5_3`,
-or the environment variable `LUA_CPATH`,
+Lua initializes the C path |lrv-package.cpath| in the same way
+it initializes the Lua path |lrv-package.path|,
+using the environment variable LUA_CPATH_5_3,
+or the environment variable LUA_CPATH,
 or a default path defined in `luaconf.h`.
 
 
 
-<hr><h3>                                                      *lrv-pdf-package.loaded*</h3>
+                                                          *lrv-package.loaded*
+>
+  package.loaded
+<
 
-A table used by |lrv-pdf-require| to control which
+A table used by |lrv-require| to control which
 modules are already loaded.
 When you require a module `modname` and
 `package.loaded[modname]` is not false,
-|lrv-pdf-require| simply returns the value stored there.
+|lrv-require| simply returns the value stored there.
 
 This variable is only a reference to the real table;
 assignments to this variable do not change the
-table used by |lrv-pdf-require|.
+table used by |lrv-require|.
 
 
 
-<hr><h3>                                                     *lrv-pdf-package.loadlib*</h3>
+                                                         *lrv-package.loadlib*
+>
+  package.loadlib (libname, funcname)
+<
 
 Dynamically links the host program with the C library `libname`.
 
@@ -6656,7 +6764,7 @@ So, `funcname` must follow the |lrv-lua_CFunction| prototype
 
 This is a low-level function.
 It completely bypasses the package and module system.
-Unlike |lrv-pdf-require|,
+Unlike |lrv-require|,
 it does not perform any path searching and
 does not automatically adds extensions.
 `libname` must be the complete file name of the C library,
@@ -6671,13 +6779,16 @@ plus other Unix systems that support the `dlfcn` standard).
 
 
 
-<hr><h3>                                                        *lrv-pdf-package.path*</h3>
+                                                            *lrv-package.path*
+>
+  package.path
+<
 
-The path used by |lrv-pdf-require| to search for a Lua loader.
+The path used by |lrv-require| to search for a Lua loader.
 
 At start-up, Lua initializes this variable with
-the value of the environment variable `LUA_PATH_5_3` or
-the environment variable `LUA_PATH` or
+the value of the environment variable LUA_PATH_5_3 or
+the environment variable LUA_PATH or
 with a default path defined in `luaconf.h`,
 if those environment variables are not defined.
 Any "`;;`" in the value of the environment variable
@@ -6685,25 +6796,31 @@ is replaced by the default path.
 
 
 
-<hr><h3>                                                     *lrv-pdf-package.preload*</h3>
+                                                         *lrv-package.preload*
+>
+  package.preload
+<
 
 A table to store loaders for specific modules
-(see |lrv-pdf-require|).
+(see |lrv-require|).
 
 This variable is only a reference to the real table;
 assignments to this variable do not change the
-table used by |lrv-pdf-require|.
+table used by |lrv-require|.
 
 
 
-<hr><h3>                                                   *lrv-pdf-package.searchers*</h3>
+                                                       *lrv-package.searchers*
+>
+  package.searchers
+<
 
-A table used by |lrv-pdf-require| to control how to load modules.
+A table used by |lrv-require| to control how to load modules.
 
 Each entry in this table is a `searcher function`.
 When looking for a module,
-|lrv-pdf-require| calls each of these searchers in ascending order,
-with the module name (the argument given to |lrv-pdf-require|) as its
+|lrv-require| calls each of these searchers in ascending order,
+with the module name (the argument given to |lrv-require|) as its
 sole parameter.
 The function can return another function (the module `loader`)
 plus an extra value that will be passed to that loader,
@@ -6713,16 +6830,16 @@ or a string explaining why it did not find that module
 Lua initializes this table with four searcher functions.
 
 The first searcher simply looks for a loader in the
-|lrv-pdf-package.preload| table.
+|lrv-package.preload| table.
 
 The second searcher looks for a loader as a Lua library,
-using the path stored at |lrv-pdf-package.path|.
-The search is done as described in function |lrv-pdf-package.searchpath|.
+using the path stored at |lrv-package.path|.
+The search is done as described in function |lrv-package.searchpath|.
 
 The third searcher looks for a loader as a C library,
-using the path given by the variable |lrv-pdf-package.cpath|.
+using the path given by the variable |lrv-package.cpath|.
 Again,
-the search is done as described in function |lrv-pdf-package.searchpath|.
+the search is done as described in function |lrv-package.searchpath|.
 For instance,
 if the C path is the string
 >
@@ -6758,12 +6875,15 @@ with each submodule keeping its original open function.
 
 All searchers except the first one (preload) return as the extra value
 the file name where the module was found,
-as returned by |lrv-pdf-package.searchpath|.
+as returned by |lrv-package.searchpath|.
 The first searcher returns no extra value.
 
 
 
-<hr><h3>                                                  *lrv-pdf-package.searchpath*</h3>
+                                                      *lrv-package.searchpath*
+>
+  package.searchpath (name, path [, sep [, rep]])
+<
 
 Searches for the given `name` in the given `path`.
 
@@ -6808,7 +6928,7 @@ from the end of the string.
 Thus, the last character is at position -1, and so on.
 
 The string library provides all its functions inside the table
-`string`.
+string.
 It also sets a metatable for strings
 where the `__index` field points to the `string` table.
 Therefore, you can use the string functions in object-oriented style.
@@ -6817,19 +6937,25 @@ can be written as `s:byte(i)`.
 
 The string library assumes one-byte character encodings.
 
-<hr><h3>                                                         *lrv-pdf-string.byte*</h3>
+                                                             *lrv-string.byte*
+>
+  string.byte (s [, i [, j]])
+<
 Returns the internal numeric codes of the characters `s[i]`,
 `s[i+1]`, ..., `s[j]`.
 The default value for `i` is 1;
 the default value for `j` is `i`.
 These indices are corrected
-following the same rules of function |lrv-pdf-string.sub|.
+following the same rules of function |lrv-string.sub|.
 
 Numeric codes are not necessarily portable across platforms.
 
 
 
-<hr><h3>                                                         *lrv-pdf-string.char*</h3>
+                                                             *lrv-string.char*
+>
+  string.char (···)
+<
 Receives zero or more integers.
 Returns a string with length equal to the number of arguments,
 in which each character has the internal numeric code equal
@@ -6839,12 +6965,15 @@ Numeric codes are not necessarily portable across platforms.
 
 
 
-<hr><h3>                                                         *lrv-pdf-string.dump*</h3>
+                                                             *lrv-string.dump*
+>
+  string.dump (function [, strip])
+<
 
 Returns a string containing a binary representation
 (a 'binary chunk')
 of the given function,
-so that a later |lrv-pdf-load| on this string returns
+so that a later |lrv-load| on this string returns
 a copy of the function (but with new upvalues).
 If `strip` is a true value,
 the binary representation may not include all debug information
@@ -6860,7 +6989,10 @@ in a way adequate to your needs.)
 
 
 
-<hr><h3>                                                         *lrv-pdf-string.find*</h3>
+                                                             *lrv-string.find*
+>
+  string.find (s, pattern [, init [, plain]])
+<
 
 Looks for the first match of
 `pattern` (see |lrv-section-pm|) in the string `s`.
@@ -6883,7 +7015,10 @@ after the two indices.
 
 
 
-<hr><h3>                                                       *lrv-pdf-string.format*</h3>
+                                                           *lrv-string.format*
+>
+  string.format (formatstring, ···)
+<
 
 Returns a formatted version of its variable number of arguments
 following the description given in its first argument (which must be a string).
@@ -6918,13 +7053,16 @@ do not support any modifier (flags, width, length).
 
 Option `s` expects a string;
 if its argument is not a string,
-it is converted to one following the same rules of |lrv-pdf-tostring|.
+it is converted to one following the same rules of |lrv-tostring|.
 If the option has any modifier (flags, width, length),
 the string argument should not contain embedded zeros.
 
 
 
-<hr><h3>                                                       *lrv-pdf-string.gmatch*</h3>
+                                                           *lrv-string.gmatch*
+>
+  string.gmatch (s, pattern)
+<
 Returns an iterator function that,
 each time it is called,
 returns the next captures from `pattern` (see |lrv-section-pm|)
@@ -6956,7 +7094,10 @@ work as an anchor, as this would prevent the iteration.
 
 
 
-<hr><h3>                                                         *lrv-pdf-string.gsub*</h3>
+                                                             *lrv-string.gsub*
+>
+  string.gsub (s, pattern, repl [, n])
+<
 Returns a copy of `s`
 in which all (or the first `n`, if given)
 occurrences of the `pattern` (see |lrv-section-pm|) have been
@@ -7018,7 +7159,10 @@ Here are some examples:
 
 
 
-<hr><h3>                                                          *lrv-pdf-string.len*</h3>
+                                                              *lrv-string.len*
+>
+  string.len (s)
+<
 Receives a string and returns its length.
 The empty string `""` has length 0.
 Embedded zeros are counted,
@@ -7026,7 +7170,10 @@ so `"a\000bc\000"` has length 5.
 
 
 
-<hr><h3>                                                        *lrv-pdf-string.lower*</h3>
+                                                            *lrv-string.lower*
+>
+  string.lower (s)
+<
 Receives a string and returns a copy of this string with all
 uppercase letters changed to lowercase.
 All other characters are left unchanged.
@@ -7034,7 +7181,10 @@ The definition of what an uppercase letter is depends on the current locale.
 
 
 
-<hr><h3>                                                        *lrv-pdf-string.match*</h3>
+                                                            *lrv-string.match*
+>
+  string.match (s, pattern [, init])
+<
 Looks for the first match of
 `pattern` (see |lrv-section-pm|) in the string `s`.
 If it finds one, then `match` returns
@@ -7048,7 +7198,10 @@ its default value is 1 and can be negative.
 
 
 
-<hr><h3>                                                         *lrv-pdf-string.pack*</h3>
+                                                             *lrv-string.pack*
+>
+  string.pack (fmt, v1, v2, ···)
+<
 
 Returns a binary string containing the values `v1`, `v2`, etc.
 packed (that is, serialized in binary form)
@@ -7056,16 +7209,22 @@ according to the format string `fmt` (see |lrv-section-pack|).
 
 
 
-<hr><h3>                                                     *lrv-pdf-string.packsize*</h3>
+                                                         *lrv-string.packsize*
+>
+  string.packsize (fmt)
+<
 
-Returns the size of a string resulting from |lrv-pdf-string.pack|
+Returns the size of a string resulting from |lrv-string.pack|
 with the given format.
 The format string cannot have the variable-length options
 '`s`' or '`z`' (see |lrv-section-pack|).
 
 
 
-<hr><h3>                                                          *lrv-pdf-string.rep*</h3>
+                                                              *lrv-string.rep*
+>
+  string.rep (s, n [, sep])
+<
 Returns a string that is the concatenation of `n` copies of
 the string `s` separated by the string `sep`.
 The default value for `sep` is the empty string
@@ -7077,12 +7236,18 @@ with a single call to this function.)
 
 
 
-<hr><h3>                                                      *lrv-pdf-string.reverse*</h3>
+                                                          *lrv-string.reverse*
+>
+  string.reverse (s)
+<
 Returns a string that is the string `s` reversed.
 
 
 
-<hr><h3>                                                          *lrv-pdf-string.sub*</h3>
+                                                              *lrv-string.sub*
+>
+  string.sub (s, i [, j])
+<
 Returns the substring of `s` that
 starts at `i`  and continues until `j`;
 `i` and `j` can be negative.
@@ -7106,9 +7271,12 @@ the function returns the empty string.
 
 
 
-<hr><h3>                                                       *lrv-pdf-string.unpack*</h3>
+                                                           *lrv-string.unpack*
+>
+  string.unpack (fmt, s [, pos])
+<
 
-Returns the values packed in string `s` (see |lrv-pdf-string.pack|)
+Returns the values packed in string `s` (see |lrv-string.pack|)
 according to the format string `fmt` (see |lrv-section-pack|).
 An optional `pos` marks where
 to start reading in `s` (default is 1).
@@ -7117,7 +7285,10 @@ this function also returns the index of the first unread byte in `s`.
 
 
 
-<hr><h3>                                                        *lrv-pdf-string.upper*</h3>
+                                                            *lrv-string.upper*
+>
+  string.upper (s)
+<
 Receives a string and returns a copy of this string with all
 lowercase letters changed to uppercase.
 All other characters are left unchanged.
@@ -7130,10 +7301,10 @@ The definition of what a lowercase letter is depends on the current locale.
 
 Patterns in Lua are described by regular strings,
 which are interpreted as patterns by the pattern-matching functions
-|lrv-pdf-string.find|,
-|lrv-pdf-string.gmatch|,
-|lrv-pdf-string.gsub|,
-and |lrv-pdf-string.match|.
+|lrv-string.find|,
+|lrv-string.gmatch|,
+|lrv-string.gsub|,
+and |lrv-string.match|.
 This section describes the syntax and the meaning
 (that is, what they match) of these strings.
 
@@ -7321,8 +7492,8 @@ string `"flaaap"`, there will be two captures: 3 and 5.
                                                             *lrv-section-pack*
 6.4.2 -- Format Strings for Pack and Unpack~
 
-The first argument to |lrv-pdf-string.pack|,
-|lrv-pdf-string.packsize|, and |lrv-pdf-string.unpack|
+The first argument to |lrv-string.pack|,
+|lrv-string.packsize|, and |lrv-string.unpack|
 is a format string,
 which describes the layout of the structure being created or read.
 
@@ -7364,14 +7535,14 @@ according to option `op`
 (A "`[n]`" means an optional integral numeral.)
 Except for padding, spaces, and configurations
 (options "`xX <=>!`"),
-each option corresponds to an argument (in |lrv-pdf-string.pack|)
-or a result (in |lrv-pdf-string.unpack|).
+each option corresponds to an argument (in |lrv-string.pack|)
+or a result (in |lrv-string.unpack|).
 
 For options "`!n`", "`sn`", "`in`", and "`In`",
 `n` can be any integer between 1 and 16.
 All integral options check overflows;
-|lrv-pdf-string.pack| checks whether the given value fits in the given size;
-|lrv-pdf-string.unpack| checks whether the read value fits in a Lua integer.
+|lrv-string.pack| checks whether the given value fits in the given size;
+|lrv-string.unpack| checks whether the read value fits in a Lua integer.
 
 Any format string starts as if prefixed by "`!1=`",
 that is,
@@ -7387,8 +7558,8 @@ this minimum must be a power of 2.
 Options "`c`" and "`z`" are not aligned;
 option "`s`" follows the alignment of its starting integer.
 
-All padding is filled with zeros by |lrv-pdf-string.pack|
-(and ignored by |lrv-pdf-string.unpack|).
+All padding is filled with zeros by |lrv-string.pack|
+(and ignored by |lrv-string.unpack|).
 
 
 
@@ -7398,7 +7569,7 @@ All padding is filled with zeros by |lrv-pdf-string.pack|
 6.5 -- UTF-8 Support~
 
 This library provides basic support for UTF-8 encoding.
-It provides all its functions inside the table `utf8`.
+It provides all its functions inside the table utf8.
 This library does not provide any support for Unicode other
 than the handling of the encoding.
 Any operation that needs the meaning of a character,
@@ -7411,14 +7582,20 @@ or one plus the length of the subject string.
 As in the string library,
 negative indices count from the end of the string.
 
-<hr><h3>                                                           *lrv-pdf-utf8.char*</h3>
+                                                               *lrv-utf8.char*
+>
+  utf8.char (···)
+<
 Receives zero or more integers,
 converts each one to its corresponding UTF-8 byte sequence
 and returns a string with the concatenation of all these sequences.
 
 
 
-<hr><h3>                                                    *lrv-pdf-utf8.charpattern*</h3>
+                                                        *lrv-utf8.charpattern*
+>
+  utf8.charpattern
+<
 The pattern (a string, not a function) "`[\0-\x7F\xC2-\xF4][\x80-\xBF]*`"
 (see |lrv-section-pm|),
 which matches exactly one UTF-8 byte sequence,
@@ -7426,7 +7603,10 @@ assuming that the subject is a valid UTF-8 string.
 
 
 
-<hr><h3>                                                          *lrv-pdf-utf8.codes*</h3>
+                                                              *lrv-utf8.codes*
+>
+  utf8.codes (s)
+<
 
 Returns values so that the construction
 >
@@ -7439,7 +7619,10 @@ It raises an error if it meets any invalid byte sequence.
 
 
 
-<hr><h3>                                                      *lrv-pdf-utf8.codepoint*</h3>
+                                                          *lrv-utf8.codepoint*
+>
+  utf8.codepoint (s [, i [, j]])
+<
 Returns the codepoints (as integers) from all characters in `s`
 that start between byte position `i` and `j` (both included).
 The default for `i` is 1 and for `j` is `i`.
@@ -7447,7 +7630,10 @@ It raises an error if it meets any invalid byte sequence.
 
 
 
-<hr><h3>                                                            *lrv-pdf-utf8.len*</h3>
+                                                                *lrv-utf8.len*
+>
+  utf8.len (s [, i [, j]])
+<
 Returns the number of UTF-8 characters in string `s`
 that start between positions `i` and `j` (both inclusive).
 The default for `i` is 1 and for `j` is -1.
@@ -7456,7 +7642,10 @@ returns a false value plus the position of the first invalid byte.
 
 
 
-<hr><h3>                                                         *lrv-pdf-utf8.offset*</h3>
+                                                             *lrv-utf8.offset*
+>
+  utf8.offset (s, n [, i])
+<
 Returns the position (in bytes) where the encoding of the
 `n`-th character of `s`
 (counting from position `i`) starts.
@@ -7483,14 +7672,17 @@ This function assumes that `s` is a valid UTF-8 string.
 6.6 -- Table Manipulation~
 
 This library provides generic functions for table manipulation.
-It provides all its functions inside the table `table`.
+It provides all its functions inside the table table.
 
 Remember that, whenever an operation needs the length of a table,
 all caveats about the length operator apply (see |lrv-section-len-op|).
 All functions ignore non-numeric keys
 in the tables given as arguments.
 
-<hr><h3>                                                        *lrv-pdf-table.concat*</h3>
+                                                            *lrv-table.concat*
+>
+  table.concat (list [, sep [, i [, j]]])
+<
 
 Given a list where all elements are strings or numbers,
 returns the string `list[i]..sep..list[i+1] ··· sep..list[j]`.
@@ -7501,7 +7693,10 @@ If `i` is greater than `j`, returns the empty string.
 
 
 
-<hr><h3>                                                        *lrv-pdf-table.insert*</h3>
+                                                            *lrv-table.insert*
+>
+  table.insert (list, [pos,] value)
+<
 
 Inserts element `value` at position `pos` in `list`,
 shifting up the elements
@@ -7512,7 +7707,10 @@ of list `t`.
 
 
 
-<hr><h3>                                                          *lrv-pdf-table.move*</h3>
+                                                              *lrv-table.move*
+>
+  table.move (a1, f, e, t [,a2])
+<
 
 Moves elements from table `a1` to table `a2`,
 performing the equivalent to the following
@@ -7526,7 +7724,10 @@ Returns the destination table `a2`.
 
 
 
-<hr><h3>                                                          *lrv-pdf-table.pack*</h3>
+                                                              *lrv-table.pack*
+>
+  table.pack (···)
+<
 
 Returns a new table with all arguments stored into keys 1, 2, etc.
 and with a field "`n`" with the total number of arguments.
@@ -7534,7 +7735,10 @@ Note that the resulting table may not be a sequence.
 
 
 
-<hr><h3>                                                        *lrv-pdf-table.remove*</h3>
+                                                            *lrv-table.remove*
+>
+  table.remove (list [, pos])
+<
 
 Removes from `list` the element at position `pos`,
 returning the value of the removed element.
@@ -7552,7 +7756,10 @@ of list `l`.
 
 
 
-<hr><h3>                                                          *lrv-pdf-table.sort*</h3>
+                                                              *lrv-table.sort*
+>
+  table.sort (list [, comp])
+<
 
 Sorts list elements in a given order, in-place,
 from `list[1]` to `list[#list]`.
@@ -7576,7 +7783,10 @@ may have their relative positions changed by the sort.
 
 
 
-<hr><h3>                                                        *lrv-pdf-table.unpack*</h3>
+                                                            *lrv-table.unpack*
+>
+  table.unpack (list [, i [, j]])
+<
 
 Returns the elements from the given list.
 This function is equivalent to
@@ -7593,34 +7803,46 @@ By default, `i` is 1 and `j` is `#list`.
 6.7 -- Mathematical Functions~
 
 This library provides basic mathematical functions.
-It provides all its functions and constants inside the table `math`.
+It provides all its functions and constants inside the table math.
 Functions with the annotation "`integer/float`" give
 integer results for integer arguments
 and float results for float (or mixed) arguments.
 Rounding functions
-(|lrv-pdf-math.ceil|, |lrv-pdf-math.floor|, and |lrv-pdf-math.modf|)
+(|lrv-math.ceil|, |lrv-math.floor|, and |lrv-math.modf|)
 return an integer when the result fits in the range of an integer,
 or a float otherwise.
 
-<hr><h3>                                                            *lrv-pdf-math.abs*</h3>
+                                                                *lrv-math.abs*
+>
+  math.abs (x)
+<
 
 Returns the absolute value of `x`. (integer/float)
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.acos*</h3>
+                                                               *lrv-math.acos*
+>
+  math.acos (x)
+<
 
 Returns the arc cosine of `x` (in radians).
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.asin*</h3>
+                                                               *lrv-math.asin*
+>
+  math.asin (x)
+<
 
 Returns the arc sine of `x` (in radians).
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.atan*</h3>
+                                                               *lrv-math.atan*
+>
+  math.atan (y [, x])
+<
 
 
 Returns the arc tangent of `y/x` (in radians),
@@ -7634,52 +7856,76 @@ returns the arc tangent of `y`.
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.ceil*</h3>
+                                                               *lrv-math.ceil*
+>
+  math.ceil (x)
+<
 
 Returns the smallest integral value larger than or equal to `x`.
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.cos*</h3>
+                                                                *lrv-math.cos*
+>
+  math.cos (x)
+<
 
 Returns the cosine of `x` (assumed to be in radians).
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.deg*</h3>
+                                                                *lrv-math.deg*
+>
+  math.deg (x)
+<
 
 Converts the angle `x` from radians to degrees.
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.exp*</h3>
+                                                                *lrv-math.exp*
+>
+  math.exp (x)
+<
 
 Returns the value e<sup>x</sup>
 (where `e` is the base of natural logarithms).
 
 
 
-<hr><h3>                                                          *lrv-pdf-math.floor*</h3>
+                                                              *lrv-math.floor*
+>
+  math.floor (x)
+<
 
 Returns the largest integral value smaller than or equal to `x`.
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.fmod*</h3>
+                                                               *lrv-math.fmod*
+>
+  math.fmod (x, y)
+<
 
 Returns the remainder of the division of `x` by `y`
 that rounds the quotient towards zero. (integer/float)
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.huge*</h3>
+                                                               *lrv-math.huge*
+>
+  math.huge
+<
 
 The float value `HUGE_VAL`,
 a value larger than any other numeric value.
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.log*</h3>
+                                                                *lrv-math.log*
+>
+  math.log (x [, base])
+<
 
 Returns the logarithm of `x` in the given base.
 The default for `base` is e
@@ -7687,50 +7933,74 @@ The default for `base` is e
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.max*</h3>
+                                                                *lrv-math.max*
+>
+  math.max (x, ···)
+<
 
 Returns the argument with the maximum value,
 according to the Lua operator `<`. (integer/float)
 
 
 
-<hr><h3>                                                     *lrv-pdf-math.maxinteger*</h3>
+                                                         *lrv-math.maxinteger*
+>
+  math.maxinteger
+<
 An integer with the maximum value for an integer.
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.min*</h3>
+                                                                *lrv-math.min*
+>
+  math.min (x, ···)
+<
 
 Returns the argument with the minimum value,
 according to the Lua operator `<`. (integer/float)
 
 
 
-<hr><h3>                                                     *lrv-pdf-math.mininteger*</h3>
+                                                         *lrv-math.mininteger*
+>
+  math.mininteger
+<
 An integer with the minimum value for an integer.
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.modf*</h3>
+                                                               *lrv-math.modf*
+>
+  math.modf (x)
+<
 
 Returns the integral part of `x` and the fractional part of `x`.
 Its second result is always a float.
 
 
 
-<hr><h3>                                                             *lrv-pdf-math.pi*</h3>
+                                                                 *lrv-math.pi*
+>
+  math.pi
+<
 
 The value of 'π'.
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.rad*</h3>
+                                                                *lrv-math.rad*
+>
+  math.rad (x)
+<
 
 Converts the angle `x` from degrees to radians.
 
 
 
-<hr><h3>                                                         *lrv-pdf-math.random*</h3>
+                                                             *lrv-math.random*
+>
+  math.random ([m [, n]])
+<
 
 When called without arguments,
 returns a pseudo-random float with uniform distribution
@@ -7746,7 +8016,10 @@ pseudo-random generator function provided by C.
 
 
 
-<hr><h3>                                                     *lrv-pdf-math.randomseed*</h3>
+                                                         *lrv-math.randomseed*
+>
+  math.randomseed (x)
+<
 
 Sets `x` as the "seed"
 for the pseudo-random generator:
@@ -7754,26 +8027,38 @@ equal seeds produce equal sequences of numbers.
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.sin*</h3>
+                                                                *lrv-math.sin*
+>
+  math.sin (x)
+<
 
 Returns the sine of `x` (assumed to be in radians).
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.sqrt*</h3>
+                                                               *lrv-math.sqrt*
+>
+  math.sqrt (x)
+<
 
 Returns the square root of `x`.
 (You can also use the expression `x^0.5` to compute this value.)
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.tan*</h3>
+                                                                *lrv-math.tan*
+>
+  math.tan (x)
+<
 
 Returns the tangent of `x` (assumed to be in radians).
 
 
 
-<hr><h3>                                                      *lrv-pdf-math.tointeger*</h3>
+                                                          *lrv-math.tointeger*
+>
+  math.tointeger (x)
+<
 
 If the value `x` is convertible to an integer,
 returns that integer.
@@ -7781,7 +8066,10 @@ Otherwise, returns |lrv-nil|.
 
 
 
-<hr><h3>                                                           *lrv-pdf-math.type*</h3>
+                                                               *lrv-math.type*
+>
+  math.type (x)
+<
 
 Returns "`integer`" if `x` is an integer,
 "`float`" if it is a float,
@@ -7789,7 +8077,10 @@ or |lrv-nil| if `x` is not a number.
 
 
 
-<hr><h3>                                                            *lrv-pdf-math.ult*</h3>
+                                                                *lrv-math.ult*
+>
+  math.ult (m, n)
+<
 
 Returns a boolean,
 true if and only if integer `m` is below integer `n` when
@@ -7810,14 +8101,14 @@ and all input/output operations are over these default files.
 The second style uses explicit file handles.
 
 When using implicit file handles,
-all operations are supplied by table `io`.
+all operations are supplied by table io.
 When using explicit file handles,
-the operation |lrv-pdf-io.open| returns a file handle
+the operation |lrv-io.open| returns a file handle
 and then all operations are supplied as methods of the file handle.
 
 The table `io` also provides
 three predefined file handles with their usual meanings from C:
-`io.stdin`, `io.stdout`, and `io.stderr`.
+io.stdin, io.stdout, and io.stderr.
 The I/O library never closes these files.
 
 Unless otherwise stated,
@@ -7831,20 +8122,29 @@ in case of errors
 may be not thread safe,
 because they rely on the global C variable `errno`.
 
-<hr><h3>                                                            *lrv-pdf-io.close*</h3>
+                                                                *lrv-io.close*
+>
+  io.close ([file])
+<
 
 Equivalent to `file:close()`.
 Without a `file`, closes the default output file.
 
 
 
-<hr><h3>                                                            *lrv-pdf-io.flush*</h3>
+                                                                *lrv-io.flush*
+>
+  io.flush ()
+<
 
 Equivalent to `io.output():flush()`.
 
 
 
-<hr><h3>                                                            *lrv-pdf-io.input*</h3>
+                                                                *lrv-io.input*
+>
+  io.input ([file])
+<
 
 When called with a file name, it opens the named file (in text mode),
 and sets its handle as the default input file.
@@ -7858,7 +8158,10 @@ instead of returning an error code.
 
 
 
-<hr><h3>                                                            *lrv-pdf-io.lines*</h3>
+                                                                *lrv-io.lines*
+>
+  io.lines ([filename, ···])
+<
 
 Opens the given file name in read mode
 and returns an iterator function that
@@ -7876,7 +8179,10 @@ instead of returning an error code.
 
 
 
-<hr><h3>                                                             *lrv-pdf-io.open*</h3>
+                                                                 *lrv-io.open*
+>
+  io.open (filename [, mode])
+<
 
 This function opens a file,
 in the mode specified in the string `mode`.
@@ -7898,13 +8204,19 @@ which is needed in some systems to open the file in binary mode.
 
 
 
-<hr><h3>                                                           *lrv-pdf-io.output*</h3>
+                                                               *lrv-io.output*
+>
+  io.output ([file])
+<
 
-Similar to |lrv-pdf-io.input|, but operates over the default output file.
+Similar to |lrv-io.input|, but operates over the default output file.
 
 
 
-<hr><h3>                                                            *lrv-pdf-io.popen*</h3>
+                                                                *lrv-io.popen*
+>
+  io.popen (prog [, mode])
+<
 
 This function is system dependent and is not available
 on all platforms.
@@ -7917,13 +8229,19 @@ or to write data to this program
 
 
 
-<hr><h3>                                                             *lrv-pdf-io.read*</h3>
+                                                                 *lrv-io.read*
+>
+  io.read (···)
+<
 
 Equivalent to `io.input():read(···)`.
 
 
 
-<hr><h3>                                                          *lrv-pdf-io.tmpfile*</h3>
+                                                              *lrv-io.tmpfile*
+>
+  io.tmpfile ()
+<
 
 In case of success,
 returns a handle for a temporary file.
@@ -7932,7 +8250,10 @@ and it is automatically removed when the program ends.
 
 
 
-<hr><h3>                                                             *lrv-pdf-io.type*</h3>
+                                                                 *lrv-io.type*
+>
+  io.type (obj)
+<
 
 Checks whether `obj` is a valid file handle.
 Returns the string `"file"` if `obj` is an open file handle,
@@ -7941,32 +8262,44 @@ or |lrv-nil| if `obj` is not a file handle.
 
 
 
-<hr><h3>                                                            *lrv-pdf-io.write*</h3>
+                                                                *lrv-io.write*
+>
+  io.write (···)
+<
 
 Equivalent to `io.output():write(···)`.
 
 
 
-<hr><h3>                                                          *lrv-pdf-file:close*</h3>
+                                                              *lrv-file:close*
+>
+  file:close ()
+<
 
 Closes `file`.
 Note that files are automatically closed when
 their handles are garbage collected,
 but that takes an unpredictable amount of time to happen.
 
-When closing a file handle created with |lrv-pdf-io.popen|,
-|lrv-pdf-file:close| returns the same values
-returned by |lrv-pdf-os.execute|.
+When closing a file handle created with |lrv-io.popen|,
+|lrv-file:close| returns the same values
+returned by |lrv-os.execute|.
 
 
 
-<hr><h3>                                                          *lrv-pdf-file:flush*</h3>
+                                                              *lrv-file:flush*
+>
+  file:flush ()
+<
 
 Saves any written data to `file`.
 
 
 
-<hr><h3>                                                          *lrv-pdf-file:lines*</h3>
+                                                              *lrv-file:lines*
+>
+  file:lines (···)
+<
 
 Returns an iterator function that,
 each time it is called,
@@ -7979,7 +8312,7 @@ As an example, the construction
 <
 will iterate over all characters of the file,
 starting at the current position.
-Unlike |lrv-pdf-io.lines|, this function does not close the file
+Unlike |lrv-io.lines|, this function does not close the file
 when the loop ends.
 
 In case of errors this function raises the error,
@@ -7987,7 +8320,10 @@ instead of returning an error code.
 
 
 
-<hr><h3>                                                           *lrv-pdf-file:read*</h3>
+                                                               *lrv-file:read*
+>
+  file:read (···)
+<
 
 Reads the file `file`,
 according to the given formats, which specify what to read.
@@ -8043,7 +8379,10 @@ The formats "`l`" and "`L`" should be used only for text files.
 
 
 
-<hr><h3>                                                           *lrv-pdf-file:seek*</h3>
+                                                               *lrv-file:seek*
+>
+  file:seek ([whence [, offset]])
+<
 
 Sets and gets the file position,
 measured from the beginning of the file,
@@ -8070,7 +8409,10 @@ end of the file, and returns its size.
 
 
 
-<hr><h3>                                                        *lrv-pdf-file:setvbuf*</h3>
+                                                            *lrv-file:setvbuf*
+>
+  file:setvbuf (mode [, size])
+<
 
 Sets the buffering mode for an output file.
 There are three available modes:
@@ -8083,7 +8425,7 @@ no buffering; the result of any output operation appears immediately.
 * '"`full`": '
 full buffering; output operation is performed only
 when the buffer is full or when
-you explicitly `flush` the file (see |lrv-pdf-io.flush|).
+you explicitly `flush` the file (see |lrv-io.flush|).
 
 
 * '"`line`": '
@@ -8099,7 +8441,10 @@ The default is an appropriate size.
 
 
 
-<hr><h3>                                                          *lrv-pdf-file:write*</h3>
+                                                              *lrv-file:write*
+>
+  file:write (···)
+<
 
 Writes the value of each of its arguments to `file`.
 The arguments must be strings or numbers.
@@ -8114,23 +8459,29 @@ Otherwise it returns |lrv-nil| plus a string describing the error.
                                                            *lrv-section-oslib*
 6.9 -- Operating System Facilities~
 
-This library is implemented through table `os`.
+This library is implemented through table os.
 
-<hr><h3>                                                            *lrv-pdf-os.clock*</h3>
+                                                                *lrv-os.clock*
+>
+  os.clock ()
+<
 
 Returns an approximation of the amount in seconds of CPU time
 used by the program.
 
 
 
-<hr><h3>                                                             *lrv-pdf-os.date*</h3>
+                                                                 *lrv-os.date*
+>
+  os.date ([format [, time]])
+<
 
 Returns a string or a table containing date and time,
 formatted according to the given string `format`.
 
 If the `time` argument is present,
 this is the time to be formatted
-(see the |lrv-pdf-os.time| function for a description of this value).
+(see the |lrv-os.time| function for a description of this value).
 Otherwise, `date` formats the current time.
 
 If `format` starts with '`!`',
@@ -8161,17 +8512,23 @@ because of its reliance on C&nbsp;function `gmtime` and C&nbsp;function `localti
 
 
 
-<hr><h3>                                                         *lrv-pdf-os.difftime*</h3>
+                                                             *lrv-os.difftime*
+>
+  os.difftime (t2, t1)
+<
 
 Returns the difference, in seconds,
 from time `t1` to time `t2`
-(where the times are values returned by |lrv-pdf-os.time|).
+(where the times are values returned by |lrv-os.time|).
 In POSIX, Windows, and some other systems,
 this value is exactly `t2`'-'`t1`.
 
 
 
-<hr><h3>                                                          *lrv-pdf-os.execute*</h3>
+                                                              *lrv-os.execute*
+>
+  os.execute ([command])
+<
 
 This function is equivalent to the ISO&nbsp;C function `system`.
 It passes `command` to be executed by an operating system shell.
@@ -8200,7 +8557,10 @@ When called without a `command`,
 
 
 
-<hr><h3>                                                             *lrv-pdf-os.exit*</h3>
+                                                                 *lrv-os.exit*
+>
+  os.exit ([code [, close]])
+<
 
 Calls the ISO&nbsp;C function `exit` to terminate the host program.
 If `code` is true,
@@ -8216,14 +8576,20 @@ closes the Lua state before exiting.
 
 
 
-<hr><h3>                                                           *lrv-pdf-os.getenv*</h3>
+                                                               *lrv-os.getenv*
+>
+  os.getenv (varname)
+<
 
 Returns the value of the process environment variable `varname`,
 or |lrv-nil| if the variable is not defined.
 
 
 
-<hr><h3>                                                           *lrv-pdf-os.remove*</h3>
+                                                               *lrv-os.remove*
+>
+  os.remove (filename)
+<
 
 Deletes the file (or empty directory, on POSIX systems)
 with the given name.
@@ -8233,7 +8599,10 @@ Otherwise, it returns true.
 
 
 
-<hr><h3>                                                           *lrv-pdf-os.rename*</h3>
+                                                               *lrv-os.rename*
+>
+  os.rename (oldname, newname)
+<
 
 Renames the file or directory named `oldname` to `newname`.
 If this function fails, it returns |lrv-nil|,
@@ -8242,7 +8611,10 @@ Otherwise, it returns true.
 
 
 
-<hr><h3>                                                        *lrv-pdf-os.setlocale*</h3>
+                                                            *lrv-os.setlocale*
+>
+  os.setlocale (locale [, category])
+<
 
 Sets the current locale of the program.
 `locale` is a system-dependent string specifying a locale;
@@ -8267,7 +8639,10 @@ because of its reliance on C&nbsp;function `setlocale`.
 
 
 
-<hr><h3>                                                             *lrv-pdf-os.time*</h3>
+                                                                 *lrv-os.time*
+>
+  os.time ([table])
+<
 
 Returns the current time when called without arguments,
 or a time representing the local date and time specified by the given table.
@@ -8278,7 +8653,7 @@ and may have fields
 `sec` (default is 0),
 and `isdst` (default is |lrv-nil|).
 Other fields are ignored.
-For a description of these fields, see the |lrv-pdf-os.date| function.
+For a description of these fields, see the |lrv-os.date| function.
 
 The values in these fields do not need to be inside their valid ranges.
 For instance, if `sec` is -10,
@@ -8292,11 +8667,14 @@ this number counts the number
 of seconds since some given start time (the "epoch").
 In other systems, the meaning is not specified,
 and the number returned by `time` can be used only as an argument to
-|lrv-pdf-os.date| and |lrv-pdf-os.difftime|.
+|lrv-os.date| and |lrv-os.difftime|.
 
 
 
-<hr><h3>                                                          *lrv-pdf-os.tmpname*</h3>
+                                                              *lrv-os.tmpname*
+>
+  os.tmpname ()
+<
 
 Returns a string with a file name that can
 be used for a temporary file.
@@ -8312,7 +8690,7 @@ You still have to open the file to use it
 and to remove it (even if you do not use it).
 
 When possible,
-you may prefer to use |lrv-pdf-io.tmpfile|,
+you may prefer to use |lrv-io.tmpfile|,
 which automatically removes the file when the program ends.
 
 
@@ -8335,13 +8713,16 @@ and therefore can compromise otherwise secure code.
 Moreover, some functions in this library may be slow.
 
 All functions in this library are provided
-inside the `debug` table.
+inside the debug table.
 All functions that operate over a thread
 have an optional first argument which is the
 thread to operate over.
 The default is always the current thread.
 
-<hr><h3>                                                         *lrv-pdf-debug.debug*</h3>
+                                                             *lrv-debug.debug*
+>
+  debug.debug ()
+<
 
 Enters an interactive mode with the user,
 running each string that the user enters.
@@ -8356,16 +8737,22 @@ within any function and so have no direct access to local variables.
 
 
 
-<hr><h3>                                                       *lrv-pdf-debug.gethook*</h3>
+                                                           *lrv-debug.gethook*
+>
+  debug.gethook ([thread])
+<
 
 Returns the current hook settings of the thread, as three values:
 the current hook function, the current hook mask,
 and the current hook count
-(as set by the |lrv-pdf-debug.sethook| function).
+(as set by the |lrv-debug.sethook| function).
 
 
 
-<hr><h3>                                                       *lrv-pdf-debug.getinfo*</h3>
+                                                           *lrv-debug.getinfo*
+>
+  debug.getinfo ([thread,] f [, what])
+<
 
 Returns a table with information about a function.
 You can give the function directly
@@ -8396,11 +8783,14 @@ a name for the current function,
 if a reasonable name can be found,
 and the expression `debug.getinfo(print)`
 returns a table with all available information
-about the |lrv-pdf-print| function.
+about the |lrv-print| function.
 
 
 
-<hr><h3>                                                      *lrv-pdf-debug.getlocal*</h3>
+                                                          *lrv-debug.getlocal*
+>
+  debug.getlocal ([thread,] f, local)
+<
 
 This function returns the name and the value of the local variable
 with index `local` of the function at level `f` of the stack.
@@ -8415,7 +8805,7 @@ Negative indices refer to vararg arguments;
 -1 is the first vararg argument.
 The function returns |lrv-nil| if there is no variable with the given index,
 and raises an error when called with a level out of range.
-(You can call |lrv-pdf-debug.getinfo| to check whether the level is valid.)
+(You can call |lrv-debug.getinfo| to check whether the level is valid.)
 
 Variable names starting with '`(`' (open parenthesis) 
 represent variables with no known names
@@ -8427,20 +8817,29 @@ In that case, `getlocal` returns only the name of function parameters.
 
 
 
-<hr><h3>                                                  *lrv-pdf-debug.getmetatable*</h3>
+                                                      *lrv-debug.getmetatable*
+>
+  debug.getmetatable (value)
+<
 
 Returns the metatable of the given `value`
 or |lrv-nil| if it does not have a metatable.
 
 
 
-<hr><h3>                                                   *lrv-pdf-debug.getregistry*</h3>
+                                                       *lrv-debug.getregistry*
+>
+  debug.getregistry ()
+<
 
 Returns the registry table (see |lrv-section-registry|).
 
 
 
-<hr><h3>                                                    *lrv-pdf-debug.getupvalue*</h3>
+                                                        *lrv-debug.getupvalue*
+>
+  debug.getupvalue (f, up)
+<
 
 This function returns the name and the value of the upvalue
 with index `up` of the function `f`.
@@ -8452,7 +8851,10 @@ represent variables with no known names
 
 
 
-<hr><h3>                                                  *lrv-pdf-debug.getuservalue*</h3>
+                                                      *lrv-debug.getuservalue*
+>
+  debug.getuservalue (u)
+<
 
 Returns the Lua value associated to `u`.
 If `u` is not a full userdata,
@@ -8460,7 +8862,10 @@ returns |lrv-nil|.
 
 
 
-<hr><h3>                                                       *lrv-pdf-debug.sethook*</h3>
+                                                           *lrv-debug.sethook*
+>
+  debug.sethook ([thread,] hook, mask [, count])
+<
 
 Sets the given function as a hook.
 The string `mask` and the number `count` describe
@@ -8477,7 +8882,7 @@ with a `count` different from zero,
 the hook is called also after every `count` instructions.
 
 When called without arguments,
-|lrv-pdf-debug.sethook| turns off the hook.
+|lrv-debug.sethook| turns off the hook.
 
 When the hook is called, its first argument is a string
 describing the event that has triggered its call:
@@ -8494,7 +8899,10 @@ and level 1 is the hook function).
 
 
 
-<hr><h3>                                                      *lrv-pdf-debug.setlocal*</h3>
+                                                          *lrv-debug.setlocal*
+>
+  debug.setlocal ([thread,] level, local, value)
+<
 
 This function assigns the value `value` to the local variable
 with index `local` of the function at level `level` of the stack.
@@ -8504,12 +8912,15 @@ and raises an error when called with a `level` out of range.
 (You can call `getinfo` to check whether the level is valid.)
 Otherwise, it returns the name of the local variable.
 
-See |lrv-pdf-debug.getlocal| for more information about
+See |lrv-debug.getlocal| for more information about
 variable indices and names.
 
 
 
-<hr><h3>                                                  *lrv-pdf-debug.setmetatable*</h3>
+                                                      *lrv-debug.setmetatable*
+>
+  debug.setmetatable (value, table)
+<
 
 Sets the metatable for the given `value` to the given `table`
 (which can be |lrv-nil|).
@@ -8517,7 +8928,10 @@ Returns `value`.
 
 
 
-<hr><h3>                                                    *lrv-pdf-debug.setupvalue*</h3>
+                                                        *lrv-debug.setupvalue*
+>
+  debug.setupvalue (f, up, value)
+<
 
 This function assigns the value `value` to the upvalue
 with index `up` of the function `f`.
@@ -8527,7 +8941,10 @@ Otherwise, it returns the name of the upvalue.
 
 
 
-<hr><h3>                                                  *lrv-pdf-debug.setuservalue*</h3>
+                                                      *lrv-debug.setuservalue*
+>
+  debug.setuservalue (udata, value)
+<
 
 Sets the given `value` as
 the Lua value associated to the given `udata`.
@@ -8537,7 +8954,10 @@ Returns `udata`.
 
 
 
-<hr><h3>                                                     *lrv-pdf-debug.traceback*</h3>
+                                                         *lrv-debug.traceback*
+>
+  debug.traceback ([thread,] [message [, level]])
+<
 
 If `message` is present but is neither a string nor |lrv-nil|,
 this function returns `message` without further processing.
@@ -8551,7 +8971,10 @@ to start the traceback
 
 
 
-<hr><h3>                                                     *lrv-pdf-debug.upvalueid*</h3>
+                                                         *lrv-debug.upvalueid*
+>
+  debug.upvalueid (f, n)
+<
 
 Returns a unique identifier (as a light userdata)
 for the upvalue numbered `n`
@@ -8565,7 +8988,10 @@ will return identical ids for those upvalue indices.
 
 
 
-<hr><h3>                                                   *lrv-pdf-debug.upvaluejoin*</h3>
+                                                       *lrv-debug.upvaluejoin*
+>
+  debug.upvaluejoin (f1, n1, f2, n2)
+<
 
 Make the `n1`-th upvalue of the Lua closure `f1`
 refer to the `n2`-th upvalue of the Lua closure `f2`.
@@ -8610,8 +9036,8 @@ when the standard input (`stdin`) is a terminal,
 and as `lua -` otherwise.
 
 When called without option `-E`,
-the interpreter checks for an environment variable `LUA_INIT_5_3`
-(or `LUA_INIT` if the versioned name is not defined)
+the interpreter checks for an environment variable LUA_INIT_5_3
+(or LUA_INIT if the versioned name is not defined)
 before running any argument.
 If the variable content has the format `@filename`,
 then `lua` executes the file.
@@ -8622,7 +9048,7 @@ besides ignoring `LUA_INIT`,
 Lua also ignores
 the values of `LUA_PATH` and `LUA_CPATH`,
 setting the values of
-|lrv-pdf-package.path| and |lrv-pdf-package.cpath|
+|lrv-package.path| and |lrv-package.cpath|
 with the default paths defined in `luaconf.h`.
 
 All options are handled in order, except `-i` and `-E`.
@@ -8677,9 +9103,9 @@ If you write an incomplete statement,
 the interpreter waits for its completion
 by issuing a different prompt.
 
-If the global variable `_PROMPT` contains a string,
+If the global variable _PROMPT contains a string,
 then its value is used as the prompt.
-Similarly, if the global variable `_PROMPT2` contains a string,
+Similarly, if the global variable _PROMPT2 contains a string,
 its value is used as the secondary prompt
 (issued during incomplete statements).
 
@@ -8695,7 +9121,7 @@ When finishing normally,
 the interpreter closes its main Lua state
 (see |lrv-lua_close|).
 The script can avoid this step by
-calling |lrv-pdf-os.exit| to terminate.
+calling |lrv-os.exit| to terminate.
 
 To allow the use of Lua as a
 script interpreter in Unix systems,
@@ -8810,12 +9236,12 @@ for setting and getting elements.
 
 
 * 
-The |lrv-pdf-ipairs| iterator now respects metamethods and
+The |lrv-ipairs| iterator now respects metamethods and
 its `__ipairs` metamethod has been deprecated.
 
 
 * 
-Option names in |lrv-pdf-io.read| do not have a starting '`*`' anymore.
+Option names in |lrv-io.read| do not have a starting '`*`' anymore.
 For compatibility, Lua will continue to accept (and ignore) this character.
 
 
@@ -8833,7 +9259,7 @@ implement them in Lua.
 
 
 * 
-The searcher for C loaders used by |lrv-pdf-require|
+The searcher for C loaders used by |lrv-require|
 changed the way it handles versioned names.
 Now, the version should come after the module name
 (as is usual in most other tools).

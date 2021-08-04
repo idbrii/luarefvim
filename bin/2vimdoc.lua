@@ -88,6 +88,9 @@ local function definition(data)
   return txt, data.pretty
 end
 
+local function section_label(txt)
+  return 'section-'..txt
+end
 
 local function code_inline(txt)
   return ("`%s`"):format(txt)
@@ -166,6 +169,11 @@ end
 
 local function ref (label)
   local l = labels[label]
+  if not l then
+    -- Some section names duplicate function names, so have a fallback for
+    -- them.
+    l = labels[section_label(label)]
+  end
   if not l then
     io.stderr:write("label ", label, " undefined\n")
     return "@@@@@@@"
@@ -295,7 +303,8 @@ local function getparamtitle (what, h, nonum)
   end
   label = label or count
   if label then
-    local link,text = anchor(title, label, "section-"..label, count)
+    local sec = section_label(label)
+    local link,text = anchor(title, label, sec, count)
     title = string.format("%s\n%s%s", link, c, text)
   else
     title = string.format("%s%s", c, title)
@@ -332,7 +341,7 @@ end
 
 
 local function lua2link (e)
-  return string.find(e, "luaL?_") and e or "pdf-"..e
+  return string.find(e, "luaL?_") and e or "section-"..e
 end
 
 
@@ -360,10 +369,9 @@ local Tex = {
   col = Tag.td,
   defid = function (name)
     local l = lua2link(name)
-    local c = Tag.code(name)
-    -- TODO?
-    anchor(c, l, l, c)
-    return c
+    -- TODO: Should we use these results?
+    local link, text = anchor(name, l, name, name)
+    return name
   end,
   def = verb,
   description = compose(nopara, Tag.ul),
@@ -382,7 +390,7 @@ local Tex = {
   itemize = compose(nopara, Tag.ul),
   leq = fixed"≤",
   Lid = function (s)
-    return makeref(lua2link(s))
+    return makeref(s)
   end,
   M = Tag.em,
   N = function (s) return s or (string.gsub(s, " ", "&nbsp;")) end,
@@ -475,14 +483,13 @@ local Tex = {
   end,
 
   LibEntry = function (e)
-    local h, name
-    h, e = string.match(e, "^(.-)|(.*)$")
-    name = string.gsub(h, " (.+", "")
+    local signature, name, description
+    signature, description = string.match(e, "^(.-)|(.*)$")
+    name = string.gsub(signature, " (.+", "")
     local l = lua2link(name)
-    local a = anchor(Tag.code(h), l, l, Tag.code(name))
-    -- TODO
-    --~ local link,text = anchor(name, name, name, name)
-    return Tag.hr() .. Tag.h3(a) .. e
+    local link,text = anchor(name, l, name, Tag.code(name))
+    local txt = ("%s\n%s%s"):format(link, code_block(signature), description)
+    return txt
   end,
 
   Produc = compose(nopara, Tag.pre),
