@@ -2,7 +2,7 @@
 
 -- HACK(idbrii): setup input/output
 t = io.input("manual.of")
-t = io.output("manual.html")
+t = io.output("../doc/lua53refvim.txt")
 
 -- special marks:
 -- \1 - paragraph (empty line)
@@ -11,38 +11,46 @@ t = io.output("manual.html")
 
 ---------------------------------------------------------------
 header = [[
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
-<html>
+*luarefvim.txt*        Lua 5.3 Reference Manual for Vim
 
-<head>
-<title>Lua 5.4 Reference Manual</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<link rel="stylesheet" href="lua.css">
-<link rel="stylesheet" href="manual.css">
-</head>
-
-<body bgcolor="#FFFFFF">
-
-<hr>
-<h1>
-<a href="http://www.lua.org/home.html"><img src="logo.gif" alt="[Lua logo]" border="0"></a>
-Lua 5.4 Reference Manual
-</h1>
-
-by Roberto Ierusalimschy, Luiz Henrique de Figueiredo, Waldemar Celes
-<p>
-<small>
-<a href="http://www.lua.org/copyright.html">Copyright</a>
-&copy; 2021 Lua.org, PUC-Rio.  All rights reserved.
-</small>
-<hr>
-
-<!-- ====================================================================== -->
-<p>
-
+Adapted from "Lua: 5.3 reference manual"
+by R. Ierusalimschy, L. H. de Figueiredo, W. Celes
+(c) 2015 Lua.org, PUC-Rio.
 ]]
 
-footer = "\n\n</body></html>\n\n"
+footer = [[
+==============================================================================
+   COPYRIGHT & LICENSES                                        *lrv-copyright*
+==============================================================================
+
+
+This help file has the same copyright and license as Lua 5.3 and the Lua 5.3
+manual:
+
+Copyright (C) 1994-2020 Lua.org, PUC-Rio.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+------------------------------------------------------------------------------
+ vi:tw=78:ts=4:ft=help:norl:noai
+]]
 
 local seefmt = '(see %s)'
 
@@ -69,9 +77,51 @@ local function concat (f, g)
   return function (s) return f(s) .. g(s) end
 end
 
+local function definition(data)
+    local txt = (
+[[                                                  *lrv-%s*]]
+):format(data.link)
+    return txt, data.pretty
+end
 
-local Tag = {}
 
+local function code_inline(txt)
+  return ("`%s`"):format(txt)
+end
+
+local function code(txt)
+  return (">%s<"):format(txt)
+end
+
+-- Like code(), but adds newlines.
+local function code_block(txt)
+  return code(("\n  %s\n"):format(txt))
+end
+
+local function noop(...)
+  return ...
+end
+
+local Tag = {
+  code = code_inline,
+  pre = code,
+  verbatim = code,
+  --~ a = function(txt, data)
+  --~   return ('*%s*'):format(data.link)
+  --~ end,
+  em = function(txt)
+    if txt:match(' ') or not txt:match('[a-z]') then
+      return ("'%s'"):format(txt)
+    end
+    return txt
+  end,
+  ul = noop,
+  li = function(txt)
+    return "* ".. txt
+  end,
+}
+
+Tag.b = Tag.em
 
 setmetatable(Tag, {
     __index = function (t, tag)
@@ -101,8 +151,8 @@ local function anchor (text, label, link, textlink)
   if labels[label] then
     error("label " .. label .. " already defined")
   end
-  labels[label] = {text = textlink, link = link}
-  return Tag.a(text, {name=link})
+  labels[label] = {pretty = text, text = textlink, link = link}
+  return definition(labels[label])
 end
 
 local function makeref (label)
@@ -116,25 +166,27 @@ local function ref (label)
     io.stderr:write("label ", label, " undefined\n")
     return "@@@@@@@"
   else
-    return Tag.a(l.text, {href="#"..l.link})
+    local text = l.text:gsub(" ", "_")
+    return ("|lrv-%s|"):format(text)
   end
 end
 
 ---------------------------------------------------------------
 local function nopara (t)
   t = string.gsub(t, "\1", "\n\n")
-  t = string.gsub(t, "<p>%s*</p>", "")
+  --~ t = string.gsub(t, "<p>%s*</p>", "")
   return t
 end
 
 local function fixpara (t)
-  t = string.gsub(t, "\1", "\n</p>\n\n<p>\n")
-  t = string.gsub(t, "<p>%s*</p>", "")
+  t = string.gsub(t, "\1", "\n")
+  --~ t = string.gsub(t, "<p>%s*</p>", "")
   return t
 end
 
 local function antipara (t)
-  return "</p>\n" .. t .. "<p>"
+  --~ return "</p>\n" .. t .. "<p>"
+  return t
 end
 
 
@@ -234,15 +286,17 @@ local function getparamtitle (what, h, nonum)
   if not nonum then
     count = getcounter(what)
     inccounter(what)
-    c = string.format("%s &ndash; ", count)
+    c = string.format("%s -- ", count)
   else
     c = ""
   end
   label = label or count
   if label then
-    title = anchor(title, label, count, "&sect;"..count)
+    local link,text = anchor(title, label, "section-"..count, count)
+    title = string.format("%s\n%s%s", link, c, text)
+  else
+    title = string.format("%s%s", c, title)
   end
-  title = string.format("%s%s", c, title)
   return title, h
 end
 
@@ -251,23 +305,26 @@ local function section (what, nonum)
     local title
     title, h = getparamtitle(what, h, nonum)
     local fn = what == "h1" and dischargefoots() or ""
-    h = fixpara(Tag.p(h))
-    return "</p>\n" .. Tag[what](title) .. h .. fn ..
-    dischargelist() .. "<p>"
+    return ([[%s~%s%s%s]]):format(title, h, fn, dischargelist())
   end
 end
 
 
 local function verbatim (s)
   s = nopara(s)
-  s = string.gsub(s, "\n", "\n     ")
+  s = string.gsub(s, "\n", "\n  ")
   s = string.gsub(s, "\n%s*$", "\n")
   return Tag.pre(s)
 end
 
 
-local function verb (s)
-  return Tag.code(s)
+local function symbol(s)
+  s = s:gsub(" ", "_")
+  return ("|lrv-%s|"):format(s)
+end
+
+local function verb(s)
+  return ("`%s`"):format(s)
 end
 
 
@@ -301,9 +358,11 @@ local Tex = {
   defid = function (name)
     local l = lua2link(name)
     local c = Tag.code(name)
-    return anchor(c, l, l, c)
+    -- TODO?
+    anchor(c, l, l, c)
+    return c
   end,
-  def = Tag.em,
+  def = verb,
   description = compose(nopara, Tag.ul),
   Em = fixed("\4" .. "&mdash;" .. "\4"),
   emph = Tag.em,
@@ -323,10 +382,10 @@ local Tex = {
     return makeref(lua2link(s))
   end,
   M = Tag.em,
-  N = function (s) return (string.gsub(s, " ", "&nbsp;")) end,
+  N = function (s) return s or (string.gsub(s, " ", "&nbsp;")) end,
   NE = id,        -- tag"foreignphrase",
   num = id,
-  ["nil"] = fixed(Tag.b"nil"),
+  ["nil"] = fixed(symbol"nil"),
   fail = fixed(Tag.b"fail"),
   Open = fixed"{",
   part = section("h1", true),
@@ -339,7 +398,7 @@ local Tex = {
   refsec = makeref,
 
   pi = fixed"&pi;",
-  rep = Tag.em,  -- compose(prepos("&lt;", "&gt;"), Tag.em),
+  rep = Tag.em,
   Rw = rw,
   rw = rw,
   sb = Tag.sub,
@@ -363,7 +422,8 @@ local Tex = {
       s = string.sub(s, p)
       s = Tag.b(t..": ") .. s
     end
-    return Tag.li(fixpara(s))
+    --~ return Tag.li(fixpara(s))
+    return Tag.li(s)
   end,
 
   verbatim = verbatim,
@@ -390,18 +450,28 @@ local Tex = {
   end,
 
   APIEntry = function (e)
-    local h, name
-    h, e = string.match(e, "^%s*(.-)%s*|(.*)$")
-    name = string.match(h, "(luaL?_[%w_]+)%)? +%(") or
-    string.match(h, "luaL?_[%w_]+")
-    local a = anchor(Tag.code(name), name, name, Tag.code(name))
-    local apiicmd, ne = string.match(e, "^(.-</span>)(.*)")
-    --io.stderr:write(e)
-    if not apiicmd then
-      return antipara(Tag.hr() .. Tag.h3(a)) .. Tag.pre(h) .. e
-    else
-      return antipara(Tag.hr() .. Tag.h3(a)) .. apiicmd .. Tag.pre(h) .. ne
+    local signature, description = string.match(e, "^%s*(.-)%s*|(.*)$")
+    local name = string.match(signature, "(luaL?_[%w_]+)%)? +%(") or
+    string.match(signature, "luaL?_[%w_]+")
+    -- TODO: use return values?
+    local link,text = anchor(name, name, name, name)
+    local apiicmd, ne = string.match(description, "^(.-</span>)(.*)")
+    if apiicmd then
+      apiicmd = string.match(apiicmd, '<span class="apii">(.+)</span>')
+      if apiicmd then
+        apiicmd = ('                                                                 `%s`\n'):format(apiicmd)
+        description = ne
+      end
     end
+    if not apiicmd then
+      apiicmd = ''
+    end
+    --io.stderr:write(e)
+    local txt = ([[
+                                                  *lrv-%s*
+%s%s%s
+]]):format(name, code_block(signature), apiicmd, description)
+    return txt
   end,
 
   LibEntry = function (e)
@@ -410,13 +480,16 @@ local Tex = {
     name = string.gsub(h, " (.+", "")
     local l = lua2link(name)
     local a = anchor(Tag.code(h), l, l, Tag.code(name))
+    -- TODO
+    --~ local link,text = anchor(name, name, name, name)
     return Tag.hr() .. Tag.h3(a) .. e
   end,
 
   Produc = compose(nopara, Tag.pre),
   producname = prepos("\t", " ::= "),
   Or = fixed" | ",
-  VerBar = fixed"&#124;",  -- vertical bar
+  -- TODO(idbrii): bar is wrong
+  VerBar = fixed"bar",  -- vertical bar
   OrNL = fixed" | \4",
   bnfNter = prepos("", ""),
   bnfopt = prepos("[", "]"),
@@ -436,7 +509,7 @@ local Tex = {
     if push ~= "?" and string.find(push, "%W") then
       push = "(" .. push .. ")"
     end
-    err = (err == "-") and "&ndash;" or Tag.em(err)
+    --~ err = (err == "-") and "&ndash;" or Tag.em(err)
     return Tag.span(
       string.format("[-%s, +%s, %s]", pop, push, err),
       {class="apii"}
@@ -466,38 +539,6 @@ end
 -- read whole book
 t = io.read"*a"
 
-t = string.gsub(t, "[<>&\128-\255]",
-  {["<"] = "&lt;",
-    [">"] = "&gt;",
-    ["&"] = "&amp;",
-    ["\170"] = "&ordf;",
-    ["\186"] = "&ordm;",
-    ["\192"] = "&Agrave;",
-    ["\193"] = "&Aacute;",
-    ["\194"] = "&Acirc;",
-    ["\195"] = "&Atilde;",
-    ["\199"] = "&Ccedil;",
-    ["\201"] = "&Eacute;",
-    ["\202"] = "&Ecirc;",
-    ["\205"] = "&Iacute;",
-    ["\211"] = "&Oacute;",
-    ["\212"] = "&Ocirc;",
-    ["\218"] = "&Uacute;",
-    ["\224"] = "&agrave;",
-    ["\225"] = "&aacute;",
-    ["\226"] = "&acirc;",
-    ["\227"] = "&atilde;",
-    ["\231"] = "&ccedil;",
-    ["\233"] = "&eacute;",
-    ["\234"] = "&ecirc;",
-    ["\237"] = "&iacute;",
-    ["\243"] = "&oacute;",
-    ["\244"] = "&ocirc;",
-    ["\245"] = "&otilde;",
-    ["\250"] = "&uacute;",
-    ["\252"] = "&uuml;"
-  })
-
 t = string.gsub(t, "\n\n+", "\1")
 
 
@@ -515,8 +556,9 @@ t = string.gsub(t, "%s*\4%s*", "")
 
 t = nopara(t)
 
--- HTML 3.2 does not need </p> (but complains when it is in wrong places :)
-t = string.gsub(t, "</p>", "")
+-- TODO: can we avoid inserting these? I think it's from @item
+-- Handle weird items with |
+t = string.gsub(t, "||", "| ")
 
 io.write(header, t, footer)
 
