@@ -548,6 +548,9 @@ t = io.read"*a"
 
 t = string.gsub(t, "\n\n+", "\1")
 
+-- Make these items jumpable since they're all metatable keys.
+t = string.gsub(t, "@item{@idx{(%S-)}", "@LibEntry{%1")
+
 
 
 -- complete macros with no arguments

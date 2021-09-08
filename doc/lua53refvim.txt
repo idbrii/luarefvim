@@ -355,7 +355,10 @@ Each operation is identified by its corresponding key.
 
 
 
-* '`__add`: '
+                                                                   *lrv-__add*
+>
+  __add
+<
 the addition (`+`) operation.
 If any operand for an addition is not a number
 (nor a string coercible to a number),
@@ -372,42 +375,66 @@ Otherwise,
 it raises an error.
 
 
-* '`__sub`: '
+                                                                   *lrv-__sub*
+>
+  __sub
+<
 the subtraction (`-`) operation.
 Behavior similar to the addition operation.
 
 
-* '`__mul`: '
+                                                                   *lrv-__mul*
+>
+  __mul
+<
 the multiplication (`*`) operation.
 Behavior similar to the addition operation.
 
 
-* '`__div`: '
+                                                                   *lrv-__div*
+>
+  __div
+<
 the division (`/`) operation.
 Behavior similar to the addition operation.
 
 
-* '`__mod`: '
+                                                                   *lrv-__mod*
+>
+  __mod
+<
 the modulo (`%`) operation.
 Behavior similar to the addition operation.
 
 
-* '`__pow`: '
+                                                                   *lrv-__pow*
+>
+  __pow
+<
 the exponentiation (`^`) operation.
 Behavior similar to the addition operation.
 
 
-* '`__unm`: '
+                                                                   *lrv-__unm*
+>
+  __unm
+<
 the negation (unary `-`) operation.
 Behavior similar to the addition operation.
 
 
-* '`__idiv`: '
+                                                                  *lrv-__idiv*
+>
+  __idiv
+<
 the floor division (`//`) operation.
 Behavior similar to the addition operation.
 
 
-* '`__band`: '
+                                                                  *lrv-__band*
+>
+  __band
+<
 the bitwise AND (`&`) operation.
 Behavior similar to the addition operation,
 except that Lua will try a metamethod
@@ -415,32 +442,50 @@ if any operand is neither an integer
 nor a value coercible to an integer (see |lrv-section-coercion|).
 
 
-* '`__bor`: '
+                                                                   *lrv-__bor*
+>
+  __bor
+<
 the bitwise OR (`|`) operation.
 Behavior similar to the bitwise AND operation.
 
 
-* '`__bxor`: '
+                                                                  *lrv-__bxor*
+>
+  __bxor
+<
 the bitwise exclusive OR (binary `~`) operation.
 Behavior similar to the bitwise AND operation.
 
 
-* '`__bnot`: '
+                                                                  *lrv-__bnot*
+>
+  __bnot
+<
 the bitwise NOT (unary `~`) operation.
 Behavior similar to the bitwise AND operation.
 
 
-* '`__shl`: '
+                                                                   *lrv-__shl*
+>
+  __shl
+<
 the bitwise left shift (`<<`) operation.
 Behavior similar to the bitwise AND operation.
 
 
-* '`__shr`: '
+                                                                   *lrv-__shr*
+>
+  __shr
+<
 the bitwise right shift (`>>`) operation.
 Behavior similar to the bitwise AND operation.
 
 
-* '`__concat`: '
+                                                                *lrv-__concat*
+>
+  __concat
+<
 the concatenation (`..`) operation.
 Behavior similar to the addition operation,
 except that Lua will try a metamethod
@@ -448,7 +493,10 @@ if any operand is neither a string nor a number
 (which is always coercible to a string).
 
 
-* '`__len`: '
+                                                                   *lrv-__len*
+>
+  __len
+<
 the length (`#`) operation.
 If the object is not a string,
 Lua will try its metamethod.
@@ -462,7 +510,10 @@ then Lua uses the table length operation (see |lrv-section-len-op|).
 Otherwise, Lua raises an error.
 
 
-* '`__eq`: '
+                                                                    *lrv-__eq*
+>
+  __eq
+<
 the equal (`==`) operation.
 Behavior similar to the addition operation,
 except that Lua will try a metamethod only when the values
@@ -471,7 +522,10 @@ and they are not primitively equal.
 The result of the call is always converted to a boolean.
 
 
-* '`__lt`: '
+                                                                    *lrv-__lt*
+>
+  __lt
+<
 the less than (`<`) operation.
 Behavior similar to the addition operation,
 except that Lua will try a metamethod only when the values
@@ -479,7 +533,10 @@ being compared are neither both numbers nor both strings.
 The result of the call is always converted to a boolean.
 
 
-* '`__le`: '
+                                                                    *lrv-__le*
+>
+  __le
+<
 the less equal (`<=`) operation.
 Unlike other operations,
 the less-equal operation can use two different events.
@@ -494,7 +551,10 @@ the result is always a boolean.
 it is also slower than a real `__le` metamethod.)
 
 
-* '`__index`: '
+                                                                 *lrv-__index*
+>
+  __index
+<
 The indexing access operation `table[key]`.
 This event happens when `table` is not a table or
 when `key` is not present in `table`.
@@ -513,7 +573,10 @@ the final result is the result of indexing this table with `key`.
 and therefore can trigger another metamethod.)
 
 
-* '`__newindex`: '
+                                                              *lrv-__newindex*
+>
+  __newindex
+<
 The indexing assignment `table[key] = value`.
 Like the index event,
 this event happens when `table` is not a table or
@@ -536,7 +599,10 @@ the metamethod itself can call |lrv-rawset|
 to do the assignment.)
 
 
-* '`__call`: '
+                                                                  *lrv-__call*
+>
+  __call
+<
 The call operation `func(args)`.
 This event happens when Lua tries to call a non-function value
 (that is, `func` is not a function).
