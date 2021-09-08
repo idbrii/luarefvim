@@ -81,7 +81,8 @@ local function textblock(str)
   -- TODO: Ideally, we have a smarter character range for what we can join
   -- after (no :><), but I haven't figured that out.
   --~ str = str:gsub("([a-zA-Z0-9,)])\n(%S)", "%1 %2")
-  --~ str = str:gsub("([^:><])\n(%S)", "%1 %2")
+  --~ str = str:gsub("([^:><*~])\n(%S)", "%1 %2")
+  --~ str = str:gsub("(\n%a.=%S)\n(%S)", "%1 %2")
   str = str:gsub("(%S)\n(%S)", "%1 %2")
   return lume.wordwrap(str, 80)
 end
@@ -335,6 +336,9 @@ local function section (what, nonum)
   return function (h)
     local title
     title, h = getparamtitle(what, h, nonum)
+    -- TODO: figure out how to use textblock. sections contain sections, so we can't just use it directly.
+    --~ h = textblock(h)
+    --~ h = "|>"..h.."<|"
     local fn = what == "h1" and dischargefoots() or ""
     return ([[%s~%s%s%s]]):format(title, h, fn, dischargelist())
   end
