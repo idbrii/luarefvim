@@ -1,5 +1,8 @@
 #!/usr/bin/env lua5.3
 
+package.path = package.path ..";./?.lua"
+local lume = require "lume"
+
 -- HACK(idbrii): setup input/output
 t = io.input("manual.of")
 t = io.output("../doc/lua53refvim.txt")
@@ -49,7 +52,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------------------------------------------------------------------
- vi:tw=78:ts=4:ft=help:norl:noai
+  vi:tw=78:ts=4:ft=help:norl:noai
 ]]
 
 local seefmt = '(see %s)'
@@ -66,6 +69,22 @@ end
 
 
 ---------------------------------------------------------------
+
+local function textblock(str)
+  -- Modify some text to ensure it maintains proper whitespace.
+  str = string.gsub(str, "%) operation%.", "%0\n")
+  str = string.gsub(str, "([:<>])\n(%w)", "%1\n\n%2")
+  str = string.gsub(str, "(%S)\n([<])", "%1\n\n%2")
+
+  -- Format text kinda like html -- only explicit (double) linebreaks introduce
+  -- linebreaks.
+  -- TODO: Ideally, we have a smarter character range for what we can join
+  -- after (no :><), but I haven't figured that out.
+  --~ str = str:gsub("([a-zA-Z0-9,)])\n(%S)", "%1 %2")
+  --~ str = str:gsub("([^:><])\n(%S)", "%1 %2")
+  str = str:gsub("(%S)\n(%S)", "%1 %2")
+  return lume.wordwrap(str, 80)
+end
 
 local function compose (f,g)
   assert(f and g)
@@ -477,6 +496,7 @@ local Tex = {
     if not apiicmd then
       apiicmd = ''
     end
+    description = textblock(description)
     --io.stderr:write(e)
     local txt = ("%s\n%s%s%s"):format(link, code_block(signature), apiicmd, description)
     return txt
@@ -485,6 +505,7 @@ local Tex = {
   LibEntry = function (e)
     local signature, name, description
     signature, description = string.match(e, "^(.-)|(.*)$")
+    description = textblock(description)
     name = string.gsub(signature, " (.+", "")
     local l = lua2link(name)
     local link,text = anchor(name, l, name, Tag.code(name))
