@@ -80,10 +80,8 @@ local function textblock(str)
   -- linebreaks.
   -- TODO: Ideally, we have a smarter character range for what we can join
   -- after (no :><), but I haven't figured that out.
-  --~ str = str:gsub("([a-zA-Z0-9,)])\n(%S)", "%1 %2")
-  --~ str = str:gsub("([^:><*~])\n(%S)", "%1 %2")
-  --~ str = str:gsub("(\n%a.=%S)\n(%S)", "%1 %2")
-  str = str:gsub("(%S)\n(%S)", "%1 %2")
+  str = str:gsub("(%S)[^%S\n]*\n([%a()])", "%1 %2")
+  str = str:gsub("(\n%* )\n(%S)", "%1 %2")
   return lume.wordwrap(str, 80)
 end
 

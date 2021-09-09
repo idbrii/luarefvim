@@ -2616,34 +2616,38 @@ is, one that does not depend on the stack top).
 
 The type of the memory-allocation function used by Lua states. The allocator 
 function must provide a functionality similar to `realloc`, but not exactly the 
-same. Its arguments are `ud`, an opaque pointer passed to |lrv-lua_newstate|; 
-`ptr`, a pointer to the block being allocated/reallocated/freed; `osize`, the 
-original size of the block or some code about what is being allocated; and 
-`nsize`, the new size of the block.
+same. Its arguments are
+`ud`, an opaque pointer passed to |lrv-lua_newstate|;
+`ptr`, a pointer to the block being allocated/reallocated/freed;
+`osize`, the original size of the block or some code about what is being 
+allocated; and `nsize`, the new size of the block.
 
-When `ptr` is not `NULL`, `osize` is the 
-size of the block pointed by `ptr`, that is, the size given when it was 
-allocated or reallocated.
+When `ptr` is not `NULL`,
+`osize` is the size of the block pointed by `ptr`, that is, the size given when 
+it was allocated or reallocated.
 
-When `ptr` is `NULL`, `osize` encodes the kind of 
-object that Lua is allocating. `osize` is any of |lrv-LUA_TSTRING|, |lrv-LUA_TTABLE|, 
-|lrv-LUA_TFUNCTION|, |lrv-LUA_TUSERDATA|, or |lrv-LUA_TTHREAD| when (and only when) Lua is 
-creating a new object of that type. When `osize` is some other value, Lua is 
-allocating memory for something else.
+When `ptr` is `NULL`,
+`osize` encodes the kind of object that Lua is allocating.
+`osize` is any of
+|lrv-LUA_TSTRING|, |lrv-LUA_TTABLE|, |lrv-LUA_TFUNCTION|,
+|lrv-LUA_TUSERDATA|, or |lrv-LUA_TTHREAD| when (and only when) Lua is creating a new 
+object of that type. When `osize` is some other value, Lua is allocating memory 
+for something else.
 
-Lua assumes the following behavior from 
-the allocator function:
+Lua assumes the following behavior from the allocator 
+function:
 
-When `nsize` is zero, the allocator must behave like 
-`free` and return `NULL`.
+When `nsize` is zero, the allocator must behave like `free` and 
+return `NULL`.
 
-When `nsize` is not zero, the allocator must behave 
-like `realloc`. The allocator returns `NULL` if and only if it cannot fulfill 
-the request. Lua assumes that the allocator never fails when `osize >= 
-nsize`.
+When `nsize` is not zero, the allocator must behave like 
+`realloc`. The allocator returns `NULL` if and only if it cannot fulfill the 
+request. Lua assumes that the allocator never fails when
+`osize >= nsize`.
 
-Here is a simple implementation for the allocator function. It is used 
-in the auxiliary library by |lrv-luaL_newstate|. >
+Here is a simple implementation for the allocator function. 
+It is used in the auxiliary library by |lrv-luaL_newstate|.
+>
   static void *l_alloc (void *ud, void *ptr, size_t osize,
                                              size_t nsize) {
     (void)ud;  (void)osize;  /* not used */
@@ -2657,7 +2661,7 @@ in the auxiliary library by |lrv-luaL_newstate|. >
 
 <
 
-Note that Standard C ensures that `free(NULL)` has no effect and that 
+Note that Standard C ensures that `free(NULL)` has no effect and that
 `realloc(NULL,size)` is equivalent to `malloc(size)`. This code assumes that 
 `realloc` does not fail when shrinking a block. (Although Standard C does not 
 ensure this behavior, it seems to be a safe assumption.)
@@ -2679,15 +2683,20 @@ The value of `op` must be one of the following
 constants:
 
 
-* 'LUA_OPADD: ' performs addition (`+`) * 'LUA_OPSUB: ' performs subtraction 
-(`-`) * 'LUA_OPMUL: ' performs multiplication (`*`) * 'LUA_OPDIV: ' performs 
-float division (`/`) * 'LUA_OPIDIV: ' performs floor division (`//`) * 
-'LUA_OPMOD: ' performs modulo (`%`) * 'LUA_OPPOW: ' performs exponentiation 
-(`^`) * 'LUA_OPUNM: ' performs mathematical negation (unary `-`) * 'LUA_OPBNOT: 
-' performs bitwise NOT (`~`) * 'LUA_OPBAND: ' performs bitwise AND (`&`) * 
-'LUA_OPBOR: ' performs bitwise OR (`|`) * 'LUA_OPBXOR: ' performs bitwise 
-exclusive OR (`~`) * 'LUA_OPSHL: ' performs left shift (`<<`) * 'LUA_OPSHR: ' 
-performs right shift (`>>`)
+* 'LUA_OPADD: ' performs addition (`+`)
+* 'LUA_OPSUB: ' performs subtraction (`-`)
+* 'LUA_OPMUL: ' performs multiplication (`*`)
+* 'LUA_OPDIV: ' performs float division (`/`)
+* 'LUA_OPIDIV: ' performs floor division (`//`)
+* 'LUA_OPMOD: ' performs modulo (`%`)
+* 'LUA_OPPOW: ' performs exponentiation (`^`)
+* 'LUA_OPUNM: ' performs mathematical negation (unary `-`)
+* 'LUA_OPBNOT: ' performs bitwise NOT (`~`)
+* 'LUA_OPBAND: ' performs bitwise AND (`&`)
+* 'LUA_OPBOR: ' performs bitwise OR (`|`)
+* 'LUA_OPBXOR: ' performs bitwise exclusive OR (`~`)
+* 'LUA_OPSHL: ' performs left shift (`<<`)
+* 'LUA_OPSHR: ' performs right shift (`>>`)
 
 
 
@@ -2713,27 +2722,29 @@ To call a function you must use the following protocol:
 
 first, the function to be called is pushed onto the stack; then, the arguments 
 to the function are pushed in direct order; that is, the first argument is 
-pushed first. Finally you call |lrv-lua_call|; `nargs` is the number of arguments 
-that you pushed onto the stack. All arguments and the function value are popped 
-from the stack when the function is called. The function results are pushed 
-onto the stack when the function returns. The number of results is adjusted to 
-`nresults`, unless `nresults` is LUA_MULTRET. In this case, all results from 
-the function are pushed; Lua takes care that the returned values fit into the 
-stack space, but it does not ensure any extra space in the stack. The function 
-results are pushed onto the stack in direct order (the first result is pushed 
-first), so that after the call the last result is on the top of the stack.
+pushed first. Finally you call |lrv-lua_call|;
+`nargs` is the number of arguments that you pushed onto the stack. All 
+arguments and the function value are popped from the stack when the function is 
+called. The function results are pushed onto the stack when the function 
+returns. The number of results is adjusted to `nresults`, unless `nresults` is 
+LUA_MULTRET. In this case, all results from the function are pushed; Lua takes 
+care that the returned values fit into the stack space, but it does not ensure 
+any extra space in the stack. The function results are pushed onto the stack in 
+direct order (the first result is pushed first), so that after the call the 
+last result is on the top of the stack.
 
-Any 
-error inside the called function is propagated upwards (with a `longjmp`).
+Any error inside the called function is 
+propagated upwards (with a `longjmp`).
 
-The 
-following example shows how the host program can do the equivalent to this Lua 
-code: >
+The following example shows how the host 
+program can do the equivalent to this Lua code:
+>
   a = f("how", t.x, 14)
 
 <
 
-Here it is in C: >
+Here it is in C:
+>
   lua_getglobal(L, "f");                  /* function to be called */
   lua_pushliteral(L, "how");                       /* 1st argument */
   lua_getglobal(L, "t");                    /* table to be indexed */
@@ -2778,17 +2789,18 @@ must use the following protocol, which defines the way parameters and results
 are passed:
 
 a C function receives its arguments from Lua in its stack in direct order (the 
-first argument is pushed first). So, when the function starts, `lua_gettop(L)` 
-returns the number of arguments received by the function. The first argument 
-(if any) is at index 1 and its last argument is at index `lua_gettop(L)`. To 
-return values to Lua, a C function just pushes them onto the stack, in direct 
-order (the first result is pushed first), and returns the number of results. 
-Any other value in the stack below the results will be properly discarded by 
-Lua. Like a Lua function, a C function called by Lua can also return many 
-results.
+first argument is pushed first). So, when the function starts,
+`lua_gettop(L)` returns the number of arguments received by the function. The 
+first argument (if any) is at index 1 and its last argument is at index 
+`lua_gettop(L)`. To return values to Lua, a C function just pushes them onto 
+the stack, in direct order (the first result is pushed first), and returns the 
+number of results. Any other value in the stack below the results will be 
+properly discarded by Lua. Like a Lua function, a C function called by Lua can 
+also return many results.
 
-As an example, the following function receives a variable number of 
-numeric arguments and returns their average and their sum: >
+As an example, the following function receives a 
+variable number of numeric arguments and returns their average and their sum:
+>
   static int foo (lua_State *L) {
     int n = lua_gettop(L);    /* number of arguments */
     lua_Number sum = 0.0;
@@ -2853,8 +2865,9 @@ The value of `op`
 must be one of the following constants:
 
 
-* 'LUA_OPEQ: ' compares for equality (`==`) * 'LUA_OPLT: ' compares for less 
-than (`<`) * 'LUA_OPLE: ' compares for less or equal (`<=`)
+* 'LUA_OPEQ: ' compares for equality (`==`)
+* 'LUA_OPLT: ' compares for less than (`<`)
+* 'LUA_OPLE: ' compares for less or equal (`<=`)
 
 
 
@@ -2907,18 +2920,18 @@ Otherwise you can use the function |lrv-lua_newtable|.
 
 Dumps a function as a binary chunk. Receives a Lua function on the top of the 
 stack and produces a binary chunk that, if loaded again, results in a function 
-equivalent to the one dumped. As it produces parts of the chunk, |lrv-lua_dump| 
-calls function `writer` (see |lrv-lua_Writer|) with the given `data` to write 
-them.
+equivalent to the one dumped. As it produces parts of the chunk,
+|lrv-lua_dump| calls function `writer` (see |lrv-lua_Writer|) with the given `data` to 
+write them.
 
-If `strip` is true, the binary representation may not include all debug 
-information about the function, to save space.
+If `strip` is true, the binary representation may not include all 
+debug information about the function, to save space.
 
-The value returned is the error 
-code returned by the last call to the writer; 0 means no errors.
+The value returned is the 
+error code returned by the last call to the writer;
+0 means no errors.
 
-This function 
-does not pop the Lua function from the stack.
+This function does not pop the Lua function from the stack.
 
 
 
@@ -3300,9 +3313,9 @@ Returns the length of the value at the given index. It is equivalent to the
               const char *mode);
 <                                                               `[-0, +1, –]`
 
-Loads a Lua chunk without running it. If there are no errors, `lua_load` 
-pushes the compiled chunk as a Lua function on top of the stack. Otherwise, it 
-pushes an error message.
+Loads a Lua chunk without running it. If there are no errors,
+`lua_load` pushes the compiled chunk as a Lua function on top of the stack. 
+Otherwise, it pushes an error message.
 
 The return values of `lua_load` are:
 
@@ -3404,7 +3417,8 @@ given index (the "next" pair after the given key). If there are no more
 elements in the table, then |lrv-lua_next| returns 0 (and pushes nothing).
 
 A 
-typical traversal looks like this: >
+typical traversal looks like this:
+>
   /* table is in the stack at index 't' */
   lua_pushnil(L);  /* first key */
   while (lua_next(L, t) != 0) {
@@ -3465,26 +3479,26 @@ may evaluate its arguments more than once.
 Calls a function in protected mode.
 
 Both `nargs` and `nresults` have the same 
-meaning as in |lrv-lua_call|. If there are no errors during the call, |lrv-lua_pcall| 
-behaves exactly like |lrv-lua_call|. However, if there is any error, |lrv-lua_pcall| 
-catches it, pushes a single value on the stack (the error object), and returns 
-an error code. Like |lrv-lua_call|, |lrv-lua_pcall| always removes the function and its 
-arguments from the stack.
+meaning as in |lrv-lua_call|. If there are no errors during the call,
+|lrv-lua_pcall| behaves exactly like |lrv-lua_call|. However, if there is any error,
+|lrv-lua_pcall| catches it, pushes a single value on the stack (the error object), 
+and returns an error code. Like |lrv-lua_call|,
+|lrv-lua_pcall| always removes the function and its arguments from the stack.
 
-If `msgh` is 0, then the error object returned on the 
-stack is exactly the original error object. Otherwise, `msgh` is the stack 
-index of a 'message handler'. (This index cannot be a pseudo-index.) In case of 
-runtime errors, this function will be called with the error object and its 
-return value will be the object returned on the stack by 
-|lrv-lua_pcall|.
+If 
+`msgh` is 0, then the error object returned on the stack is exactly the 
+original error object. Otherwise, `msgh` is the stack index of a
+'message handler'. (This index cannot be a pseudo-index.) In case of runtime 
+errors, this function will be called with the error object and its return value 
+will be the object returned on the stack by |lrv-lua_pcall|.
 
-Typically, the message handler is used to add more debug 
-information to the error object, such as a stack traceback. Such information 
-cannot be gathered after the return of |lrv-lua_pcall|, since by then the stack has 
-unwound.
+Typically, the message 
+handler is used to add more debug information to the error object, such as a 
+stack traceback. Such information cannot be gathered after the return of 
+|lrv-lua_pcall|, since by then the stack has unwound.
 
-The |lrv-lua_pcall| function returns one of the following constants 
-(defined in `lua.h`):
+The |lrv-lua_pcall| function 
+returns one of the following constants (defined in `lua.h`):
 
 
 * 'LUA_OK (0): ' success.
@@ -3555,14 +3569,15 @@ called. To associate values with a C function, first these values must be
 pushed onto the stack (when there are multiple values, the first value is 
 pushed first). Then |lrv-lua_pushcclosure| is called to create and push the C 
 function onto the stack, with the argument `n` telling how many values will be 
-associated with the function. |lrv-lua_pushcclosure| also pops these values from 
-the stack.
+associated with the function.
+|lrv-lua_pushcclosure| also pops these values from the stack.
 
-The maximum value for `n` is 255.
+The maximum value for 
+`n` is 255.
 
-When `n` is zero, this function 
-creates a `light C function`, which is just a pointer to the C function. In 
-that case, it never raises a memory error.
+When `n` is zero, this function creates a `light C function`, which 
+is just a pointer to the C function. In that case, it never raises a memory 
+error.
 
 
 
@@ -3591,21 +3606,22 @@ It is similar to the ISO&nbsp;C function `sprintf`, but has some important
 differences:
 
 
-* 
-You do not have to allocate space for the result:
+* You do not have to allocate space for the result:
 
 the result is a Lua string and Lua takes care of memory allocation (and 
 deallocation, through garbage collection).
 
 
-* 
-The conversion specifiers are quite restricted. There are no flags, widths, or 
-precisions. The conversion specifiers can only be '`%%`' (inserts the character 
-'`%`'), '`%s`' (inserts a zero-terminated string, with no size restrictions), 
-'`%f`' (inserts a |lrv-lua_Number|), '`%I`' (inserts a |lrv-lua_Integer|), '`%p`' 
-(inserts a pointer as a hexadecimal numeral), '`%d`' (inserts an `int`), '`%c`' 
-(inserts an `int` as a one-byte character), and '`%U`' (inserts a `long int` as 
-a UTF-8 byte sequence).
+* The conversion specifiers are quite restricted. There are no flags, widths, 
+or precisions. The conversion specifiers can only be
+'`%%`' (inserts the character '`%`'),
+'`%s`' (inserts a zero-terminated string, with no size restrictions),
+'`%f`' (inserts a |lrv-lua_Number|),
+'`%I`' (inserts a |lrv-lua_Integer|),
+'`%p`' (inserts a pointer as a hexadecimal numeral),
+'`%d`' (inserts an `int`),
+'`%c`' (inserts an `int` as a one-byte character), and
+'`%U`' (inserts a `long int` as a UTF-8 byte sequence).
 
 
 
@@ -3746,9 +3762,10 @@ of a variable number of arguments.
   int lua_rawequal (lua_State *L, int index1, int index2);
 <                                                               `[-0, +0, –]`
 
-Returns 1 if the two values in indices `index1` and `index2` are primitively 
-equal (that is, without calling the `__eq` metamethod). Otherwise returns 0. 
-Also returns 0 if any of the indices are not valid.
+Returns 1 if the two values in indices `index1` and
+`index2` are primitively equal (that is, without calling the `__eq` 
+metamethod). Otherwise returns 0. Also returns 0 if any of the indices are not 
+valid.
 
 
 
@@ -3780,11 +3797,12 @@ Returns the type of the pushed value.
 <                                                               `[-0, +1, –]`
 
 Pushes onto the stack the value `t[k]`, where `t` is the table at the given 
-index and `k` is the pointer `p` represented as a light userdata. The access is 
-raw; that is, it does not invoke the `__index` metamethod.
+index and
+`k` is the pointer `p` represented as a light userdata. The access is raw; that 
+is, it does not invoke the `__index` metamethod.
 
-Returns the type of 
-the pushed value.
+Returns the type of the pushed 
+value.
 
 
 
@@ -3830,7 +3848,7 @@ metamethod.
   void lua_rawsetp (lua_State *L, int index, const void *p);
 <                                                                 `[-1, +0, m]`
 
-Does the equivalent of `t[p] = v`, where `t` is the table at the given index, 
+Does the equivalent of `t[p] = v`, where `t` is the table at the given index,
 `p` is encoded as a light userdata, and `v` is the value at the top of the 
 stack.
 
@@ -3847,12 +3865,13 @@ is, it does not invoke `__newindex` metamethod.
 <
 
 The reader function used by |lrv-lua_load|. Every time it needs another piece of 
-the chunk, |lrv-lua_load| calls the reader, passing along its `data` parameter. The 
-reader must return a pointer to a block of memory with a new piece of the chunk 
-and set `size` to the block size. The block must exist until the reader 
-function is called again. To signal the end of the chunk, the reader must 
-return `NULL` or set `size` to zero. The reader function may return pieces of 
-any size greater than zero.
+the chunk,
+|lrv-lua_load| calls the reader, passing along its `data` parameter. The reader 
+must return a pointer to a block of memory with a new piece of the chunk and 
+set `size` to the block size. The block must exist until the reader function is 
+called again. To signal the end of the chunk, the reader must return `NULL` or 
+set `size` to zero. The reader function may return pieces of any size greater 
+than zero.
 
 
 
@@ -3862,7 +3881,8 @@ any size greater than zero.
 <                                                                 `[-0, +0, e]`
 
 Sets the C function `f` as the new value of global `name`. It is defined as a 
-macro: >
+macro:
+>
   #define lua_register(L,n,f) \
          (lua_pushcfunction(L, f), lua_setglobal(L, n))
 
@@ -3904,7 +3924,9 @@ you push onto the thread stack the main function plus any arguments; then you
 call |lrv-lua_resume|, with `nargs` being the number of arguments. This call 
 returns when the coroutine suspends or finishes its execution. When it returns, 
 the stack contains all values passed to |lrv-lua_yield|, or all values returned by 
-the body function. |lrv-lua_resume| returns |lrv-LUA_YIELD| if the coroutine yields, 
+the body function.
+|lrv-lua_resume| returns
+|lrv-LUA_YIELD| if the coroutine yields,
 |lrv-LUA_OK| if the coroutine finishes its execution without errors, or an error 
 code in case of errors (see |lrv-lua_pcall|).
 
@@ -3997,7 +4019,7 @@ the given index.
   void lua_settable (lua_State *L, int index);
 <                                                                 `[-2, +0, e]`
 
-Does the equivalent to `t[k] = v`, where `t` is the value at the given index, 
+Does the equivalent to `t[k] = v`, where `t` is the value at the given index,
 `v` is the value at the top of the stack, and `k` is the value just below the 
 top.
 
@@ -4085,9 +4107,10 @@ conversion succeeds.)
 <                                                               `[-0, +0, –]`
 
 Converts the Lua value at the given index to a C boolean value (0 or 1). Like 
-all tests in Lua, |lrv-lua_toboolean| returns true for any Lua value different from 
-false and |lrv-nil|; otherwise it returns false. (If you want to accept only 
-actual boolean values, use |lrv-lua_isboolean| to test the value's type.)
+all tests in Lua,
+|lrv-lua_toboolean| returns true for any Lua value different from false and 
+|lrv-nil|; otherwise it returns false. (If you want to accept only actual 
+boolean values, use |lrv-lua_isboolean| to test the value's type.)
 
 
 
@@ -4133,17 +4156,18 @@ indicates whether the operation succeeded.
 Converts the Lua value at the given index to a C string. If `len` is not 
 `NULL`, it sets `*len` with the string length. The Lua value must be a string 
 or a number; otherwise, the function returns `NULL`. If the value is a number, 
-then `lua_tolstring` also 'changes the actual value in the stack to a string'. 
-(This change confuses |lrv-lua_next| when `lua_tolstring` is applied to keys during 
-a table traversal.)
+then `lua_tolstring` also
+'changes the actual value in the stack to a string'. (This change confuses 
+|lrv-lua_next| when `lua_tolstring` is applied to keys during a table 
+traversal.)
 
-`lua_tolstring` returns a pointer to a string inside the 
-Lua state. This string always has a zero ('`\0`') after its last character (as 
-in C), but can contain other zeros in its body.
+`lua_tolstring` returns a pointer to a string inside the Lua state. 
+This string always has a zero ('`\0`') after its last character (as in C), but 
+can contain other zeros in its body.
 
-Because Lua has garbage 
-collection, there is no guarantee that the pointer returned by `lua_tolstring` 
-will be valid after the corresponding Lua value is removed from the stack.
+Because Lua has garbage collection, there 
+is no guarantee that the pointer returned by `lua_tolstring` will be valid 
+after the corresponding Lua value is removed from the stack.
 
 
 
@@ -4281,11 +4305,12 @@ of the version running the call.
 <
 
 The type of the writer function used by |lrv-lua_dump|. Every time it produces 
-another piece of chunk, |lrv-lua_dump| calls the writer, passing along the buffer 
-to be written (`p`), its size (`sz`), and the `data` parameter supplied to 
-|lrv-lua_dump|.
+another piece of chunk,
+|lrv-lua_dump| calls the writer, passing along the buffer to be written (`p`), its 
+size (`sz`), and the `data` parameter supplied to |lrv-lua_dump|.
 
-The writer returns an error code:
+The writer 
+returns an error code:
 
 0 means no errors; any other value means an error and stops |lrv-lua_dump| from 
 calling the writer again.
@@ -4388,19 +4413,20 @@ that need "inside information" from the interpreter.
 <
 
 A structure used to carry different pieces of information about a function or 
-an activation record. |lrv-lua_getstack| fills only the private part of this 
-structure, for later use. To fill the other fields of |lrv-lua_Debug| with useful 
-information, call |lrv-lua_getinfo|.
+an activation record.
+|lrv-lua_getstack| fills only the private part of this structure, for later use. To 
+fill the other fields of |lrv-lua_Debug| with useful information, call 
+|lrv-lua_getinfo|.
 
-The fields of |lrv-lua_Debug| have the following 
-meaning:
+The fields of |lrv-lua_Debug| have the following meaning:
 
 
 * '`source`: ' the name of the chunk that created the function. If `source` 
 starts with a '`@`', it means that the function was defined in a file where the 
 file name follows the '`@`'. If `source` starts with a '`=`', the remainder of 
 its contents describe the source in a user-dependent manner. Otherwise, the 
-function was defined in a string where `source` is that string.
+function was defined in a string where
+`source` is that string.
 
 
 * '`short_src`: ' a "printable" version of `source`, to be used in error 
@@ -4415,12 +4441,14 @@ starts.
 ends.
 
 
-* '`what`: ' the string `"Lua"` if the function is a Lua function, `"C"` if it 
-is a C function, `"main"` if it is the main part of a chunk.
+* '`what`: ' the string `"Lua"` if the function is a Lua function,
+`"C"` if it is a C function,
+`"main"` if it is the main part of a chunk.
 
 
 * '`currentline`: ' the current line where the given function is executing. 
-When no line information is available, `currentline` is set to -1.
+When no line information is available,
+`currentline` is set to -1.
 
 
 * '`name`: ' a reasonable name for the given function. Because functions in Lua 
@@ -4432,10 +4460,11 @@ function was called to find a suitable name. If it cannot find a name, then
 `name` is set to `NULL`.
 
 
-* '`namewhat`: ' explains the `name` field. The value of `namewhat` can be 
-`"global"`, `"local"`, `"method"`, `"field"`, `"upvalue"`, or `""` (the empty 
-string), according to how the function was called. (Lua uses the empty string 
-when no other option seems to apply.)
+* '`namewhat`: ' explains the `name` field. The value of `namewhat` can be
+`"global"`, `"local"`, `"method"`,
+`"field"`, `"upvalue"`, or `""` (the empty string), according to how the 
+function was called. (Lua uses the empty string when no other option seems to 
+apply.)
 
 
 * '`istailcall`: ' true if this function invocation was called by a tail call. 
@@ -4498,9 +4527,11 @@ as argument to a hook (see |lrv-lua_Hook|).
 
 To get information about a function, 
 you push it onto the stack and start the `what` string with the character 
-'`>`'. (In that case, `lua_getinfo` pops the function from the top of the 
-stack.) For instance, to know in which line a function `f` was defined, you can 
-write the following code: >
+'`>`'. (In that case,
+`lua_getinfo` pops the function from the top of the stack.) For instance, to 
+know in which line a function `f` was defined, you can write the following 
+code:
+>
   lua_Debug ar;
   lua_getglobal(L, "f");  /* get global 'f' */
   lua_getinfo(L, ">S", &ar);
@@ -4515,8 +4546,8 @@ to be filled or a value to be pushed on the stack:
 * ''`n`': ' fills in the field `name` and `namewhat`;
 
 
-* ''`S`': ' fills in the fields `source`, `short_src`, `linedefined`, 
-`lastlinedefined`, and `what`;
+* ''`S`': ' fills in the fields `source`, `short_src`,
+`linedefined`, `lastlinedefined`, and `what`;
 
 
 * ''`l`': ' fills in the field `currentline`;
@@ -4525,7 +4556,8 @@ to be filled or a value to be pushed on the stack:
 * ''`t`': ' fills in the field `istailcall`;
 
 
-* ''`u`': ' fills in the fields `nups`, `nparams`, and `isvararg`;
+* ''`u`': ' fills in the fields
+`nups`, `nparams`, and `isvararg`;
 
 
 * ''`f`': ' pushes onto the stack the function that is running at the given 
@@ -4619,8 +4651,9 @@ whole function. They are numbered in an arbitrary order.
 Type for debugging hook functions.
 
 Whenever a hook is called, its `ar` 
-argument has its field `event` set to the specific event that triggered the 
-hook. Lua identifies these events with the following constants:
+argument has its field
+`event` set to the specific event that triggered the hook. Lua identifies these 
+events with the following constants:
 
 LUA_HOOKCALL, LUA_HOOKRET, LUA_HOOKTAILCALL, LUA_HOOKLINE, and LUA_HOOKCOUNT. 
 Moreover, for line events, the field `currentline` is also set. To get the 
@@ -4636,11 +4669,11 @@ Therefore, if a hook calls back Lua to execute a function or a chunk, this
 execution occurs without any calls to hooks.
 
 Hook functions cannot have 
-continuations, that is, they cannot call |lrv-lua_yieldk|, |lrv-lua_pcallk|, or 
-|lrv-lua_callk| with a non-null `k`.
+continuations, that is, they cannot call |lrv-lua_yieldk|,
+|lrv-lua_pcallk|, or |lrv-lua_callk| with a non-null `k`.
 
-Hook functions can yield under the following 
-conditions:
+Hook functions can yield 
+under the following conditions:
 
 Only count and line events can yield; to yield, a hook function must finish its 
 execution calling |lrv-lua_yield| with `nresults` equal to zero (that is, with no 
@@ -4655,8 +4688,8 @@ values).
 
 Sets the debugging hook function.
 
-Argument `f` is the hook function. `mask` 
-specifies on which events the hook will be called:
+Argument `f` is the hook function.
+`mask` specifies on which events the hook will be called:
 
 it is formed by a bitwise OR of the constants LUA_MASKCALL, LUA_MASKRET, 
 LUA_MASKLINE, and LUA_MASKCOUNT. The `count` argument is only meaningful when 
@@ -4679,8 +4712,9 @@ execution of a new line of code, or when it jumps back in the code (even to the
 same line). (This event only happens while Lua is executing a Lua function.)
 
 
-* 'The count hook: ' is called after the interpreter executes every `count` 
-instructions. (This event only happens while Lua is executing a Lua function.)
+* 'The count hook: ' is called after the interpreter executes every
+`count` instructions. (This event only happens while Lua is executing a Lua 
+function.)
 
 
 
@@ -4871,7 +4905,8 @@ message (see |lrv-luaL_argerror|).
 <                                                                 `[-0, +0, v]`
 
 Raises an error reporting a problem with argument `arg` of the C function that 
-called it, using a standard message that includes `extramsg` as a comment: >
+called it, using a standard message that includes `extramsg` as a comment:
+>
   bad argument #arg to 'funcname' (extramsg)
 
 <
@@ -4895,12 +4930,11 @@ piecemeal. Its pattern of use is as follows:
 
 * Then initialize it with a call `luaL_buffinit(L, &b)`.
 
-* 
-Then add string pieces to the buffer calling any of the `luaL_add*` functions.
+* Then add string pieces to the buffer calling any of the `luaL_add*` 
+functions.
 
 
-* 
-Finish by calling `luaL_pushresult(&b)`. This call leaves the final string on 
+* Finish by calling `luaL_pushresult(&b)`. This call leaves the final string on 
 the top of the stack.
 
 
@@ -4917,8 +4951,7 @@ buffer like this:
 
 * Then copy the string into that space.
 
-* 
-Finish by calling `luaL_pushresultsize(&b, sz)`, where `sz` is the total size 
+* Finish by calling `luaL_pushresultsize(&b, sz)`, where `sz` is the total size 
 of the resulting string copied into that space.
 
 
@@ -4950,7 +4983,8 @@ buffer must be declared as a variable (see |lrv-luaL_Buffer|).
   char *luaL_buffinitsize (lua_State *L, luaL_Buffer *B, size_t sz);
 <                                                                 `[-?, +?, m]`
 
-Equivalent to the sequence |lrv-luaL_buffinit|, |lrv-luaL_prepbuffsize|.
+Equivalent to the sequence
+|lrv-luaL_buffinit|, |lrv-luaL_prepbuffsize|.
 
 
 
@@ -5043,8 +5077,9 @@ numbers to select options.)
 <                                                                 `[-0, +0, v]`
 
 Grows the stack size to `top + sz` elements, raising an error if the stack 
-cannot grow to that size. `msg` is an additional text to go into the error 
-message (or `NULL` for no additional text).
+cannot grow to that size.
+`msg` is an additional text to go into the error message (or `NULL` for no 
+additional text).
 
 
 
@@ -5099,7 +5134,8 @@ using the same address space.
   int luaL_dofile (lua_State *L, const char *filename);
 <                                                                 `[-0, +?, e]`
 
-Loads and runs the given file. It is defined as the following macro: >
+Loads and runs the given file. It is defined as the following macro:
+>
   (luaL_loadfile(L, filename) |  lua_pcall(L, 0, LUA_MULTRET, 0))
 
 <
@@ -5113,7 +5149,8 @@ It returns false if there are no errors or true in case of errors.
   int luaL_dostring (lua_State *L, const char *str);
 <                                                               `[-0, +?, –]`
 
-Loads and runs the given string. It is defined as the following macro: >
+Loads and runs the given string. It is defined as the following macro:
+>
   (luaL_loadstring(L, str) |  lua_pcall(L, 0, LUA_MULTRET, 0))
 
 <
@@ -5241,9 +5278,9 @@ Loads a buffer as a Lua chunk. This function uses |lrv-lua_load| to load the chu
 in the buffer pointed to by `buff` with size `sz`.
 
 This function returns the 
-same results as |lrv-lua_load|. `name` is the chunk name, used for debug 
-information and error messages. The string `mode` works as in function 
-|lrv-lua_load|.
+same results as |lrv-lua_load|.
+`name` is the chunk name, used for debug information and error messages. The 
+string `mode` works as in function |lrv-lua_load|.
 
 
 
@@ -5302,7 +5339,8 @@ run it.
 Creates a new table and registers there the functions in list `l`.
 
 It is 
-implemented as the following macro: >
+implemented as the following macro:
+>
   (luaL_newlibtable(L,l), luaL_setfuncs(L,l,0))
 
 <
@@ -5370,7 +5408,8 @@ Opens all standard Lua libraries into the given state.
   T luaL_opt (L, func, arg, dflt);
 <                                                                 `[-0, +0, e]`
 
-This macro is defined as follows: >
+This macro is defined as follows:
+>
   (lua_isnoneornil(L,(arg)) ? (dflt) : func(L,(arg)))
 
 <
@@ -5454,8 +5493,8 @@ Equivalent to |lrv-luaL_prepbuffsize| with the predefined size LUAL_BUFFERSIZE.
 
 Returns an address to a space of size `sz` where you can copy a string to be 
 added to buffer `B` (see |lrv-luaL_Buffer|). After copying the string into this 
-space you must call |lrv-luaL_addsize| with the size of the string to actually add 
-it to the buffer.
+space you must call
+|lrv-luaL_addsize| with the size of the string to actually add it to the buffer.
 
 
 
@@ -5487,15 +5526,15 @@ Creates and returns a `reference`, in the table at index `t`, for the object
 at the top of the stack (and pops the object).
 
 A reference is a unique integer 
-key. As long as you do not manually add integer keys into table `t`, |lrv-luaL_ref| 
-ensures the uniqueness of the key it returns. You can retrieve an object 
-referred by reference `r` by calling `lua_rawgeti(L, t, r)`. Function 
+key. As long as you do not manually add integer keys into table `t`,
+|lrv-luaL_ref| ensures the uniqueness of the key it returns. You can retrieve an 
+object referred by reference `r` by calling `lua_rawgeti(L, t, r)`. Function 
 |lrv-luaL_unref| frees a reference and its associated object.
 
 If the object at the 
-top of the stack is |lrv-nil|, |lrv-luaL_ref| returns the constant LUA_REFNIL. The 
-constant LUA_NOREF is guaranteed to be different from any reference returned by 
-|lrv-luaL_ref|.
+top of the stack is |lrv-nil|,
+|lrv-luaL_ref| returns the constant LUA_REFNIL. The constant LUA_NOREF is 
+guaranteed to be different from any reference returned by |lrv-luaL_ref|.
 
 
 
@@ -5507,10 +5546,11 @@ constant LUA_NOREF is guaranteed to be different from any reference returned by
 } luaL_Reg;
 <
 
-Type for arrays of functions to be registered by |lrv-luaL_setfuncs|. `name` is 
-the function name and `func` is a pointer to the function. Any array of 
-|lrv-luaL_Reg| must end with a sentinel entry in which both `name` and `func` are 
-`NULL`.
+Type for arrays of functions to be registered by
+|lrv-luaL_setfuncs|.
+`name` is the function name and `func` is a pointer to the function. Any array 
+of |lrv-luaL_Reg| must end with a sentinel entry in which both `name` and `func` 
+are `NULL`.
 
 
 
@@ -5642,7 +5682,8 @@ entry is removed from the table, so that the referred object can be collected.
 The reference `ref` is also freed to be used again.
 
 If `ref` is |lrv-LUA_NOREF| or 
-|lrv-LUA_REFNIL|, |lrv-luaL_unref| does nothing.
+|lrv-LUA_REFNIL|,
+|lrv-luaL_unref| does nothing.
 
 
 
@@ -5653,7 +5694,8 @@ If `ref` is |lrv-LUA_NOREF| or
 
 Pushes onto the stack a string identifying the current position of the control 
 at level `lvl` in the call stack. Typically this string has the following 
-format: >
+format:
+>
   chunkname:currentline:
 
 <
@@ -5745,8 +5787,9 @@ implementations for some of its facilities.
 <
 
 Calls |lrv-section-error| if the value of its argument `v` is false (i.e., |lrv-nil| or 
-false); otherwise, returns all its arguments. In case of error, `message` is 
-the error object; when absent, it defaults to "`assertion failed!`"
+false); otherwise, returns all its arguments. In case of error,
+`message` is the error object; when absent, it defaults to "`assertion 
+failed!`"
 
 
 
@@ -5802,10 +5845,10 @@ running (i.e., not stopped).
 >
   dofile ([filename])
 <Opens the named file and executes its contents as a Lua chunk. When called 
-without arguments, `dofile` executes the contents of the standard input 
-(`stdin`). Returns all values returned by the chunk. In case of errors, 
-`dofile` propagates the error to its caller (that is, `dofile` does not run in 
-protected mode).
+without arguments,
+`dofile` executes the contents of the standard input (`stdin`). Returns all 
+values returned by the chunk. In case of errors, `dofile` propagates the error 
+to its caller (that is, `dofile` does not run in protected mode).
 
 
 
@@ -5818,10 +5861,10 @@ error object. Function `error` never returns.
 Usually, `error` adds some 
 information about the error position at the beginning of the message, if the 
 message is a string. The `level` argument specifies how to get the error 
-position. With level 1 (the default), the error position is where the `error` 
-function was called. Level 2 points the error to where the function that called 
-`error` was called; and so on. Passing a level 0 avoids the addition of error 
-position information to the message.
+position. With level 1 (the default), the error position is where the
+`error` function was called. Level 2 points the error to where the function 
+that called `error` was called; and so on. Passing a level 0 avoids the 
+addition of error position information to the message.
 
 
 
@@ -5851,7 +5894,8 @@ Otherwise, returns the metatable of the given object.
 <
 
 Returns three values (an iterator function, the table `t`, and 0) so that the 
-construction >
+construction
+>
   for i,v in ipairs(t) do body end
 
 <
@@ -5869,36 +5913,37 @@ first nil value.
 Loads a chunk.
 
 If `chunk` is a string, the chunk is this string. If `chunk` is 
-a function, `load` calls it repeatedly to get the chunk pieces. Each call to 
-`chunk` must return a string that concatenates with previous results. A return 
-of an empty string, |lrv-nil|, or no value signals the end of the chunk.
+a function,
+`load` calls it repeatedly to get the chunk pieces. Each call to `chunk` must 
+return a string that concatenates with previous results. A return of an empty 
+string, |lrv-nil|, or no value signals the end of the chunk.
 
-If 
-there are no syntactic errors, returns the compiled chunk as a function; 
-otherwise, returns |lrv-nil| plus the error message.
+If there are no 
+syntactic errors, returns the compiled chunk as a function; otherwise, returns 
+|lrv-nil| plus the error message.
 
-If the resulting function 
-has upvalues, the first upvalue is set to the value of `env`, if that parameter 
-is given, or to the value of the global environment. Other upvalues are 
-initialized with |lrv-nil|. (When you load a main chunk, the resulting function 
-will always have exactly one upvalue, the `_ENV` variable (see |lrv-section-globalenv|). 
-However, when you load a binary chunk created from a function (see 
-|lrv-string.dump|), the resulting function can have an arbitrary number of 
-upvalues.) All upvalues are fresh, that is, they are not shared with any other 
-function.
+If the resulting function has upvalues, the 
+first upvalue is set to the value of `env`, if that parameter is given, or to 
+the value of the global environment. Other upvalues are initialized with 
+|lrv-nil|. (When you load a main chunk, the resulting function will always have 
+exactly one upvalue, the `_ENV` variable (see |lrv-section-globalenv|). However, when you 
+load a binary chunk created from a function (see |lrv-string.dump|), the 
+resulting function can have an arbitrary number of upvalues.) All upvalues are 
+fresh, that is, they are not shared with any other function.
 
-`chunkname` is used as the name of the chunk for error messages and 
-debug information (see |lrv-section-debugI|). When absent, it defaults to `chunk`, if 
-`chunk` is a string, or to "`=(load)`" otherwise.
+`chunkname` is 
+used as the name of the chunk for error messages and debug information (see 
+|lrv-section-debugI|). When absent, it defaults to `chunk`, if `chunk` is a string, or to 
+"`=(load)`" otherwise.
 
-The string `mode` controls 
-whether the chunk can be text or binary (that is, a precompiled chunk). It may 
-be the string "`b`" (only binary chunks), "`t`" (only text chunks), or "`bt`" 
-(both binary and text). The default is "`bt`".
+The string `mode` controls whether the chunk can be text 
+or binary (that is, a precompiled chunk). It may be the string "`b`" (only 
+binary chunks),
+"`t`" (only text chunks), or "`bt`" (both binary and text). The default is 
+"`bt`".
 
-Lua does not check the 
-consistency of binary chunks. Maliciously crafted binary chunks can crash the 
-interpreter.
+Lua does not check the consistency of binary chunks. Maliciously 
+crafted binary chunks can crash the interpreter.
 
 
 
@@ -5918,21 +5963,23 @@ standard input, if no file name is given.
 <
 
 Allows a program to traverse all fields of a table. Its first argument is a 
-table and its second argument is an index in this table. `next` returns the 
-next index of the table and its associated value. When called with |lrv-nil| as 
-its second argument, `next` returns an initial index and its associated value. 
-When called with the last index, or with |lrv-nil| in an empty table, `next` 
-returns |lrv-nil|. If the second argument is absent, then it is interpreted as 
-|lrv-nil|. In particular, you can use `next(t)` to check whether a table is 
-empty.
+table and its second argument is an index in this table.
+`next` returns the next index of the table and its associated value. When 
+called with |lrv-nil| as its second argument,
+`next` returns an initial index and its associated value. When called with the 
+last index, or with |lrv-nil| in an empty table,
+`next` returns |lrv-nil|. If the second argument is absent, then it is 
+interpreted as |lrv-nil|. In particular, you can use `next(t)` to check whether 
+a table is empty.
 
-The order in which the indices are enumerated is not specified, 'even 
-for numeric indices'. (To traverse a table in numerical order, use a numerical 
-for.)
+The order in which the indices are enumerated is not 
+specified,
+'even for numeric indices'. (To traverse a table in numerical order, use a 
+numerical for.)
 
-The behavior of `next` is undefined if, during the traversal, you assign 
-any value to a non-existent field in the table. You may however modify existing 
-fields. In particular, you may clear existing fields.
+The behavior of `next` is undefined if, during the traversal, 
+you assign any value to a non-existent field in the table. You may however 
+modify existing fields. In particular, you may clear existing fields.
 
 
 
@@ -5945,7 +5992,8 @@ If `t` has a metamethod `__pairs`, calls it with `t` as argument and returns
 the first three results from the call.
 
 Otherwise, returns three values: the 
-|lrv-next| function, the table `t`, and |lrv-nil|, so that the construction >
+|lrv-next| function, the table `t`, and |lrv-nil|, so that the construction
+>
   for k,v in pairs(t) do body end
 
 <
@@ -5975,9 +6023,9 @@ error, `pcall` returns false plus the error message.
 >
   print (···)
 <Receives any number of arguments and prints their values to `stdout`, using the 
-|lrv-tostring| function to convert each argument to a string. `print` is not 
-intended for formatted output, but only as a quick way to show a value, for 
-instance for debugging. For complete control over the output, use 
+|lrv-tostring| function to convert each argument to a string.
+`print` is not intended for formatted output, but only as a quick way to show a 
+value, for instance for debugging. For complete control over the output, use 
 |lrv-string.format| and |lrv-io.write|.
 
 
@@ -5994,7 +6042,9 @@ Returns a boolean.
 >
   rawget (table, index)
 <Gets the real value of `table[index]`, without invoking the `__index` 
-metamethod. `table` must be a table; `index` may be any value.
+metamethod.
+`table` must be a table;
+`index` may be any value.
 
 
 
@@ -6010,11 +6060,12 @@ without invoking the `__len` metamethod. Returns an integer.
 >
   rawset (table, index, value)
 <Sets the real value of `table[index]` to `value`, without invoking the 
-`__newindex` metamethod. `table` must be a table, `index` any value different 
-from |lrv-nil| and NaN, and `value` any Lua value.
+`__newindex` metamethod.
+`table` must be a table,
+`index` any value different from |lrv-nil| and NaN, and `value` any Lua 
+value.
 
-This function returns 
-`table`.
+This function returns `table`.
 
 
 
@@ -6050,21 +6101,22 @@ returns `table`.
   tonumber (e [, base])
 <
 
-When called with no `base`, `tonumber` tries to convert its argument to a 
-number. If the argument is already a number or a string convertible to a 
-number, then `tonumber` returns this number; otherwise, it returns 
+When called with no `base`,
+`tonumber` tries to convert its argument to a number. If the argument is 
+already a number or a string convertible to a number, then `tonumber` returns 
+this number; otherwise, it returns |lrv-nil|.
+
+The conversion of strings can 
+result in integers or floats, according to the lexical conventions of Lua (see 
+|lrv-section-lexical|). (The string may have leading and trailing spaces and a sign.)
+
+When 
+called with `base`, then `e` must be a string to be interpreted as an integer 
+numeral in that base. The base may be any integer between 2 and 36, inclusive. 
+In bases above 10, the letter '`A`' (in either upper or lower case) represents 
+10, '`B`' represents 11, and so forth, with '`Z`' representing 35. If the 
+string `e` is not a valid numeral in the given base, the function returns 
 |lrv-nil|.
-
-The conversion of strings can result in integers or floats, 
-according to the lexical conventions of Lua (see |lrv-section-lexical|). (The string may 
-have leading and trailing spaces and a sign.)
-
-When called with `base`, then `e` 
-must be a string to be interpreted as an integer numeral in that base. The base 
-may be any integer between 2 and 36, inclusive. In bases above 10, the letter 
-'`A`' (in either upper or lower case) represents 10, '`B`' represents 11, and 
-so forth, with '`Z`' representing 35. If the string `e` is not a valid numeral 
-in the given base, the function returns |lrv-nil|.
 
 
 
@@ -6085,9 +6137,14 @@ result of the call as its result.
 >
   type (v)
 <Returns the type of its only argument, coded as a string. The possible results 
-of this function are "`nil`" (a string, not the value |lrv-nil|), "`number`", 
-"`string`", "`boolean`", "`table`", "`function`", "`thread`", and 
-"`userdata`".
+of this function are
+"`nil`" (a string, not the value |lrv-nil|),
+"`number`",
+"`string`",
+"`boolean`",
+"`table`",
+"`function`",
+"`thread`", and "`userdata`".
 
 
 
@@ -6125,8 +6182,9 @@ See |lrv-section-coroutine| for a general description of coroutines.
   coroutine.create (f)
 <
 
-Creates a new coroutine, with body `f`. `f` must be a function. Returns this 
-new coroutine, an object with type `"thread"`.
+Creates a new coroutine, with body `f`.
+`f` must be a function. Returns this new coroutine, an object with type 
+`"thread"`.
 
 
 
@@ -6150,13 +6208,14 @@ function.
 
 Starts or continues the execution of coroutine `co`. The first time you resume 
 a coroutine, it starts running its body. The values `val1`, ... are passed as 
-the arguments to the body function. If the coroutine has yielded, `resume` 
-restarts it; the values `val1`, ... are passed as the results from the 
+the arguments to the body function. If the coroutine has yielded,
+`resume` restarts it; the values `val1`, ... are passed as the results from the 
 yield.
 
-If the coroutine runs without any errors, `resume` returns true plus any 
-values passed to `yield` (when the coroutine yields) or any values returned by 
-the body function (when the coroutine terminates). If there is any error, 
+If the coroutine runs without any errors,
+`resume` returns true plus any values passed to `yield` (when the coroutine 
+yields) or any values returned by the body function (when the coroutine 
+terminates). If there is any error,
 `resume` returns false plus the error message.
 
 
@@ -6176,11 +6235,12 @@ is the main one.
   coroutine.status (co)
 <
 
-Returns the status of coroutine `co`, as a string: `"running"`, if the 
-coroutine is running (that is, it called `status`); `"suspended"`, if the 
-coroutine is suspended in a call to `yield`, or if it has not started running 
-yet; `"normal"` if the coroutine is active but not running (that is, it has 
-resumed another coroutine); and `"dead"` if the coroutine has finished its body 
+Returns the status of coroutine `co`, as a string:
+`"running"`, if the coroutine is running (that is, it called `status`);
+`"suspended"`, if the coroutine is suspended in a call to `yield`, or if it has 
+not started running yet;
+`"normal"` if the coroutine is active but not running (that is, it has resumed 
+another coroutine); and `"dead"` if the coroutine has finished its body 
 function, or if it has stopped with an error.
 
 
@@ -6190,11 +6250,11 @@ function, or if it has stopped with an error.
   coroutine.wrap (f)
 <
 
-Creates a new coroutine, with body `f`. `f` must be a function. Returns a 
-function that resumes the coroutine each time it is called. Any arguments 
-passed to the function behave as the extra arguments to `resume`. Returns the 
-same values returned by `resume`, except the first boolean. In case of error, 
-propagates the error.
+Creates a new coroutine, with body `f`.
+`f` must be a function. Returns a function that resumes the coroutine each time 
+it is called. Any arguments passed to the function behave as the extra 
+arguments to `resume`. Returns the same values returned by `resume`, except the 
+first boolean. In case of error, propagates the error.
 
 
 
@@ -6229,7 +6289,7 @@ Loads the given module. The function starts by looking into the
 is, then `require` returns the value stored at `package.loaded[modname]`. 
 Otherwise, it tries to find a loader for the module.
 
-To find a loader, 
+To find a loader,
 `require` is guided by the |lrv-package.searchers| sequence. By changing this 
 sequence, we can change how `require` looks for a module. The following 
 explanation is based on the default configuration for 
@@ -6242,18 +6302,19 @@ that also fails, it searches for a C loader using the path stored in
 |lrv-package.cpath|. If that also fails, it tries an all-in-one loader (see 
 |lrv-package.searchers|).
 
-Once a loader is found, `require` calls the 
-loader with two arguments: `modname` and an extra value dependent on how it got 
-the loader. (If the loader came from a file, this extra value is the file 
-name.) If the loader returns any non-nil value, `require` assigns the returned 
-value to `package.loaded[modname]`. If the loader does not return a non-nil 
-value and has not assigned any value to `package.loaded[modname]`, then 
-`require` assigns true to this entry. In any case, `require` returns the final 
-value of `package.loaded[modname]`.
+Once a loader is found,
+`require` calls the loader with two arguments:
+`modname` and an extra value dependent on how it got the loader. (If the loader 
+came from a file, this extra value is the file name.) If the loader returns any 
+non-nil value,
+`require` assigns the returned value to `package.loaded[modname]`. If the 
+loader does not return a non-nil value and has not assigned any value to 
+`package.loaded[modname]`, then `require` assigns true to this entry. In any 
+case, `require` returns the final value of `package.loaded[modname]`.
 
-If there is any error loading or running 
-the module, or if it cannot find any loader for the module, then `require` 
-raises an error.
+If there 
+is any error loading or running the module, or if it cannot find any loader for 
+the module, then `require` raises an error.
 
 
 
@@ -6305,7 +6366,8 @@ environment variable LUA_CPATH, or a default path defined in `luaconf.h`.
 <
 
 A table used by |lrv-require| to control which modules are already loaded. When 
-you require a module `modname` and `package.loaded[modname]` is not false, 
+you require a module `modname` and
+`package.loaded[modname]` is not false,
 |lrv-require| simply returns the value stored there.
 
 This variable is only a 
@@ -6330,15 +6392,15 @@ a C function. So, `funcname` must follow the |lrv-lua_CFunction| prototype (see
 
 This is a low-level function. It completely bypasses the 
 package and module system. Unlike |lrv-require|, it does not perform any path 
-searching and does not automatically adds extensions. `libname` must be the 
-complete file name of the C library, including if necessary a path and an 
-extension. `funcname` must be the exact name exported by the C library (which 
-may depend on the C compiler and linker used).
+searching and does not automatically adds extensions.
+`libname` must be the complete file name of the C library, including if 
+necessary a path and an extension.
+`funcname` must be the exact name exported by the C library (which may depend 
+on the C compiler and linker used).
 
-This function is not supported 
-by Standard C. As such, it is only available on some platforms (Windows, Linux, 
-Mac OS X, Solaris, BSD, plus other Unix systems that support the `dlfcn` 
-standard).
+This function is not supported by Standard 
+C. As such, it is only available on some platforms (Windows, Linux, Mac OS X, 
+Solaris, BSD, plus other Unix systems that support the `dlfcn` standard).
 
 
 
@@ -6379,27 +6441,28 @@ not change the table used by |lrv-require|.
 A table used by |lrv-require| to control how to load modules.
 
 Each entry in this 
-table is a `searcher function`. When looking for a module, |lrv-require| calls each 
-of these searchers in ascending order, with the module name (the argument given 
-to |lrv-require|) as its sole parameter. The function can return another function 
-(the module `loader`) plus an extra value that will be passed to that loader, 
-or a string explaining why it did not find that module (or |lrv-nil| if it has 
-nothing to say).
+table is a `searcher function`. When looking for a module,
+|lrv-require| calls each of these searchers in ascending order, with the module 
+name (the argument given to |lrv-require|) as its sole parameter. The function can 
+return another function (the module `loader`) plus an extra value that will be 
+passed to that loader, or a string explaining why it did not find that module 
+(or |lrv-nil| if it has nothing to say).
 
-Lua initializes this table with four searcher functions.
+Lua initializes this table with four 
+searcher functions.
 
-The 
-first searcher simply looks for a loader in the |lrv-package.preload| table.
+The first searcher simply looks for a loader in the
+|lrv-package.preload| table.
 
-The 
-second searcher looks for a loader as a Lua library, using the path stored at 
-|lrv-package.path|. The search is done as described in function 
-|lrv-package.searchpath|.
+The second searcher looks for a loader as a Lua 
+library, using the path stored at |lrv-package.path|. The search is done as 
+described in function |lrv-package.searchpath|.
 
-The third searcher looks for a loader as a C library, 
-using the path given by the variable |lrv-package.cpath|. Again, the search is done 
-as described in function |lrv-package.searchpath|. For instance, if the C path is 
-the string >
+The third searcher looks for a 
+loader as a C library, using the path given by the variable |lrv-package.cpath|. 
+Again, the search is done as described in function |lrv-package.searchpath|. For 
+instance, if the C path is the string
+>
   "./?.so;./?.dll;/usr/local/?/init.so"
 
 <
@@ -6443,19 +6506,20 @@ copy of `name` wherein all occurrences of `sep` (a dot, by default) were
 replaced by `rep` (the system's directory separator, by default), and then 
 tries to open the resulting file name.
 
-For instance, if the path is the string 
+For instance, if the path is the string
 >
   "./?.lua;./?.lc;/usr/local/?/init.lua"
 
 <
 
-the search for the name `foo.a` will try to open the files `./foo/a.lua`, 
-`./foo/a.lc`, and `/usr/local/foo/a/init.lua`, in that order.
+the search for the name `foo.a` will try to open the files
+`./foo/a.lua`, `./foo/a.lc`, and
+`/usr/local/foo/a/init.lua`, in that order.
 
-Returns the 
-resulting name of the first file that it can open in read mode (after closing 
-the file), or |lrv-nil| plus an error message if none succeeds. (This error 
-message lists all file names it tried to open.)
+Returns the resulting name of the 
+first file that it can open in read mode (after closing the file), or |lrv-nil| 
+plus an error message if none succeeds. (This error message lists all file 
+names it tried to open.)
 
 
 
@@ -6485,9 +6549,9 @@ The string library assumes one-byte character encodings.
                                                              *lrv-string.byte*
 >
   string.byte (s [, i [, j]])
-<Returns the internal numeric codes of the characters `s[i]`, `s[i+1]`, ..., 
-`s[j]`. The default value for `i` is 1; the default value for `j` is `i`. These 
-indices are corrected following the same rules of function 
+<Returns the internal numeric codes of the characters `s[i]`,
+`s[i+1]`, ..., `s[j]`. The default value for `i` is 1; the default value for 
+`j` is `i`. These indices are corrected following the same rules of function 
 |lrv-string.sub|.
 
 Numeric codes are not necessarily portable across platforms.
@@ -6529,18 +6593,18 @@ function in a way adequate to your needs.)
   string.find (s, pattern [, init [, plain]])
 <
 
-Looks for the first match of `pattern` (see |lrv-section-pm|) in the string `s`. If it 
-finds a match, then `find` returns the indices of `s` where this occurrence 
-starts and ends; otherwise, it returns |lrv-nil|. A third, optional numeric 
-argument `init` specifies where to start the search; its default value is 1 and 
-can be negative. A value of true as a fourth, optional argument `plain` turns 
-off the pattern matching facilities, so the function does a plain "find 
-substring" operation, with no characters in `pattern` being considered magic. 
-Note that if `plain` is given, then `init` must be given as well.
+Looks for the first match of
+`pattern` (see |lrv-section-pm|) in the string `s`. If it finds a match, then `find` 
+returns the indices of `s` where this occurrence starts and ends; otherwise, it 
+returns |lrv-nil|. A third, optional numeric argument `init` specifies where to 
+start the search; its default value is 1 and can be negative. A value of true 
+as a fourth, optional argument `plain` turns off the pattern matching 
+facilities, so the function does a plain "find substring" operation, with no 
+characters in `pattern` being considered magic. Note that if `plain` is given, 
+then `init` must be given as well.
 
-If the 
-pattern has captures, then in a successful match the captured values are also 
-returned, after the two indices.
+If the pattern has captures, then in a 
+successful match the captured values are also returned, after the two indices.
 
 
 
@@ -6552,32 +6616,36 @@ returned, after the two indices.
 Returns a formatted version of its variable number of arguments following the 
 description given in its first argument (which must be a string). The format 
 string follows the same rules as the ISO&nbsp;C function `sprintf`. The only 
-differences are that the options/modifiers `*`, `h`, `L`, `l`, `n`, and `p` are 
-not supported and that there is an extra option, `q`.
+differences are that the options/modifiers
+`*`, `h`, `L`, `l`, `n`, and `p` are not supported and that there is an extra 
+option, `q`.
 
-The `q` option formats a 
-string between double quotes, using escape sequences when necessary to ensure 
-that it can safely be read back by the Lua interpreter. For instance, the call 
+The `q` option formats a string between double quotes, using 
+escape sequences when necessary to ensure that it can safely be read back by 
+the Lua interpreter. For instance, the call
 >
   string.format('%q', 'a string with "quotes" and \n new line')
 
 <
 
-may produce the string: >
+may produce the string:
+>
   "a string with \"quotes\" and \
    new line"
 
 <
 
-Options `A`, `a`, `E`, `e`, `f`, `G`, and `g` all expect a number as 
-argument. Options `c`, `d`, `i`, `o`, `u`, `X`, and `x` expect an integer. When 
-Lua is compiled with a C89 compiler, options `A` and `a` (hexadecimal floats) 
-do not support any modifier (flags, width, length).
+Options
+`A`, `a`, `E`, `e`, `f`,
+`G`, and `g` all expect a number as argument. Options `c`, `d`,
+`i`, `o`, `u`, `X`, and `x` expect an integer. When Lua is compiled with a C89 
+compiler, options `A` and `a` (hexadecimal floats) do not support any modifier 
+(flags, width, length).
 
-Option `s` expects a 
-string; if its argument is not a string, it is converted to one following the 
-same rules of |lrv-tostring|. If the option has any modifier (flags, width, 
-length), the string argument should not contain embedded zeros.
+Option `s` expects a string; if its argument is not a 
+string, it is converted to one following the same rules of |lrv-tostring|. If the 
+option has any modifier (flags, width, length), the string argument should not 
+contain embedded zeros.
 
 
 
@@ -6590,7 +6658,8 @@ no captures, then the whole match is produced in each call.
 
 As an example, the 
 following loop will iterate over all the words from string `s`, printing one 
-per line: >
+per line:
+>
   s = "hello world from Lua"
   for w in string.gmatch(s, "%a+") do
     print(w)
@@ -6599,7 +6668,8 @@ per line: >
 <
 
 The next example collects all pairs `key=value` from the given string into a 
-table: >
+table:
+>
   t = {}
   s = "from=world, to=Lua"
   for k, v in string.gmatch(s, "(%w+)=(%w+)") do
@@ -6618,12 +6688,13 @@ an anchor, as this would prevent the iteration.
   string.gsub (s, pattern, repl [, n])
 <Returns a copy of `s` in which all (or the first `n`, if given) occurrences of 
 the `pattern` (see |lrv-section-pm|) have been replaced by a replacement string specified 
-by `repl`, which can be a string, a table, or a function. `gsub` also returns, 
-as its second value, the total number of matches that occurred. The name `gsub` 
-comes from 'Global SUBstitution'.
+by `repl`, which can be a string, a table, or a function.
+`gsub` also returns, as its second value, the total number of matches that 
+occurred. The name `gsub` comes from 'Global SUBstitution'.
 
-If `repl` is a string, then its value is used 
-for replacement. The character `%` works as an escape character:
+If `repl` is a 
+string, then its value is used for replacement. The character `%` works as an 
+escape character:
 
 any sequence in `repl` of the form `%d`, with d between 1 and 9, stands for the 
 value of the d-th captured substring. The sequence `%0` stands for the whole 
@@ -6645,7 +6716,8 @@ call is a string or a number, then it is used as the replacement string;
 otherwise, if it is false or |lrv-nil|, then there is no replacement (that is, 
 the original match is kept in the string).
 
-Here are some examples: >
+Here are some examples:
+>
   x = string.gsub("hello world", "(%w+)", "%1 %1")
   --> x="hello hello world world"
   
@@ -6691,11 +6763,12 @@ of what an uppercase letter is depends on the current locale.
                                                             *lrv-string.match*
 >
   string.match (s, pattern [, init])
-<Looks for the first match of `pattern` (see |lrv-section-pm|) in the string `s`. If it 
-finds one, then `match` returns the captures from the pattern; otherwise it 
-returns |lrv-nil|. If `pattern` specifies no captures, then the whole match is 
-returned. A third, optional numeric argument `init` specifies where to start 
-the search; its default value is 1 and can be negative.
+<Looks for the first match of
+`pattern` (see |lrv-section-pm|) in the string `s`. If it finds one, then `match` returns 
+the captures from the pattern; otherwise it returns |lrv-nil|. If `pattern` 
+specifies no captures, then the whole match is returned. A third, optional 
+numeric argument `init` specifies where to start the search; its default value 
+is 1 and can be negative.
 
 
 
@@ -6716,8 +6789,8 @@ is, serialized in binary form) according to the format string `fmt` (see
 <
 
 Returns the size of a string resulting from |lrv-string.pack| with the given 
-format. The format string cannot have the variable-length options '`s`' or 
-'`z`' (see |lrv-section-pack|).
+format. The format string cannot have the variable-length options
+'`s`' or '`z`' (see |lrv-section-pack|).
 
 
 
@@ -6744,17 +6817,17 @@ to this function.)
                                                               *lrv-string.sub*
 >
   string.sub (s, i [, j])
-<Returns the substring of `s` that starts at `i`  and continues until `j`; `i` 
-and `j` can be negative. If `j` is absent, then it is assumed to be equal to -1 
-(which is the same as the string length). In particular, the call 
+<Returns the substring of `s` that starts at `i`  and continues until `j`;
+`i` and `j` can be negative. If `j` is absent, then it is assumed to be equal 
+to -1 (which is the same as the string length). In particular, the call 
 `string.sub(s,1,j)` returns a prefix of `s` with length `j`, and `string.sub(s, 
 -i)` (for a positive `i`) returns a suffix of `s` with length `i`.
 
 If, after 
-the translation of negative indices, `i` is less than 1, it is corrected to 1. 
-If `j` is greater than the string length, it is corrected to that length. If, 
-after these corrections, `i` is greater than `j`, the function returns the 
-empty string.
+the translation of negative indices,
+`i` is less than 1, it is corrected to 1. If `j` is greater than the string 
+length, it is corrected to that length. If, after these corrections,
+`i` is greater than `j`, the function returns the empty string.
 
 
 
@@ -7088,7 +7161,8 @@ is a valid UTF-8 string.
   utf8.codes (s)
 <
 
-Returns values so that the construction >
+Returns values so that the construction
+>
   for p, c in utf8.codes(s) do body end
 
 <
@@ -7121,19 +7195,20 @@ position of the first invalid byte.
                                                              *lrv-utf8.offset*
 >
   utf8.offset (s, n [, i])
-<Returns the position (in bytes) where the encoding of the `n`-th character of 
-`s` (counting from position `i`) starts. A negative `n` gets characters before 
-position `i`. The default for `i` is 1 when `n` is non-negative and `#s + 1` 
-otherwise, so that `utf8.offset(s, -n)` gets the offset of the `n`-th character 
-from the end of the string. If the specified character is neither in the 
-subject nor right after its end, the function returns |lrv-nil|.
+<Returns the position (in bytes) where the encoding of the
+`n`-th character of `s` (counting from position `i`) starts. A negative `n` 
+gets characters before position `i`. The default for `i` is 1 when `n` is 
+non-negative and `#s + 1` otherwise, so that `utf8.offset(s, -n)` gets the 
+offset of the
+`n`-th character from the end of the string. If the specified character is 
+neither in the subject nor right after its end, the function returns 
+|lrv-nil|.
 
-As a special 
-case, when `n` is 0 the function returns the start of the encoding of the 
-character that contains the `i`-th byte of `s`.
+As a special case, when `n` is 0 the function returns the start of 
+the encoding of the character that contains the `i`-th byte of `s`.
 
-This function assumes that `s` 
-is a valid UTF-8 string.
+This 
+function assumes that `s` is a valid UTF-8 string.
 
 
 
@@ -7167,7 +7242,7 @@ If `i` is greater than `j`, returns the empty string.
   table.insert (list, [pos,] value)
 <
 
-Inserts element `value` at position `pos` in `list`, shifting up the elements 
+Inserts element `value` at position `pos` in `list`, shifting up the elements
 `list[pos], list[pos+1], ···, list[#list]`. The default value for `pos` is 
 `#list+1`, so that a call `table.insert(t,x)` inserts `x` at the end of list 
 `t`.
@@ -7180,12 +7255,12 @@ Inserts element `value` at position `pos` in `list`, shifting up the elements
 <
 
 Moves elements from table `a1` to table `a2`, performing the equivalent to the 
-following multiple assignment: `a2[t],··· = a1[f],···,a1[e]`. The default 
-for `a2` is `a1`. The destination range can overlap with the source range. The 
-number of elements to be moved must fit in a Lua integer.
+following multiple assignment:
+`a2[t],··· = a1[f],···,a1[e]`. The default for `a2` is `a1`. The 
+destination range can overlap with the source range. The number of elements to 
+be moved must fit in a Lua integer.
 
-Returns the 
-destination table `a2`.
+Returns the destination table `a2`.
 
 
 
@@ -7207,7 +7282,8 @@ may not be a sequence.
 
 Removes from `list` the element at position `pos`, returning the value of the 
 removed element. When `pos` is an integer between 1 and `#list`, it shifts down 
-the elements `list[pos+1], list[pos+2], ···, list[#list]` and erases element 
+the elements
+`list[pos+1], list[pos+2], ···, list[#list]` and erases element 
 `list[#list]`; The index `pos` can also be 0 when `#list` is 0, or `#list + 1`; 
 in those cases, the function erases the element `list[pos]`.
 
@@ -7225,16 +7301,16 @@ of list `l`.
 Sorts list elements in a given order, in-place, from `list[1]` to 
 `list[#list]`. If `comp` is given, then it must be a function that receives two 
 list elements and returns true when the first element must come before the 
-second in the final order (so that, after the sort, `i < j` implies `not 
-comp(list[j],list[i])`). If `comp` is not given, then the standard Lua operator 
-`<` is used instead.
+second in the final order (so that, after the sort,
+`i < j` implies `not comp(list[j],list[i])`). If `comp` is not given, then the 
+standard Lua operator `<` is used instead.
 
-Note that the `comp` function must define a strict partial 
-order over the elements in the list; that is, it must be asymmetric and 
-transitive. Otherwise, no valid sort may be possible.
+Note that the `comp` function must 
+define a strict partial order over the elements in the list; that is, it must 
+be asymmetric and transitive. Otherwise, no valid sort may be possible.
 
-The sort algorithm is not 
-stable:
+The 
+sort algorithm is not stable:
 
 elements considered equal by the given order may have their relative positions 
 changed by the sort.
@@ -7246,7 +7322,8 @@ changed by the sort.
   table.unpack (list [, i [, j]])
 <
 
-Returns the elements from the given list. This function is equivalent to >
+Returns the elements from the given list. This function is equivalent to
+>
   return list[i], list[i+1], ···, list[j]
 
 <
@@ -7454,14 +7531,14 @@ Converts the angle `x` from degrees to radians.
 <
 
 When called without arguments, returns a pseudo-random float with uniform 
-distribution in the range  '[0,1)'.  
-When called with two integers `m` and `n`, `math.random` returns a 
-pseudo-random integer with uniform distribution in the range '[m, n]'. (The 
-value n-m cannot be negative and must fit in a Lua integer.) The call 
-`math.random(n)` is equivalent to `math.random(1,n)`.
+distribution in the range  '[0,1)'. When called with two integers `m` and `n`,
+`math.random` returns a pseudo-random integer with uniform distribution in the 
+range '[m, n]'. (The value n-m cannot be negative and must fit in a Lua 
+integer.) The call `math.random(n)` is equivalent to `math.random(1,n)`.
 
-This function is an 
-interface to the underling pseudo-random generator function provided by C.
+This 
+function is an interface to the underling pseudo-random generator function 
+provided by C.
 
 
 
@@ -7519,8 +7596,8 @@ Otherwise, returns |lrv-nil|.
   math.type (x)
 <
 
-Returns "`integer`" if `x` is an integer, "`float`" if it is a float, or 
-|lrv-nil| if `x` is not a number.
+Returns "`integer`" if `x` is an integer,
+"`float`" if it is a float, or |lrv-nil| if `x` is not a number.
 
 
 
@@ -7633,10 +7710,12 @@ case of success, it returns a new file handle.
 The `mode` string can be any of 
 the following:
 
-* '"`r`": ' read mode (the default); * '"`w`": ' write mode; * '"`a`": ' append 
-mode; * '"`r+`": ' update mode, all previous data is preserved; * '"`w+`": ' 
-update mode, all previous data is erased; * '"`a+`": ' append update mode, 
-previous data is preserved,
+* '"`r`": ' read mode (the default);
+* '"`w`": ' write mode;
+* '"`a`": ' append mode;
+* '"`r+`": ' update mode, all previous data is preserved;
+* '"`w+`": ' update mode, all previous data is erased;
+* '"`a+`": ' append update mode, previous data is preserved,
   writing is only allowed at the end of file.
 
 The `mode` string can also have a '`b`' at the end, which is needed in some 
@@ -7692,8 +7771,9 @@ in update mode and it is automatically removed when the program ends.
 <
 
 Checks whether `obj` is a valid file handle. Returns the string `"file"` if 
-`obj` is an open file handle, `"closed file"` if `obj` is a closed file handle, 
-or |lrv-nil| if `obj` is not a file handle.
+`obj` is an open file handle,
+`"closed file"` if `obj` is a closed file handle, or |lrv-nil| if `obj` is not 
+a file handle.
 
 
 
@@ -7715,8 +7795,8 @@ Closes `file`. Note that files are automatically closed when their handles are
 garbage collected, but that takes an unpredictable amount of time to 
 happen.
 
-When closing a file handle created with |lrv-io.popen|, |lrv-file:close| 
-returns the same values returned by |lrv-os.execute|.
+When closing a file handle created with |lrv-io.popen|,
+|lrv-file:close| returns the same values returned by |lrv-os.execute|.
 
 
 
@@ -7736,7 +7816,8 @@ Saves any written data to `file`.
 
 Returns an iterator function that, each time it is called, reads the file 
 according to the given formats. When no format is given, uses "`l`" as a 
-default. As an example, the construction >
+default. As an example, the construction
+>
   for c in file:lines(1) do body end
 
 <
@@ -7804,8 +7885,9 @@ Sets and gets the file position, measured from the beginning of the file, to
 the position given by `offset` plus a base specified by the string `whence`, as 
 follows:
 
-* '"`set`": ' base is position 0 (beginning of the file); * '"`cur`": ' base is 
-current position; * '"`end`": ' base is end of file;
+* '"`set`": ' base is position 0 (beginning of the file);
+* '"`cur`": ' base is current position;
+* '"`end`": ' base is end of file;
 
 In case of success, `seek` returns the final file position, measured in bytes 
 from the beginning of the file. If `seek` fails, it returns |lrv-nil|, plus a 
@@ -7891,8 +7973,10 @@ Otherwise, `date` formats the current time.
 If `format` starts with '`!`', then 
 the date is formatted in Coordinated Universal Time. After this optional 
 character, if `format` is the string "`*t`", then `date` returns a table with 
-the following fields: `year`, `month` (1–12), `day` (1–31), `hour` 
-(0–23), `min` (0–59), `sec` (0–61), `wday` (weekday, 1–7, Sunday is 1), 
+the following fields:
+`year`, `month` (1–12), `day` (1–31),
+`hour` (0–23), `min` (0–59), `sec` (0–61),
+`wday` (weekday, 1–7, Sunday is 1),
 `yday` (day of the year, 1–366), and `isdst` (daylight saving flag, a 
 boolean). This last field may be absent if the information is not available.
 
@@ -7901,13 +7985,14 @@ If
 according to the same rules as the ISO&nbsp;C function `strftime`.
 
 When called 
-without arguments, `date` returns a reasonable date and time representation 
-that depends on the host system and on the current locale. (More specifically, 
-`os.date()` is equivalent to `os.date("%c")`.)
+without arguments,
+`date` returns a reasonable date and time representation that depends on the 
+host system and on the current locale. (More specifically, `os.date()` is 
+equivalent to `os.date("%c")`.)
 
-In non-POSIX systems, this 
-function may be not thread safe because of its reliance on C&nbsp;function 
-`gmtime` and C&nbsp;function `localtime`.
+In non-POSIX systems, this function may be not 
+thread safe because of its reliance on C&nbsp;function `gmtime` and 
+C&nbsp;function `localtime`.
 
 
 
@@ -7943,8 +8028,8 @@ is the signal that terminated the command.
 
 
 
-When called without a `command`, `os.execute` returns a boolean that is true 
-if a shell is available.
+When called without a `command`,
+`os.execute` returns a boolean that is true if a shell is available.
 
 
 
@@ -8000,23 +8085,24 @@ code. Otherwise, it returns true.
   os.setlocale (locale [, category])
 <
 
-Sets the current locale of the program. `locale` is a system-dependent string 
-specifying a locale; `category` is an optional string describing which category 
-to change: `"all"`, `"collate"`, `"ctype"`, `"monetary"`, `"numeric"`, or 
-`"time"`; the default category is `"all"`. The function returns the name of the 
-new locale, or |lrv-nil| if the request cannot be honored.
+Sets the current locale of the program.
+`locale` is a system-dependent string specifying a locale;
+`category` is an optional string describing which category to change:
+`"all"`, `"collate"`, `"ctype"`,
+`"monetary"`, `"numeric"`, or `"time"`; the default category is `"all"`. The 
+function returns the name of the new locale, or |lrv-nil| if the request cannot 
+be honored.
 
-If `locale` is the 
-empty string, the current locale is set to an implementation-defined native 
-locale. If `locale` is the string "`C`", the current locale is set to the 
-standard C locale.
+If `locale` is the empty string, the current locale is set to an 
+implementation-defined native locale. If `locale` is the string "`C`", the 
+current locale is set to the standard C locale.
 
-When called with |lrv-nil| as the first argument, this 
-function only returns the name of the current locale for the given 
-category.
+When called with |lrv-nil| as 
+the first argument, this function only returns the name of the current locale 
+for the given category.
 
-This function may be not thread safe because of its reliance on 
-C&nbsp;function `setlocale`.
+This function may be not thread safe because of its 
+reliance on C&nbsp;function `setlocale`.
 
 
 
@@ -8027,21 +8113,24 @@ C&nbsp;function `setlocale`.
 
 Returns the current time when called without arguments, or a time representing 
 the local date and time specified by the given table. This table must have 
-fields `year`, `month`, and `day`, and may have fields `hour` (default is 12), 
-`min` (default is 0), `sec` (default is 0), and `isdst` (default is |lrv-nil|). 
-Other fields are ignored. For a description of these fields, see the |lrv-os.date| 
-function.
+fields `year`, `month`, and `day`, and may have fields
+`hour` (default is 12),
+`min` (default is 0),
+`sec` (default is 0), and `isdst` (default is |lrv-nil|). Other fields are 
+ignored. For a description of these fields, see the |lrv-os.date| function.
 
-The values in these fields do not need to be inside their valid 
-ranges. For instance, if `sec` is -10, it means -10 seconds from the time 
-specified by the other fields; if `hour` is 1000, it means +1000 hours from the 
-time specified by the other fields.
+The 
+values in these fields do not need to be inside their valid ranges. For 
+instance, if `sec` is -10, it means -10 seconds from the time specified by the 
+other fields; if `hour` is 1000, it means +1000 hours from the time specified 
+by the other fields.
 
-The returned value is a number, whose 
-meaning depends on your system. In POSIX, Windows, and some other systems, this 
-number counts the number of seconds since some given start time (the "epoch"). 
-In other systems, the meaning is not specified, and the number returned by 
-`time` can be used only as an argument to |lrv-os.date| and |lrv-os.difftime|.
+The returned value is a number, whose meaning depends on 
+your system. In POSIX, Windows, and some other systems, this number counts the 
+number of seconds since some given start time (the "epoch"). In other systems, 
+the meaning is not specified, and the number returned by `time` can be used 
+only as an argument to
+|lrv-os.date| and |lrv-os.difftime|.
 
 
 
@@ -8158,19 +8247,19 @@ only explicit local variables, but also parameters, temporaries, etc.
 The first 
 parameter or local variable has index 1, and so on, following the order that 
 they are declared in the code, counting only the variables that are active in 
-the current scope of the function. Negative indices refer to vararg arguments; 
+the current scope of the function. Negative indices refer to vararg arguments;
 -1 is the first vararg argument. The function returns |lrv-nil| if there is no 
 variable with the given index, and raises an error when called with a level out 
 of range. (You can call |lrv-debug.getinfo| to check whether the level is 
 valid.)
 
-Variable names starting with '`(`' (open parenthesis) 
-represent variables with no known names (internal variables such as loop 
-control variables, and variables from chunks saved without debug 
-information).
+Variable names starting with '`(`' (open parenthesis) represent 
+variables with no known names (internal variables such as loop control 
+variables, and variables from chunks saved without debug information).
 
-The parameter `f` may also be a function. In that case, 
-`getlocal` returns only the name of function parameters.
+The 
+parameter `f` may also be a function. In that case, `getlocal` returns only the 
+name of function parameters.
 
 
 
@@ -8227,21 +8316,23 @@ Sets the given function as a hook. The string `mask` and the number `count`
 describe when the hook will be called. The string mask may have any combination 
 of the following characters, with the given meaning:
 
-* ''`c`': ' the hook is called every time Lua calls a function; * ''`r`': ' the 
-hook is called every time Lua returns from a function; * ''`l`': ' the hook is 
-called every time Lua enters a new line of code.
+* ''`c`': ' the hook is called every time Lua calls a function;
+* ''`r`': ' the hook is called every time Lua returns from a function;
+* ''`l`': ' the hook is called every time Lua enters a new line of code.
 
 Moreover, with a `count` different from zero, the hook is called also after 
 every `count` instructions.
 
-When called without arguments, |lrv-debug.sethook| 
-turns off the hook.
+When called without arguments,
+|lrv-debug.sethook| turns off the hook.
 
-When the hook is called, its first argument is a string 
-describing the event that has triggered its call: `"call"` (or `"tail call"`), 
-`"return"`, `"line"`, and `"count"`. For line events, the hook also gets the 
-new line number as its second parameter. Inside a hook, you can call `getinfo` 
-with level 2 to get more information about the running function (level 0 is the 
+When the hook is called, its first argument 
+is a string describing the event that has triggered its call:
+`"call"` (or `"tail call"`),
+`"return"`,
+`"line"`, and `"count"`. For line events, the hook also gets the new line 
+number as its second parameter. Inside a hook, you can call `getinfo` with 
+level 2 to get more information about the running function (level 0 is the 
 `getinfo` function, and level 1 is the hook function).
 
 
@@ -8289,7 +8380,7 @@ given index. Otherwise, it returns the name of the upvalue.
   debug.setuservalue (udata, value)
 <
 
-Sets the given `value` as the Lua value associated to the given `udata`. 
+Sets the given `value` as the Lua value associated to the given `udata`.
 `udata` must be a full userdata.
 
 Returns `udata`.
