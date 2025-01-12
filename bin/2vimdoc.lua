@@ -1,4 +1,4 @@
-#!/usr/bin/env lua5.3
+#!/usr/bin/env lua5.4
 
 -- Convert the Lua manual into vim help.
 -- Based on 2html from Lua: https://github.com/lua/lua/blob/v5.3/manual/2html
@@ -8,7 +8,7 @@ local lume = require "lume"
 
 -- HACK(idbrii): setup input/output
 t = io.input("manual.of")
-t = io.output("../doc/lua53refvim.txt")
+t = io.output("../doc/lua54refvim.txt")
 
 -- special marks:
 -- \1 - paragraph (empty line)
@@ -17,9 +17,9 @@ t = io.output("../doc/lua53refvim.txt")
 
 ---------------------------------------------------------------
 header = [[
-*luarefvim.txt*        Lua 5.3 Reference Manual for Vim
+*luarefvim.txt*        Lua 5.4 Reference Manual for Vim
 
-Adapted from "Lua: 5.3 reference manual"
+Adapted from "Lua: 5.4 reference manual"
 by R. Ierusalimschy, L. H. de Figueiredo, W. Celes
 (c) 2015 Lua.org, PUC-Rio.
 ]]
@@ -30,10 +30,10 @@ footer = [[
 ==============================================================================
 
 
-This help file has the same copyright and license as Lua 5.3 and the Lua 5.3
+This help file has the same copyright and license as Lua 5.4 and the Lua 5.4
 manual:
 
-Copyright (C) 1994-2020 Lua.org, PUC-Rio.
+Copyright (C) 1994-2024 Lua.org, PUC-Rio.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
