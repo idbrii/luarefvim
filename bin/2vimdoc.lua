@@ -14,6 +14,7 @@ t = io.output("../doc/lua54refvim.txt")
 -- \1 - paragraph (empty line)
 -- \4 - remove spaces around it
 -- \3 - ref (followed by label|)
+-- \5 - section
 
 ---------------------------------------------------------------
 header = [[
@@ -73,7 +74,7 @@ end
 
 ---------------------------------------------------------------
 
-local function textblock(str)
+local function join_lines(str)
   -- Modify some text to ensure it maintains proper whitespace.
   str = string.gsub(str, "%) operation%.", "%0\n")
   str = string.gsub(str, "([:<>])\n(%w)", "%1\n\n%2")
@@ -85,7 +86,27 @@ local function textblock(str)
   -- after (no :><), but I haven't figured that out.
   str = str:gsub("(%S)[^%S\n]*\n([%a()])", "%1 %2")
   str = str:gsub("(\n%* )\n(%S)", "%1 %2")
+  return str
+end
+
+local function wordwrap(str)
   return lume.wordwrap(str, 80)
+end
+
+local function textblock(str)
+  str = join_lines(str)
+  return wordwrap(str)
+end
+
+local function textblock_conservative(str)
+  str = join_lines(str)
+  -- Move text away from code blocks.
+  str = str:gsub("\n(\n)< (%u)", "\n<\n%2")
+  -- Wrap each paragraph that looks like a line of prose.
+  -- TODO: is this is failing to wrap some:
+  -- * "A `short literal string`"
+  str = str:gsub("\1%u[^\1]+", wordwrap)
+  return str
 end
 
 local function compose (f,g)
@@ -346,11 +367,16 @@ local function section (what, nonum)
   return function (h)
     local title
     title, h = getparamtitle(what, h, nonum)
-    -- TODO: figure out how to use textblock. sections contain sections, so we can't just use it directly.
-    --~ h = textblock(h)
+    -- Only apply textblock to sections without subsections. Otherwise we'll
+    -- mess up formating of subsection's right-aligned help tags.
+    local has_subsection = h:find("\5", nil, true)
+    if not has_subsection then
+      h = textblock_conservative(h)
+    end
     --~ h = "|>"..h.."<|"
+    h = expandpara(h)
     local fn = what == "h1" and dischargefoots() or ""
-    return ([[%s~%s%s%s]]):format(title, h, fn, dischargelist())
+    return ([[%s%s~%s%s%s]]):format("\5", title, h, fn, dischargelist())
   end
 end
 
@@ -523,7 +549,7 @@ local Tex = {
     name = string.gsub(signature, " (.+", "")
     local l = lua2link(name)
     local link,text = anchor(name, l, name, Tag.code(name))
-    local txt = ("%s\n%s%s"):format(link, code_block(signature), description)
+    local txt = ("\5%s\n%s%s"):format(link, code_block(signature), description)
     return txt
   end,
 
@@ -601,6 +627,10 @@ t = string.gsub(t, "\3(.-)\3", ref)
 t = string.gsub(t, "%s*\4%s*", "")
 
 t = expandpara(t)
+
+-- Remove section markers.
+t = t:gsub("\5", "")
+
 
 -- TODO: can we avoid inserting these? I think it's from @item
 -- Handle weird items with |
