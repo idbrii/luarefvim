@@ -123,7 +123,8 @@ end
 
 -- Like code(), but adds newlines.
 local function code_block(txt)
-  return code(("\n  %s\n"):format(txt))
+  -- Trailing space to render correctly if user didn't add their own newline.
+  return (">\n  %s\n< "):format(txt)
 end
 
 local function noop(...)

@@ -381,7 +381,7 @@ two underscores followed by lowercase Latin letters.
                                                                    *lrv-__add*
 >
   __add
-<the addition (`+`) operation.
+< the addition (`+`) operation.
 
 If any operand for an addition is not a number, Lua will try to call a 
 metamethod. It starts by checking the first operand (even if it is a number); 
@@ -395,7 +395,7 @@ Lua raises an error.
                                                                    *lrv-__sub*
 >
   __sub
-<the subtraction (`-`) operation.
+< the subtraction (`-`) operation.
 
 Behavior similar to the addition operation.
 
@@ -403,7 +403,7 @@ Behavior similar to the addition operation.
                                                                    *lrv-__mul*
 >
   __mul
-<the multiplication (`*`) operation.
+< the multiplication (`*`) operation.
 
 Behavior similar to the addition operation.
 
@@ -411,7 +411,7 @@ Behavior similar to the addition operation.
                                                                    *lrv-__div*
 >
   __div
-<the division (`/`) operation.
+< the division (`/`) operation.
 
 Behavior similar to the addition operation.
 
@@ -419,7 +419,7 @@ Behavior similar to the addition operation.
                                                                    *lrv-__mod*
 >
   __mod
-<the modulo (`%`) operation.
+< the modulo (`%`) operation.
 
 Behavior similar to the addition operation.
 
@@ -427,7 +427,7 @@ Behavior similar to the addition operation.
                                                                    *lrv-__pow*
 >
   __pow
-<the exponentiation (`^`) operation.
+< the exponentiation (`^`) operation.
 
 Behavior similar to the addition operation.
 
@@ -435,7 +435,7 @@ Behavior similar to the addition operation.
                                                                    *lrv-__unm*
 >
   __unm
-<the negation (unary `-`) operation.
+< the negation (unary `-`) operation.
 
 Behavior similar to the addition operation.
 
@@ -443,7 +443,7 @@ Behavior similar to the addition operation.
                                                                   *lrv-__idiv*
 >
   __idiv
-<the floor division (`//`) operation.
+< the floor division (`//`) operation.
 
 Behavior similar to the addition operation.
 
@@ -451,7 +451,7 @@ Behavior similar to the addition operation.
                                                                   *lrv-__band*
 >
   __band
-<the bitwise AND (`&`) operation.
+< the bitwise AND (`&`) operation.
 
 Behavior similar to the addition operation, except that Lua will try a 
 metamethod if any operand is neither an integer nor a float coercible to an 
@@ -461,7 +461,7 @@ integer (see |lrv-section-coercion|).
                                                                    *lrv-__bor*
 >
   __bor
-<the bitwise OR (`|`) operation.
+< the bitwise OR (`|`) operation.
 
 Behavior similar to the bitwise AND operation.
 
@@ -469,7 +469,7 @@ Behavior similar to the bitwise AND operation.
                                                                   *lrv-__bxor*
 >
   __bxor
-<the bitwise exclusive OR (binary `~`) operation.
+< the bitwise exclusive OR (binary `~`) operation.
 
 Behavior similar to the bitwise AND operation.
 
@@ -477,7 +477,7 @@ Behavior similar to the bitwise AND operation.
                                                                   *lrv-__bnot*
 >
   __bnot
-<the bitwise NOT (unary `~`) operation.
+< the bitwise NOT (unary `~`) operation.
 
 Behavior similar to the bitwise AND operation.
 
@@ -485,7 +485,7 @@ Behavior similar to the bitwise AND operation.
                                                                    *lrv-__shl*
 >
   __shl
-<the bitwise left shift (`<<`) operation.
+< the bitwise left shift (`<<`) operation.
 
 Behavior similar to the bitwise AND operation.
 
@@ -493,7 +493,7 @@ Behavior similar to the bitwise AND operation.
                                                                    *lrv-__shr*
 >
   __shr
-<the bitwise right shift (`>>`) operation.
+< the bitwise right shift (`>>`) operation.
 
 Behavior similar to the bitwise AND operation.
 
@@ -501,7 +501,7 @@ Behavior similar to the bitwise AND operation.
                                                                 *lrv-__concat*
 >
   __concat
-<the concatenation (`..`) operation.
+< the concatenation (`..`) operation.
 
 Behavior similar to the addition operation, except that Lua will try a 
 metamethod if any operand is neither a string nor a number (which is always 
@@ -511,7 +511,7 @@ coercible to a string).
                                                                    *lrv-__len*
 >
   __len
-<the length (`#`) operation.
+< the length (`#`) operation.
 
 If the object is not a string, Lua will try its metamethod. If there is a 
 metamethod, Lua calls it with the object as argument, and the result of the 
@@ -523,7 +523,7 @@ operation (see |lrv-section-len-op|). Otherwise, Lua raises an error.
                                                                     *lrv-__eq*
 >
   __eq
-<the equal (`==`) operation.
+< the equal (`==`) operation.
 
 Behavior similar to the addition operation, except that Lua will try a 
 metamethod only when the values being compared are either both tables or both 
@@ -534,7 +534,7 @@ always converted to a boolean.
                                                                     *lrv-__lt*
 >
   __lt
-<the less than (`<`) operation.
+< the less than (`<`) operation.
 
 Behavior similar to the addition operation, except that Lua will try a 
 metamethod only when the values being compared are neither both numbers nor 
@@ -545,7 +545,7 @@ boolean.
                                                                     *lrv-__le*
 >
   __le
-<the less equal (`<=`) operation.
+< the less equal (`<=`) operation.
 
 Behavior similar to the less than operation.
 
@@ -553,7 +553,7 @@ Behavior similar to the less than operation.
                                                                  *lrv-__index*
 >
   __index
-<The indexing access operation `table[key]`. This event happens when `table` is 
+< The indexing access operation `table[key]`. This event happens when `table` is 
 not a table or when `key` is not present in `table`. The metavalue is looked up 
 in the metatable of `table`.
 
@@ -568,7 +568,7 @@ is regular, not raw, and therefore can trigger another `__index` metavalue.
                                                               *lrv-__newindex*
 >
   __newindex
-<The indexing assignment `table[key] = value`. Like the index event, this event 
+< The indexing assignment `table[key] = value`. Like the index event, this event 
 happens when `table` is not a table or when `key` is not present in `table`. 
 The metavalue is looked up in the metatable of `table`.
 
@@ -588,7 +588,7 @@ assignment.
                                                                   *lrv-__call*
 >
   __call
-<The call operation `func(args)`. This event happens when Lua tries to call a 
+< The call operation `func(args)`. This event happens when Lua tries to call a 
 non-function value (that is, `func` is not a function). The metamethod is 
 looked up in `func`. If present, the metamethod is called with `func` as its 
 first argument, followed by the arguments of the original call (`args`). All 
@@ -2966,7 +2966,7 @@ and therefore may raise any errors.
                                                             *lrv-lua_absindex*
 >
   int lua_absindex (lua_State *L, int idx);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Converts the acceptable index `idx` into an equivalent absolute index (that 
 is, one that does not depend on the stack size).
@@ -2979,7 +2979,7 @@ is, one that does not depend on the stack size).
                              void *ptr,
                              size_t osize,
                              size_t nsize);
-<
+< 
 
 The type of the memory-allocation function used by Lua states. The allocator 
 function must provide a functionality similar to `realloc`, but not exactly the 
@@ -3035,7 +3035,7 @@ Note that ISO C ensures that `free(NULL)` has no effect and that
                                                                *lrv-lua_arith*
 >
   void lua_arith (lua_State *L, int op);
-<                                                             `[-(2|1), +1, e]`
+<                                                              `[-(2|1), +1, e]`
 
 Performs an arithmetic or bitwise operation over the two values (or one, in 
 the case of negations) at the top of the stack, with the value on the top being 
@@ -3069,7 +3069,7 @@ constants:
                                                              *lrv-lua_atpanic*
 >
   lua_CFunction lua_atpanic (lua_State *L, lua_CFunction panicf);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Sets a new panic function and returns the old one (see |lrv-section-C-error|).
 
@@ -3078,7 +3078,7 @@ Sets a new panic function and returns the old one (see |lrv-section-C-error|).
                                                                 *lrv-lua_call*
 >
   void lua_call (lua_State *L, int nargs, int nresults);
-<                                                  `[-(nargs+1), +nresults, e]`
+<                                                   `[-(nargs+1), +nresults, e]`
 
 Calls a function. Like regular Lua calls,
 `lua_call` respects the `__call` metamethod. So, here the word "function" means 
@@ -3136,7 +3136,7 @@ good programming practice.
                 int nresults,
                 lua_KContext ctx,
                 lua_KFunction k);
-<                                                `[-(nargs + 1), +nresults, e]`
+<                                                 `[-(nargs + 1), +nresults, e]`
 
 This function behaves exactly like |lrv-lua_call|, but allows the called function 
 to yield (see |lrv-section-continuations|).
@@ -3146,7 +3146,7 @@ to yield (see |lrv-section-continuations|).
                                                            *lrv-lua_CFunction*
 >
   typedef int (*lua_CFunction) (lua_State *L);
-<
+< 
 
 Type for C functions.
 
@@ -3190,7 +3190,7 @@ variable number of numeric arguments and returns their average and their sum:
                                                           *lrv-lua_checkstack*
 >
   int lua_checkstack (lua_State *L, int n);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Ensures that the stack has space for at least `n` extra elements, that is, 
 that you can safely push up to `n` values into it. It returns false if it 
@@ -3205,7 +3205,7 @@ elements, it is left unchanged.
                                                                *lrv-lua_close*
 >
   void lua_close (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Close all active to-be-closed variables in the main thread, release all 
 objects in the given Lua state (calling the corresponding garbage-collection 
@@ -3222,7 +3222,7 @@ servers, will probably need to close states as soon as they are not needed.
                                                            *lrv-lua_closeslot*
 >
   void lua_closeslot (lua_State *L, int index);
-<                                                                 `[-0, +0, e]`
+<                                                                  `[-0, +0, e]`
 
 Close the to-be-closed slot at the given index and set its value to |lrv-nil|. 
 The index must be the last index previously marked to be closed (see 
@@ -3239,7 +3239,7 @@ introduced in release 5.4.3.)
                                                          *lrv-lua_closethread*
 >
   int lua_closethread (lua_State *L, lua_State *from);
-<                                                               `[-0, +?, –]`
+<                                                                `[-0, +?, –]`
 
 Resets a thread, cleaning its call stack and closing all pending to-be-closed 
 variables. Returns a status code:
@@ -3258,7 +3258,7 @@ this parameter can be `NULL`.
                                                              *lrv-lua_compare*
 >
   int lua_compare (lua_State *L, int index1, int index2, int op);
-<                                                                 `[-0, +0, e]`
+<                                                                  `[-0, +0, e]`
 
 Compares two Lua values. Returns 1 if the value at index `index1` satisfies 
 `op` when compared with the value at index `index2`, following the semantics of 
@@ -3280,7 +3280,7 @@ must be one of the following constants:
                                                               *lrv-lua_concat*
 >
   void lua_concat (lua_State *L, int n);
-<                                                                 `[-n, +1, e]`
+<                                                                  `[-n, +1, e]`
 
 Concatenates the `n` values at the top of the stack, pops them, and leaves the 
 result on the top. If `n` is 1, the result is the single value on the stack 
@@ -3293,7 +3293,7 @@ string. Concatenation is performed following the usual semantics of Lua (see
                                                                 *lrv-lua_copy*
 >
   void lua_copy (lua_State *L, int fromidx, int toidx);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Copies the element at index `fromidx` into the valid index `toidx`, replacing 
 the value at that position. Values at other positions are not affected.
@@ -3303,7 +3303,7 @@ the value at that position. Values at other positions are not affected.
                                                          *lrv-lua_createtable*
 >
   void lua_createtable (lua_State *L, int narr, int nrec);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Creates a new empty table and pushes it onto the stack. Parameter `narr` is a 
 hint for how many elements the table will have as a sequence; parameter `nrec` 
@@ -3320,7 +3320,7 @@ Otherwise you can use the function |lrv-lua_newtable|.
                         lua_Writer writer,
                         void *data,
                         int strip);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Dumps a function as a binary chunk. Receives a Lua function on the top of the 
 stack and produces a binary chunk that, if loaded again, results in a function 
@@ -3342,7 +3342,7 @@ This function does not pop the Lua function from the stack.
                                                                *lrv-lua_error*
 >
   int lua_error (lua_State *L);
-<                                                                 `[-1, +0, v]`
+<                                                                  `[-1, +0, v]`
 
 Raises a Lua error, using the value on the top of the stack as the error 
 object. This function does a long jump, and therefore never returns (see 
@@ -3353,7 +3353,7 @@ object. This function does a long jump, and therefore never returns (see
                                                                   *lrv-lua_gc*
 >
   int lua_gc (lua_State *L, int what, ...);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Controls the garbage collector.
 
@@ -3408,7 +3408,7 @@ should not be called by a finalizer.
                                                            *lrv-lua_getallocf*
 >
   lua_Alloc lua_getallocf (lua_State *L, void **ud);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the memory-allocation function of a given state. If `ud` is not 
 `NULL`, Lua stores in `*ud` the opaque pointer given when the memory-allocator 
@@ -3419,7 +3419,7 @@ function was set.
                                                             *lrv-lua_getfield*
 >
   int lua_getfield (lua_State *L, int index, const char *k);
-<                                                                 `[-0, +1, e]`
+<                                                                  `[-0, +1, e]`
 
 Pushes onto the stack the value `t[k]`, where `t` is the value at the given 
 index. As in Lua, this function may trigger a metamethod for the "index" event 
@@ -3432,7 +3432,7 @@ Returns the type of the pushed value.
                                                        *lrv-lua_getextraspace*
 >
   void *lua_getextraspace (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns a pointer to a raw memory area associated with the given Lua state. 
 The application can use this area for any purpose; Lua does not use it for 
@@ -3450,7 +3450,7 @@ you can recompile Lua with a different size for this area. (See
                                                            *lrv-lua_getglobal*
 >
   int lua_getglobal (lua_State *L, const char *name);
-<                                                                 `[-0, +1, e]`
+<                                                                  `[-0, +1, e]`
 
 Pushes onto the stack the value of the global `name`. Returns the type of that 
 value.
@@ -3460,7 +3460,7 @@ value.
                                                                 *lrv-lua_geti*
 >
   int lua_geti (lua_State *L, int index, lua_Integer i);
-<                                                                 `[-0, +1, e]`
+<                                                                  `[-0, +1, e]`
 
 Pushes onto the stack the value `t[i]`, where `t` is the value at the given 
 index. As in Lua, this function may trigger a metamethod for the "index" event 
@@ -3473,7 +3473,7 @@ Returns the type of the pushed value.
                                                         *lrv-lua_getmetatable*
 >
   int lua_getmetatable (lua_State *L, int index);
-<                                                           `[-0, +(0|1), –]`
+<                                                            `[-0, +(0|1), –]`
 
 If the value at the given index has a metatable, the function pushes that 
 metatable onto the stack and returns 1. Otherwise, the function returns 0 and 
@@ -3484,7 +3484,7 @@ pushes nothing on the stack.
                                                             *lrv-lua_gettable*
 >
   int lua_gettable (lua_State *L, int index);
-<                                                                 `[-1, +1, e]`
+<                                                                  `[-1, +1, e]`
 
 Pushes onto the stack the value `t[k]`, where `t` is the value at the given 
 index and `k` is the value on the top of the stack.
@@ -3501,7 +3501,7 @@ Returns the type of the pushed value.
                                                               *lrv-lua_gettop*
 >
   int lua_gettop (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the index of the top element in the stack. Because indices start at 1, 
 this result is equal to the number of elements in the stack; in particular, 0 
@@ -3512,7 +3512,7 @@ means an empty stack.
                                                        *lrv-lua_getiuservalue*
 >
   int lua_getiuservalue (lua_State *L, int index, int n);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes onto the stack the `n`-th user value associated with the full userdata 
 at the given index and returns the type of the pushed value.
@@ -3525,7 +3525,7 @@ does not have that value, pushes |lrv-nil| and returns |lrv-LUA_TNONE|.
                                                               *lrv-lua_insert*
 >
   void lua_insert (lua_State *L, int index);
-<                                                               `[-1, +1, –]`
+<                                                                `[-1, +1, –]`
 
 Moves the top element into the given valid index, shifting up the elements 
 above this index to open space. This function cannot be called with a 
@@ -3536,7 +3536,7 @@ pseudo-index, because a pseudo-index is not an actual stack position.
                                                              *lrv-lua_Integer*
 >
   typedef ... lua_Integer;
-<
+< 
 
 The type of integers in Lua.
 
@@ -3553,7 +3553,7 @@ with the minimum and the maximum values that fit in this type.
                                                            *lrv-lua_isboolean*
 >
   int lua_isboolean (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a boolean, and 0 otherwise.
 
@@ -3562,7 +3562,7 @@ Returns 1 if the value at the given index is a boolean, and 0 otherwise.
                                                          *lrv-lua_iscfunction*
 >
   int lua_iscfunction (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a C function, and 0 otherwise.
 
@@ -3571,7 +3571,7 @@ Returns 1 if the value at the given index is a C function, and 0 otherwise.
                                                           *lrv-lua_isfunction*
 >
   int lua_isfunction (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a function (either C or Lua), and 
 0 otherwise.
@@ -3581,7 +3581,7 @@ Returns 1 if the value at the given index is a function (either C or Lua), and
                                                            *lrv-lua_isinteger*
 >
   int lua_isinteger (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is an integer (that is, the value is 
 a number and is represented as an integer), and 0 otherwise.
@@ -3591,7 +3591,7 @@ a number and is represented as an integer), and 0 otherwise.
                                                      *lrv-lua_islightuserdata*
 >
   int lua_islightuserdata (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a light userdata, and 0 
 otherwise.
@@ -3601,7 +3601,7 @@ otherwise.
                                                                *lrv-lua_isnil*
 >
   int lua_isnil (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is |lrv-nil|, and 0 otherwise.
 
@@ -3610,7 +3610,7 @@ Returns 1 if the value at the given index is |lrv-nil|, and 0 otherwise.
                                                               *lrv-lua_isnone*
 >
   int lua_isnone (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the given index is not valid, and 0 otherwise.
 
@@ -3619,7 +3619,7 @@ Returns 1 if the given index is not valid, and 0 otherwise.
                                                          *lrv-lua_isnoneornil*
 >
   int lua_isnoneornil (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the given index is not valid or if the value at this index is 
 |lrv-nil|, and 0 otherwise.
@@ -3629,7 +3629,7 @@ Returns 1 if the given index is not valid or if the value at this index is
                                                             *lrv-lua_isnumber*
 >
   int lua_isnumber (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a number or a string convertible 
 to a number, and 0 otherwise.
@@ -3639,7 +3639,7 @@ to a number, and 0 otherwise.
                                                             *lrv-lua_isstring*
 >
   int lua_isstring (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a string or a number (which is 
 always convertible to a string), and 0 otherwise.
@@ -3649,7 +3649,7 @@ always convertible to a string), and 0 otherwise.
                                                              *lrv-lua_istable*
 >
   int lua_istable (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a table, and 0 otherwise.
 
@@ -3658,7 +3658,7 @@ Returns 1 if the value at the given index is a table, and 0 otherwise.
                                                             *lrv-lua_isthread*
 >
   int lua_isthread (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a thread, and 0 otherwise.
 
@@ -3667,7 +3667,7 @@ Returns 1 if the value at the given index is a thread, and 0 otherwise.
                                                           *lrv-lua_isuserdata*
 >
   int lua_isuserdata (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the value at the given index is a userdata (either full or 
 light), and 0 otherwise.
@@ -3677,7 +3677,7 @@ light), and 0 otherwise.
                                                          *lrv-lua_isyieldable*
 >
   int lua_isyieldable (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the given coroutine can yield, and 0 otherwise.
 
@@ -3686,7 +3686,7 @@ Returns 1 if the given coroutine can yield, and 0 otherwise.
                                                             *lrv-lua_KContext*
 >
   typedef ... lua_KContext;
-<
+< 
 
 The type for continuation-function contexts. It must be a numeric type. This 
 type is defined as `intptr_t` when `intptr_t` is available, so that it can 
@@ -3697,7 +3697,7 @@ store pointers too. Otherwise, it is defined as `ptrdiff_t`.
                                                            *lrv-lua_KFunction*
 >
   typedef int (*lua_KFunction) (lua_State *L, int status, lua_KContext ctx);
-<
+< 
 
 Type for continuation functions (see |lrv-section-continuations|).
 
@@ -3706,7 +3706,7 @@ Type for continuation functions (see |lrv-section-continuations|).
                                                                  *lrv-lua_len*
 >
   void lua_len (lua_State *L, int index);
-<                                                                 `[-0, +1, e]`
+<                                                                  `[-0, +1, e]`
 
 Returns the length of the value at the given index. It is equivalent to the 
 '`#`' operator in Lua (see |lrv-section-len-op|) and may trigger a metamethod for the 
@@ -3721,7 +3721,7 @@ Returns the length of the value at the given index. It is equivalent to the
               void *data,
               const char *chunkname,
               const char *mode);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Loads a Lua chunk without running it. If there are no errors,
 `lua_load` pushes the compiled chunk as a Lua function on top of the stack. 
@@ -3760,7 +3760,7 @@ be the `_ENV` variable (see |lrv-section-globalenv|). Other upvalues are initial
                                                             *lrv-lua_newstate*
 >
   lua_State *lua_newstate (lua_Alloc f, void *ud);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Creates a new independent state and returns its main thread. Returns `NULL` if 
 it cannot create the state (due to lack of memory). The argument `f` is the 
@@ -3773,7 +3773,7 @@ pointer that Lua passes to the allocator in every call.
                                                             *lrv-lua_newtable*
 >
   void lua_newtable (lua_State *L);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Creates a new empty table and pushes it onto the stack. It is equivalent to 
 `lua_createtable(L, 0, 0)`.
@@ -3783,7 +3783,7 @@ Creates a new empty table and pushes it onto the stack. It is equivalent to
                                                            *lrv-lua_newthread*
 >
   lua_State *lua_newthread (lua_State *L);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Creates a new thread, pushes it on the stack, and returns a pointer to a 
 |lrv-lua_State| that represents this new thread. The new thread returned by this 
@@ -3798,7 +3798,7 @@ any Lua object.
                                                        *lrv-lua_newuserdatauv*
 >
   void *lua_newuserdatauv (lua_State *L, size_t size, int nuvalue);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 This function creates and pushes on the stack a new full userdata, with 
 `nuvalue` associated Lua values, called `user values`, plus an associated block 
@@ -3817,7 +3817,7 @@ call to its finalizer.
                                                                 *lrv-lua_next*
 >
   int lua_next (lua_State *L, int index);
-<                                                             `[-1, +(2|0), v]`
+<                                                              `[-1, +(2|0), v]`
 
 Pops a key from the stack, and pushes a key–value pair from the table at the 
 given index, the "next" pair after the given key. If there are no more elements 
@@ -3853,7 +3853,7 @@ modifying the table during its traversal.
                                                               *lrv-lua_Number*
 >
   typedef ... lua_Number;
-<
+< 
 
 The type of floats in Lua.
 
@@ -3866,7 +3866,7 @@ changed to a single float or a long double. (See `LUA_FLOAT_TYPE` in
                                                      *lrv-lua_numbertointeger*
 >
   int lua_numbertointeger (lua_Number n, lua_Integer *p);
-<
+< 
 
 Tries to convert a Lua float to a Lua integer; the float `n` must have an 
 integral value. If that value is within the range of Lua integers, it is 
@@ -3882,7 +3882,7 @@ may evaluate its arguments more than once.
                                                                *lrv-lua_pcall*
 >
   int lua_pcall (lua_State *L, int nargs, int nresults, int msgh);
-<                                          `[-(nargs + 1), +(nresults|1), –]`
+<                                           `[-(nargs + 1), +(nresults|1), –]`
 
 Calls a function (or a callable object) in protected mode.
 
@@ -3920,7 +3920,7 @@ returns one of the following status codes:
                 int msgh,
                 lua_KContext ctx,
                 lua_KFunction k);
-<                                          `[-(nargs + 1), +(nresults|1), –]`
+<                                           `[-(nargs + 1), +(nresults|1), –]`
 
 This function behaves exactly like |lrv-lua_pcall|, except that it allows the 
 called function to yield (see |lrv-section-continuations|).
@@ -3930,7 +3930,7 @@ called function to yield (see |lrv-section-continuations|).
                                                                  *lrv-lua_pop*
 >
   void lua_pop (lua_State *L, int n);
-<                                                                 `[-n, +0, e]`
+<                                                                  `[-n, +0, e]`
 
 Pops `n` elements from the stack. It is implemented as a macro over 
 |lrv-lua_settop|.
@@ -3940,7 +3940,7 @@ Pops `n` elements from the stack. It is implemented as a macro over
                                                          *lrv-lua_pushboolean*
 >
   void lua_pushboolean (lua_State *L, int b);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes a boolean value with value `b` onto the stack.
 
@@ -3949,7 +3949,7 @@ Pushes a boolean value with value `b` onto the stack.
                                                         *lrv-lua_pushcclosure*
 >
   void lua_pushcclosure (lua_State *L, lua_CFunction fn, int n);
-<                                                                 `[-n, +1, m]`
+<                                                                  `[-n, +1, m]`
 
 Pushes a new C closure onto the stack. This function receives a pointer to a C 
 function and pushes onto the stack a Lua value of type `function` that, when 
@@ -3982,7 +3982,7 @@ error.
                                                        *lrv-lua_pushcfunction*
 >
   void lua_pushcfunction (lua_State *L, lua_CFunction f);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes a C function onto the stack. This function is equivalent to 
 |lrv-lua_pushcclosure| with no upvalues.
@@ -3992,7 +3992,7 @@ Pushes a C function onto the stack. This function is equivalent to
                                                          *lrv-lua_pushfstring*
 >
   const char *lua_pushfstring (lua_State *L, const char *fmt, ...);
-<                                                                 `[-0, +1, v]`
+<                                                                  `[-0, +1, v]`
 
 Pushes onto the stack a formatted string and returns a pointer to this string 
 (see |lrv-section-constchar|). It is similar to the ISO&nbsp;C function `sprintf`, but has 
@@ -4018,7 +4018,7 @@ errors due to memory overflow or an invalid conversion specifier.
                                                      *lrv-lua_pushglobaltable*
 >
   void lua_pushglobaltable (lua_State *L);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes the global environment onto the stack.
 
@@ -4027,7 +4027,7 @@ Pushes the global environment onto the stack.
                                                          *lrv-lua_pushinteger*
 >
   void lua_pushinteger (lua_State *L, lua_Integer n);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes an integer with value `n` onto the stack.
 
@@ -4036,7 +4036,7 @@ Pushes an integer with value `n` onto the stack.
                                                    *lrv-lua_pushlightuserdata*
 >
   void lua_pushlightuserdata (lua_State *L, void *p);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes a light userdata onto the stack.
 
@@ -4053,7 +4053,7 @@ with the same C address.
                                                          *lrv-lua_pushliteral*
 >
   const char *lua_pushliteral (lua_State *L, const char *s);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 This macro is equivalent to |lrv-lua_pushstring|, but should be used only when `s` 
 is a literal string. (Lua may optimize this case.)
@@ -4063,7 +4063,7 @@ is a literal string. (Lua may optimize this case.)
                                                          *lrv-lua_pushlstring*
 >
   const char *lua_pushlstring (lua_State *L, const char *s, size_t len);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Pushes the string pointed to by `s` with size `len` onto the stack. Lua will 
 make or reuse an internal copy of the given string, so the memory at `s` can be 
@@ -4078,7 +4078,7 @@ copy of the string (see |lrv-section-constchar|).
                                                              *lrv-lua_pushnil*
 >
   void lua_pushnil (lua_State *L);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes a nil value onto the stack.
 
@@ -4087,7 +4087,7 @@ Pushes a nil value onto the stack.
                                                           *lrv-lua_pushnumber*
 >
   void lua_pushnumber (lua_State *L, lua_Number n);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes a float with value `n` onto the stack.
 
@@ -4096,7 +4096,7 @@ Pushes a float with value `n` onto the stack.
                                                           *lrv-lua_pushstring*
 >
   const char *lua_pushstring (lua_State *L, const char *s);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Pushes the zero-terminated string pointed to by `s` onto the stack. Lua will 
 make or reuse an internal copy of the given string, so the memory at `s` can be 
@@ -4113,7 +4113,7 @@ If `s` is `NULL`, pushes
                                                           *lrv-lua_pushthread*
 >
   int lua_pushthread (lua_State *L);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes the thread represented by `L` onto the stack. Returns 1 if this thread 
 is the main thread of its state.
@@ -4123,7 +4123,7 @@ is the main thread of its state.
                                                            *lrv-lua_pushvalue*
 >
   void lua_pushvalue (lua_State *L, int index);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes a copy of the element at the given index onto the stack.
 
@@ -4134,7 +4134,7 @@ Pushes a copy of the element at the given index onto the stack.
   const char *lua_pushvfstring (lua_State *L,
                               const char *fmt,
                               va_list argp);
-<                                                                 `[-0, +1, v]`
+<                                                                  `[-0, +1, v]`
 
 Equivalent to |lrv-lua_pushfstring|, except that it receives a `va_list` instead 
 of a variable number of arguments.
@@ -4144,7 +4144,7 @@ of a variable number of arguments.
                                                             *lrv-lua_rawequal*
 >
   int lua_rawequal (lua_State *L, int index1, int index2);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns 1 if the two values in indices `index1` and
 `index2` are primitively equal (that is, equal without calling the `__eq` 
@@ -4156,7 +4156,7 @@ valid.
                                                               *lrv-lua_rawget*
 >
   int lua_rawget (lua_State *L, int index);
-<                                                               `[-1, +1, –]`
+<                                                                `[-1, +1, –]`
 
 Similar to |lrv-lua_gettable|, but does a raw access (i.e., without metamethods). 
 The value at `index` must be a table.
@@ -4166,7 +4166,7 @@ The value at `index` must be a table.
                                                              *lrv-lua_rawgeti*
 >
   int lua_rawgeti (lua_State *L, int index, lua_Integer n);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes onto the stack the value `t[n]`, where `t` is the table at the given 
 index. The access is raw, that is, it does not use the `__index` 
@@ -4179,7 +4179,7 @@ Returns the type of the pushed value.
                                                              *lrv-lua_rawgetp*
 >
   int lua_rawgetp (lua_State *L, int index, const void *p);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes onto the stack the value `t[k]`, where `t` is the table at the given 
 index and
@@ -4194,7 +4194,7 @@ value.
                                                               *lrv-lua_rawlen*
 >
   lua_Unsigned lua_rawlen (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the raw "length" of the value at the given index:
 
@@ -4208,7 +4208,7 @@ returns 0.
                                                               *lrv-lua_rawset*
 >
   void lua_rawset (lua_State *L, int index);
-<                                                                 `[-2, +0, m]`
+<                                                                  `[-2, +0, m]`
 
 Similar to |lrv-lua_settable|, but does a raw assignment (i.e., without 
 metamethods). The value at `index` must be a table.
@@ -4218,7 +4218,7 @@ metamethods). The value at `index` must be a table.
                                                              *lrv-lua_rawseti*
 >
   void lua_rawseti (lua_State *L, int index, lua_Integer i);
-<                                                                 `[-1, +0, m]`
+<                                                                  `[-1, +0, m]`
 
 Does the equivalent of `t[i] = v`, where `t` is the table at the given index 
 and `v` is the value on the top of the stack.
@@ -4232,7 +4232,7 @@ metavalue.
                                                              *lrv-lua_rawsetp*
 >
   void lua_rawsetp (lua_State *L, int index, const void *p);
-<                                                                 `[-1, +0, m]`
+<                                                                  `[-1, +0, m]`
 
 Does the equivalent of `t[p] = v`, where `t` is the table at the given index,
 `p` is encoded as a light userdata, and `v` is the value on the top of the 
@@ -4248,7 +4248,7 @@ is, it does not use the `__newindex` metavalue.
   typedef const char * (*lua_Reader) (lua_State *L,
                                     void *data,
                                     size_t *size);
-<
+< 
 
 The reader function used by |lrv-lua_load|. Every time |lrv-lua_load| needs another 
 piece of the chunk, it calls the reader, passing along its `data` parameter. 
@@ -4263,7 +4263,7 @@ any size greater than zero.
                                                             *lrv-lua_register*
 >
   void lua_register (lua_State *L, const char *name, lua_CFunction f);
-<                                                                 `[-0, +0, e]`
+<                                                                  `[-0, +0, e]`
 
 Sets the C function `f` as the new value of global `name`. It is defined as a 
 macro:
@@ -4278,7 +4278,7 @@ macro:
                                                               *lrv-lua_remove*
 >
   void lua_remove (lua_State *L, int index);
-<                                                               `[-1, +0, –]`
+<                                                                `[-1, +0, –]`
 
 Removes the element at the given valid index, shifting down the elements above 
 this index to fill the gap. This function cannot be called with a pseudo-index, 
@@ -4289,7 +4289,7 @@ because a pseudo-index is not an actual stack position.
                                                              *lrv-lua_replace*
 >
   void lua_replace (lua_State *L, int index);
-<                                                               `[-1, +0, –]`
+<                                                                `[-1, +0, –]`
 
 Moves the top element into the given valid index without shifting any element 
 (therefore replacing the value at that given index), and then pops the top 
@@ -4300,7 +4300,7 @@ element.
                                                          *lrv-lua_resetthread*
 >
   int lua_resetthread (lua_State *L);
-<                                                               `[-0, +?, –]`
+<                                                                `[-0, +?, –]`
 
 This function is deprecated; it is equivalent to |lrv-lua_closethread| with
 `from` being `NULL`.
@@ -4311,7 +4311,7 @@ This function is deprecated; it is equivalent to |lrv-lua_closethread| with
 >
   int lua_resume (lua_State *L, lua_State *from, int nargs,
                           int *nresults);
-<                                                               `[-?, +?, –]`
+<                                                                `[-?, +?, –]`
 
 Starts and resumes a coroutine in the given thread `L`.
 
@@ -4341,7 +4341,7 @@ can be `NULL`.
                                                               *lrv-lua_rotate*
 >
   void lua_rotate (lua_State *L, int idx, int n);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Rotates the stack elements between the valid index `idx` and the top of the 
 stack. The elements are rotated `n` positions in the direction of the top, for 
@@ -4355,7 +4355,7 @@ because a pseudo-index is not an actual stack position.
                                                            *lrv-lua_setallocf*
 >
   void lua_setallocf (lua_State *L, lua_Alloc f, void *ud);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Changes the allocator function of a given state to `f` with user data `ud`.
 
@@ -4364,7 +4364,7 @@ Changes the allocator function of a given state to `f` with user data `ud`.
                                                             *lrv-lua_setfield*
 >
   void lua_setfield (lua_State *L, int index, const char *k);
-<                                                                 `[-1, +0, e]`
+<                                                                  `[-1, +0, e]`
 
 Does the equivalent to `t[k] = v`, where `t` is the value at the given index 
 and `v` is the value on the top of the stack.
@@ -4378,7 +4378,7 @@ event (see |lrv-section-metatable|).
                                                            *lrv-lua_setglobal*
 >
   void lua_setglobal (lua_State *L, const char *name);
-<                                                                 `[-1, +0, e]`
+<                                                                  `[-1, +0, e]`
 
 Pops a value from the stack and sets it as the new value of global `name`.
 
@@ -4387,7 +4387,7 @@ Pops a value from the stack and sets it as the new value of global `name`.
                                                                 *lrv-lua_seti*
 >
   void lua_seti (lua_State *L, int index, lua_Integer n);
-<                                                                 `[-1, +0, e]`
+<                                                                  `[-1, +0, e]`
 
 Does the equivalent to `t[n] = v`, where `t` is the value at the given index 
 and `v` is the value on the top of the stack.
@@ -4401,7 +4401,7 @@ event (see |lrv-section-metatable|).
                                                        *lrv-lua_setiuservalue*
 >
   int lua_setiuservalue (lua_State *L, int index, int n);
-<                                                               `[-1, +0, –]`
+<                                                                `[-1, +0, –]`
 
 Pops a value from the stack and sets it as the new `n`-th user value 
 associated to the full userdata at the given index. Returns 0 if the userdata 
@@ -4412,7 +4412,7 @@ does not have that value.
                                                         *lrv-lua_setmetatable*
 >
   int lua_setmetatable (lua_State *L, int index);
-<                                                               `[-1, +0, –]`
+<                                                                `[-1, +0, –]`
 
 Pops a table or |lrv-nil| from the stack and sets that value as the new 
 metatable for the value at the given index. (|lrv-nil| means no 
@@ -4426,7 +4426,7 @@ is always 1.)
                                                             *lrv-lua_settable*
 >
   void lua_settable (lua_State *L, int index);
-<                                                                 `[-2, +0, e]`
+<                                                                  `[-2, +0, e]`
 
 Does the equivalent to `t[k] = v`, where `t` is the value at the given index,
 `v` is the value on the top of the stack, and `k` is the value just below the 
@@ -4441,7 +4441,7 @@ this function may trigger a metamethod for the "newindex" event (see
                                                               *lrv-lua_settop*
 >
   void lua_settop (lua_State *L, int index);
-<                                                                 `[-?, +?, e]`
+<                                                                  `[-?, +?, e]`
 
 Accepts any index, or 0, and sets the stack top to this index. If the new top 
 is greater than the old one, then the new elements are filled with |lrv-nil|. 
@@ -4455,7 +4455,7 @@ arbitrary code when removing an index marked as to-be-closed from the stack.
                                                             *lrv-lua_setwarnf*
 >
   void lua_setwarnf (lua_State *L, lua_WarnFunction f, void *ud);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Sets the warning function to be used by Lua to emit warnings (see 
 |lrv-lua_WarnFunction|). The `ud` parameter sets the value `ud` passed to the 
@@ -4466,7 +4466,7 @@ warning function.
                                                                *lrv-lua_State*
 >
   typedef struct lua_State lua_State;
-<
+< 
 
 An opaque structure that points to a thread and indirectly (through the 
 thread) to the whole state of a Lua interpreter. The Lua library is fully 
@@ -4484,7 +4484,7 @@ creates a Lua state from scratch.
                                                               *lrv-lua_status*
 >
   int lua_status (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the status of the thread `L`.
 
@@ -4502,7 +4502,7 @@ coroutine).
                                                       *lrv-lua_stringtonumber*
 >
   size_t lua_stringtonumber (lua_State *L, const char *s);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Converts the zero-terminated string `s` to a number, pushes that number into 
 the stack, and returns the total size of the string, that is, its length plus 
@@ -4517,7 +4517,7 @@ the conversion succeeds.)
                                                            *lrv-lua_toboolean*
 >
   int lua_toboolean (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Converts the Lua value at the given index to a C boolean value (0 or 1). Like 
 all tests in Lua,
@@ -4530,7 +4530,7 @@ boolean values, use |lrv-lua_isboolean| to test the value's type.)
                                                          *lrv-lua_tocfunction*
 >
   lua_CFunction lua_tocfunction (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Converts a value at the given index to a C function. That value must be a C 
 function; otherwise, returns `NULL`.
@@ -4540,7 +4540,7 @@ function; otherwise, returns `NULL`.
                                                              *lrv-lua_toclose*
 >
   void lua_toclose (lua_State *L, int index);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Marks the given index in the stack as a to-be-closed slot (see 
 |lrv-section-to-be-closed|). Like a to-be-closed variable in Lua, the value at that slot in 
@@ -4569,7 +4569,7 @@ out of scope.
                                                            *lrv-lua_tointeger*
 >
   lua_Integer lua_tointeger (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Equivalent to |lrv-lua_tointegerx| with `isnum` equal to `NULL`.
 
@@ -4578,7 +4578,7 @@ Equivalent to |lrv-lua_tointegerx| with `isnum` equal to `NULL`.
                                                           *lrv-lua_tointegerx*
 >
   lua_Integer lua_tointegerx (lua_State *L, int index, int *isnum);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Converts the Lua value at the given index to the signed integral type 
 |lrv-lua_Integer|. The Lua value must be an integer, or a number or string 
@@ -4593,7 +4593,7 @@ indicates whether the operation succeeded.
                                                            *lrv-lua_tolstring*
 >
   const char *lua_tolstring (lua_State *L, int index, size_t *len);
-<                                                                 `[-0, +0, m]`
+<                                                                  `[-0, +0, m]`
 
 Converts the Lua value at the given index to a C string. If `len` is not 
 `NULL`, it sets `*len` with the string length. The Lua value must be a string 
@@ -4616,7 +4616,7 @@ create a new string).
                                                             *lrv-lua_tonumber*
 >
   lua_Number lua_tonumber (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Equivalent to |lrv-lua_tonumberx| with `isnum` equal to `NULL`.
 
@@ -4625,7 +4625,7 @@ Equivalent to |lrv-lua_tonumberx| with `isnum` equal to `NULL`.
                                                            *lrv-lua_tonumberx*
 >
   lua_Number lua_tonumberx (lua_State *L, int index, int *isnum);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Converts the Lua value at the given index to the C type |lrv-lua_Number| (see 
 |lrv-lua_Number|). The Lua value must be a number or a string convertible to a 
@@ -4640,7 +4640,7 @@ operation succeeded.
                                                            *lrv-lua_topointer*
 >
   const void *lua_topointer (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Converts the value at the given index to a generic C pointer (`void*`). The 
 value can be a userdata, a table, a thread, a string, or a function; otherwise, 
@@ -4655,7 +4655,7 @@ this function is used only for hashing and debug information.
                                                             *lrv-lua_tostring*
 >
   const char *lua_tostring (lua_State *L, int index);
-<                                                                 `[-0, +0, m]`
+<                                                                  `[-0, +0, m]`
 
 Equivalent to |lrv-lua_tolstring| with `len` equal to `NULL`.
 
@@ -4664,7 +4664,7 @@ Equivalent to |lrv-lua_tolstring| with `len` equal to `NULL`.
                                                             *lrv-lua_tothread*
 >
   lua_State *lua_tothread (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Converts the value at the given index to a Lua thread (represented as 
 `lua_State*`). This value must be a thread; otherwise, the function returns 
@@ -4675,7 +4675,7 @@ Converts the value at the given index to a Lua thread (represented as
                                                           *lrv-lua_touserdata*
 >
   void *lua_touserdata (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 If the value at the given index is a full userdata, returns its memory-block 
 address. If the value is a light userdata, returns its value (a pointer). 
@@ -4686,7 +4686,7 @@ Otherwise, returns `NULL`.
                                                                 *lrv-lua_type*
 >
   int lua_type (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the type of the value in the given valid index, or `LUA_TNONE` for a 
 non-valid but acceptable index. The types returned by |lrv-lua_type| are coded by 
@@ -4700,7 +4700,7 @@ LUA_TUSERDATA, LUA_TTHREAD, and LUA_TLIGHTUSERDATA.
                                                             *lrv-lua_typename*
 >
   const char *lua_typename (lua_State *L, int tp);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the name of the type encoded by the value `tp`, which must be one the 
 values returned by |lrv-lua_type|.
@@ -4710,7 +4710,7 @@ values returned by |lrv-lua_type|.
                                                             *lrv-lua_Unsigned*
 >
   typedef ... lua_Unsigned;
-<
+< 
 
 The unsigned version of |lrv-lua_Integer|.
 
@@ -4719,7 +4719,7 @@ The unsigned version of |lrv-lua_Integer|.
                                                         *lrv-lua_upvalueindex*
 >
   int lua_upvalueindex (int i);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the pseudo-index that represents the `i`-th upvalue of the running 
 function (see |lrv-section-c-closure|).
@@ -4730,7 +4730,7 @@ function (see |lrv-section-c-closure|).
                                                              *lrv-lua_version*
 >
   lua_Number lua_version (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the version number of this core.
 
@@ -4739,7 +4739,7 @@ Returns the version number of this core.
                                                         *lrv-lua_WarnFunction*
 >
   typedef void (*lua_WarnFunction) (void *ud, const char *msg, int tocont);
-<
+< 
 
 The type of warning functions, called by Lua to emit warnings. The first 
 parameter is an opaque pointer set by |lrv-lua_setwarnf|. The second parameter is 
@@ -4754,7 +4754,7 @@ more details about warnings.
                                                              *lrv-lua_warning*
 >
   void lua_warning (lua_State *L, const char *msg, int tocont);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Emits a warning with the given message. A message in a call with `tocont` true 
 should be continued in another call to this function.
@@ -4770,7 +4770,7 @@ details about warnings.
                            const void* p,
                            size_t sz,
                            void* ud);
-<
+< 
 
 The type of the writer function used by |lrv-lua_dump|. Every time |lrv-lua_dump| 
 produces another piece of chunk, it calls the writer, passing along the buffer 
@@ -4787,7 +4787,7 @@ calling the writer again.
                                                                *lrv-lua_xmove*
 >
   void lua_xmove (lua_State *from, lua_State *to, int n);
-<                                                               `[-?, +?, –]`
+<                                                                `[-?, +?, –]`
 
 Exchange values between different threads of the same state.
 
@@ -4799,7 +4799,7 @@ pops `n` values from the stack `from`, and pushes them onto the stack `to`.
                                                                *lrv-lua_yield*
 >
   int lua_yield (lua_State *L, int nresults);
-<                                                                 `[-?, +?, v]`
+<                                                                  `[-?, +?, v]`
 
 This function is equivalent to |lrv-lua_yieldk|, but it has no continuation (see 
 |lrv-section-continuations|). Therefore, when the thread resumes, it continues the function 
@@ -4814,7 +4814,7 @@ should be called only in a tail call.
                 int nresults,
                 lua_KContext ctx,
                 lua_KFunction k);
-<                                                                 `[-?, +?, v]`
+<                                                                  `[-?, +?, v]`
 
 Yields a coroutine (thread).
 
@@ -4881,7 +4881,7 @@ that need "inside information" from the interpreter.
   /* private part */
   'other fields'
 } lua_Debug;
-<
+< 
 
 A structure used to carry different pieces of information about a function or 
 an activation record.
@@ -4978,7 +4978,7 @@ always 1.)
                                                              *lrv-lua_gethook*
 >
   lua_Hook lua_gethook (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the current hook function.
 
@@ -4987,7 +4987,7 @@ Returns the current hook function.
                                                         *lrv-lua_gethookcount*
 >
   int lua_gethookcount (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the current hook count.
 
@@ -4996,7 +4996,7 @@ Returns the current hook count.
                                                          *lrv-lua_gethookmask*
 >
   int lua_gethookmask (lua_State *L);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the current hook mask.
 
@@ -5005,7 +5005,7 @@ Returns the current hook mask.
                                                              *lrv-lua_getinfo*
 >
   int lua_getinfo (lua_State *L, const char *what, lua_Debug *ar);
-<                                                       `[-(0|1), +(0|1|2), m]`
+<                                                        `[-(0|1), +(0|1|2), m]`
 
 Gets information about a specific function or function invocation.
 
@@ -5075,7 +5075,7 @@ valid options are handled correctly.
                                                             *lrv-lua_getlocal*
 >
   const char *lua_getlocal (lua_State *L, const lua_Debug *ar, int n);
-<                                                           `[-0, +(0|1), –]`
+<                                                            `[-0, +(0|1), –]`
 
 Gets information about a local variable or a temporary value of a given 
 activation record or a given function.
@@ -5103,7 +5103,7 @@ variables.
                                                             *lrv-lua_getstack*
 >
   int lua_getstack (lua_State *L, int level, lua_Debug *ar);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Gets information about the interpreter runtime stack.
 
@@ -5120,7 +5120,7 @@ level greater than the stack depth,
                                                           *lrv-lua_getupvalue*
 >
   const char *lua_getupvalue (lua_State *L, int funcindex, int n);
-<                                                           `[-0, +(0|1), –]`
+<                                                            `[-0, +(0|1), –]`
 
 Gets information about the `n`-th upvalue of the closure at index `funcindex`. 
 It pushes the upvalue's value onto the stack and returns its name. Returns 
@@ -5134,7 +5134,7 @@ See |lrv-debug.getupvalue| for more information about upvalues.
                                                                 *lrv-lua_Hook*
 >
   typedef void (*lua_Hook) (lua_State *L, lua_Debug *ar);
-<
+< 
 
 Type for debugging hook functions.
 
@@ -5172,7 +5172,7 @@ values).
                                                              *lrv-lua_sethook*
 >
   void lua_sethook (lua_State *L, lua_Hook f, int mask, int count);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Sets the debugging hook function.
 
@@ -5212,7 +5212,7 @@ Hooks are disabled by setting `mask` to zero.
                                                             *lrv-lua_setlocal*
 >
   const char *lua_setlocal (lua_State *L, const lua_Debug *ar, int n);
-<                                                           `[-(0|1), +0, –]`
+<                                                            `[-(0|1), +0, –]`
 
 Sets the value of a local variable of a given activation record. It assigns 
 the value on the top of the stack to the variable and returns its name. It also 
@@ -5229,7 +5229,7 @@ are as in the function |lrv-lua_getlocal|.
                                                           *lrv-lua_setupvalue*
 >
   const char *lua_setupvalue (lua_State *L, int funcindex, int n);
-<                                                           `[-(0|1), +0, –]`
+<                                                            `[-(0|1), +0, –]`
 
 Sets the value of a closure's upvalue. It assigns the value on the top of the 
 stack to the upvalue and returns its name. It also pops the value from the 
@@ -5246,7 +5246,7 @@ Parameters `funcindex` and `n` are as in the function
                                                            *lrv-lua_upvalueid*
 >
   void *lua_upvalueid (lua_State *L, int funcindex, int n);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns a unique identifier for the upvalue numbered `n` from the closure at 
 index `funcindex`.
@@ -5265,7 +5265,7 @@ Parameters `funcindex` and `n` are as in the function
 >
   void lua_upvaluejoin (lua_State *L, int funcindex1, int n1,
                                     int funcindex2, int n2);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Make the `n1`-th upvalue of the Lua closure at index `funcindex1` refer to the 
 `n2`-th upvalue of the Lua closure at index `funcindex2`.
@@ -5326,7 +5326,7 @@ in alphabetical order.
                                                             *lrv-luaL_addchar*
 >
   void luaL_addchar (luaL_Buffer *B, char c);
-<                                                                 `[-?, +?, m]`
+<                                                                  `[-?, +?, m]`
 
 Adds the byte `c` to the buffer `B` (see |lrv-luaL_Buffer|).
 
@@ -5336,7 +5336,7 @@ Adds the byte `c` to the buffer `B` (see |lrv-luaL_Buffer|).
 >
   const void luaL_addgsub (luaL_Buffer *B, const char *s,
                          const char *p, const char *r);
-<                                                                 `[-?, +?, m]`
+<                                                                  `[-?, +?, m]`
 
 Adds a copy of the string `s` to the buffer `B` (see |lrv-luaL_Buffer|), replacing 
 any occurrence of the string `p` with the string `r`.
@@ -5346,7 +5346,7 @@ any occurrence of the string `p` with the string `r`.
                                                          *lrv-luaL_addlstring*
 >
   void luaL_addlstring (luaL_Buffer *B, const char *s, size_t l);
-<                                                                 `[-?, +?, m]`
+<                                                                  `[-?, +?, m]`
 
 Adds the string pointed to by `s` with length `l` to the buffer `B` (see 
 |lrv-luaL_Buffer|). The string can contain embedded zeros.
@@ -5356,7 +5356,7 @@ Adds the string pointed to by `s` with length `l` to the buffer `B` (see
                                                             *lrv-luaL_addsize*
 >
   void luaL_addsize (luaL_Buffer *B, size_t n);
-<                                                               `[-?, +?, –]`
+<                                                                `[-?, +?, –]`
 
 Adds to the buffer `B` a string of length `n` previously copied to the buffer 
 area (see |lrv-luaL_prepbuffer|).
@@ -5366,7 +5366,7 @@ area (see |lrv-luaL_prepbuffer|).
                                                           *lrv-luaL_addstring*
 >
   void luaL_addstring (luaL_Buffer *B, const char *s);
-<                                                                 `[-?, +?, m]`
+<                                                                  `[-?, +?, m]`
 
 Adds the zero-terminated string pointed to by `s` to the buffer `B` (see 
 |lrv-luaL_Buffer|).
@@ -5376,7 +5376,7 @@ Adds the zero-terminated string pointed to by `s` to the buffer `B` (see
                                                            *lrv-luaL_addvalue*
 >
   void luaL_addvalue (luaL_Buffer *B);
-<                                                                 `[-?, +?, m]`
+<                                                                  `[-?, +?, m]`
 
 Adds the value on the top of the stack to the buffer `B` (see |lrv-luaL_Buffer|). 
 Pops the value.
@@ -5393,7 +5393,7 @@ the buffer.
                     int cond,
                     int arg,
                     const char *extramsg);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether `cond` is true. If it is not, raises an error with a standard 
 message (see |lrv-luaL_argerror|).
@@ -5403,7 +5403,7 @@ message (see |lrv-luaL_argerror|).
                                                            *lrv-luaL_argerror*
 >
   int luaL_argerror (lua_State *L, int arg, const char *extramsg);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Raises an error reporting a problem with argument `arg` of the C function that 
 called it, using a standard message that includes `extramsg` as a comment:
@@ -5422,7 +5422,7 @@ This function never returns.
                        int cond,
                        int arg,
                        const char *tname);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether `cond` is true. If it is not, raises an error about the type of 
 the argument `arg` with a standard message (see |lrv-luaL_typeerror|).
@@ -5432,7 +5432,7 @@ the argument `arg` with a standard message (see |lrv-luaL_typeerror|).
                                                              *lrv-luaL_Buffer*
 >
   typedef struct luaL_Buffer luaL_Buffer;
-<
+< 
 
 Type for a `string buffer`.
 
@@ -5486,7 +5486,7 @@ initialized, plus the final string on its top.
                                                            *lrv-luaL_buffaddr*
 >
   char *luaL_buffaddr (luaL_Buffer *B);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the address of the current content of buffer `B` (see |lrv-luaL_Buffer|). 
 Note that any addition to the buffer may invalidate this address.
@@ -5496,7 +5496,7 @@ Note that any addition to the buffer may invalidate this address.
                                                            *lrv-luaL_buffinit*
 >
   void luaL_buffinit (lua_State *L, luaL_Buffer *B);
-<                                                               `[-0, +?, –]`
+<                                                                `[-0, +?, –]`
 
 Initializes a buffer `B` (see |lrv-luaL_Buffer|). This function does not allocate 
 any space; the buffer must be declared as a variable.
@@ -5506,7 +5506,7 @@ any space; the buffer must be declared as a variable.
                                                             *lrv-luaL_bufflen*
 >
   size_t luaL_bufflen (luaL_Buffer *B);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the length of the current content of buffer `B` (see |lrv-luaL_Buffer|).
 
@@ -5515,7 +5515,7 @@ Returns the length of the current content of buffer `B` (see |lrv-luaL_Buffer|).
                                                        *lrv-luaL_buffinitsize*
 >
   char *luaL_buffinitsize (lua_State *L, luaL_Buffer *B, size_t sz);
-<                                                                 `[-?, +?, m]`
+<                                                                  `[-?, +?, m]`
 
 Equivalent to the sequence
 |lrv-luaL_buffinit|, |lrv-luaL_prepbuffsize|.
@@ -5525,7 +5525,7 @@ Equivalent to the sequence
                                                             *lrv-luaL_buffsub*
 >
   void luaL_buffsub (luaL_Buffer *B, int n);
-<                                                               `[-?, +?, –]`
+<                                                                `[-?, +?, –]`
 
 Removes `n` bytes from the buffer `B` (see |lrv-luaL_Buffer|). The buffer must 
 have at least that many bytes.
@@ -5535,7 +5535,7 @@ have at least that many bytes.
                                                            *lrv-luaL_callmeta*
 >
   int luaL_callmeta (lua_State *L, int obj, const char *e);
-<                                                             `[-0, +(0|1), e]`
+<                                                              `[-0, +(0|1), e]`
 
 Calls a metamethod.
 
@@ -5551,7 +5551,7 @@ stack.
                                                            *lrv-luaL_checkany*
 >
   void luaL_checkany (lua_State *L, int arg);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the function has an argument of any type (including |lrv-nil|) 
 at position `arg`.
@@ -5561,7 +5561,7 @@ at position `arg`.
                                                        *lrv-luaL_checkinteger*
 >
   lua_Integer luaL_checkinteger (lua_State *L, int arg);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the function argument `arg` is an integer (or can be converted 
 to an integer) and returns this integer.
@@ -5571,7 +5571,7 @@ to an integer) and returns this integer.
                                                        *lrv-luaL_checklstring*
 >
   const char *luaL_checklstring (lua_State *L, int arg, size_t *l);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the function argument `arg` is a string and returns this 
 string; if `l` is not `NULL` fills its referent with the string's length.
@@ -5585,7 +5585,7 @@ of that function apply here.
                                                         *lrv-luaL_checknumber*
 >
   lua_Number luaL_checknumber (lua_State *L, int arg);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the function argument `arg` is a number and returns this number 
 converted to a `lua_Number`.
@@ -5598,7 +5598,7 @@ converted to a `lua_Number`.
                       int arg,
                       const char *def,
                       const char *const lst[]);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the function argument `arg` is a string and searches for this 
 string in the array `lst` (which must be NULL-terminated). Returns the index in 
@@ -5618,7 +5618,7 @@ numbers to select options.)
                                                          *lrv-luaL_checkstack*
 >
   void luaL_checkstack (lua_State *L, int sz, const char *msg);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Grows the stack size to `top + sz` elements, raising an error if the stack 
 cannot grow to that size.
@@ -5630,7 +5630,7 @@ additional text).
                                                         *lrv-luaL_checkstring*
 >
   const char *luaL_checkstring (lua_State *L, int arg);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the function argument `arg` is a string and returns this 
 string.
@@ -5643,7 +5643,7 @@ conversions and caveats of that function apply here.
                                                           *lrv-luaL_checktype*
 >
   void luaL_checktype (lua_State *L, int arg, int t);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the function argument `arg` has type `t`. See |lrv-lua_type| for 
 the encoding of types for `t`.
@@ -5653,7 +5653,7 @@ the encoding of types for `t`.
                                                          *lrv-luaL_checkudata*
 >
   void *luaL_checkudata (lua_State *L, int arg, const char *tname);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the function argument `arg` is a userdata of the type `tname` 
 (see |lrv-luaL_newmetatable|) and returns the userdata's memory-block address (see 
@@ -5664,7 +5664,7 @@ Checks whether the function argument `arg` is a userdata of the type `tname`
                                                        *lrv-luaL_checkversion*
 >
   void luaL_checkversion (lua_State *L);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Checks whether the code making the call and the Lua library being called are 
 using the same version of Lua and the same numeric types.
@@ -5674,7 +5674,7 @@ using the same version of Lua and the same numeric types.
                                                              *lrv-luaL_dofile*
 >
   int luaL_dofile (lua_State *L, const char *filename);
-<                                                                 `[-0, +?, m]`
+<                                                                  `[-0, +?, m]`
 
 Loads and runs the given file. It is defined as the following macro:
 >
@@ -5689,7 +5689,7 @@ It returns 0 (|lrv-LUA_OK|) if there are no errors, or 1 in case of errors.
                                                            *lrv-luaL_dostring*
 >
   int luaL_dostring (lua_State *L, const char *str);
-<                                                               `[-0, +?, –]`
+<                                                                `[-0, +?, –]`
 
 Loads and runs the given string. It is defined as the following macro:
 >
@@ -5704,7 +5704,7 @@ It returns 0 (|lrv-LUA_OK|) if there are no errors, or 1 in case of errors.
                                                               *lrv-luaL_error*
 >
   int luaL_error (lua_State *L, const char *fmt, ...);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Raises an error. The error message format is given by `fmt` plus any extra 
 arguments, following the same rules of |lrv-lua_pushfstring|. It also adds at the 
@@ -5719,7 +5719,7 @@ is an idiom to use it in C functions as `return luaL_error(args)`.
                                                          *lrv-luaL_execresult*
 >
   int luaL_execresult (lua_State *L, int stat);
-<                                                                 `[-0, +3, m]`
+<                                                                  `[-0, +3, m]`
 
 This function produces the return values for process-related functions in the 
 standard library (|lrv-os.execute| and |lrv-io.close|).
@@ -5729,7 +5729,7 @@ standard library (|lrv-os.execute| and |lrv-io.close|).
                                                          *lrv-luaL_fileresult*
 >
   int luaL_fileresult (lua_State *L, int stat, const char *fname);
-<                                                             `[-0, +(1|3), m]`
+<                                                              `[-0, +(1|3), m]`
 
 This function produces the return values for file-related functions in the 
 standard library (|lrv-io.open|, |lrv-os.rename|, |lrv-file:seek|, etc.).
@@ -5739,7 +5739,7 @@ standard library (|lrv-io.open|, |lrv-os.rename|, |lrv-file:seek|, etc.).
                                                        *lrv-luaL_getmetafield*
 >
   int luaL_getmetafield (lua_State *L, int obj, const char *e);
-<                                                             `[-0, +(0|1), m]`
+<                                                              `[-0, +(0|1), m]`
 
 Pushes onto the stack the field `e` from the metatable of the object at index 
 `obj` and returns the type of the pushed value. If the object does not have a 
@@ -5751,7 +5751,7 @@ returns `LUA_TNIL`.
                                                        *lrv-luaL_getmetatable*
 >
   int luaL_getmetatable (lua_State *L, const char *tname);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Pushes onto the stack the metatable associated with the name `tname` in the 
 registry (see |lrv-luaL_newmetatable|), or |lrv-nil| if there is no metatable 
@@ -5762,7 +5762,7 @@ associated with that name. Returns the type of the pushed value.
                                                         *lrv-luaL_getsubtable*
 >
   int luaL_getsubtable (lua_State *L, int idx, const char *fname);
-<                                                                 `[-0, +1, e]`
+<                                                                  `[-0, +1, e]`
 
 Ensures that the value `t[fname]`, where `t` is the value at index `idx`, is a 
 table, and pushes that table onto the stack. Returns true if it finds a 
@@ -5776,7 +5776,7 @@ previous table there and false if it creates a new table.
                        const char *s,
                        const char *p,
                        const char *r);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Creates a copy of string `s`, replacing any occurrence of the string `p` with 
 the string `r`. Pushes the resulting string on the stack and returns it.
@@ -5786,7 +5786,7 @@ the string `r`. Pushes the resulting string on the stack and returns it.
                                                                 *lrv-luaL_len*
 >
   lua_Integer luaL_len (lua_State *L, int index);
-<                                                                 `[-0, +0, e]`
+<                                                                  `[-0, +0, e]`
 
 Returns the "length" of the value at the given index as a number; it is 
 equivalent to the '`#`' operator in Lua (see |lrv-section-len-op|). Raises an error if the 
@@ -5801,7 +5801,7 @@ metamethods.)
                      const char *buff,
                      size_t sz,
                      const char *name);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Equivalent to |lrv-luaL_loadbufferx| with `mode` equal to `NULL`.
 
@@ -5814,7 +5814,7 @@ Equivalent to |lrv-luaL_loadbufferx| with `mode` equal to `NULL`.
                       size_t sz,
                       const char *name,
                       const char *mode);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Loads a buffer as a Lua chunk. This function uses |lrv-lua_load| to load the chunk 
 in the buffer pointed to by `buff` with size `sz`.
@@ -5829,7 +5829,7 @@ string `mode` works as in the function |lrv-lua_load|.
                                                            *lrv-luaL_loadfile*
 >
   int luaL_loadfile (lua_State *L, const char *filename);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Equivalent to |lrv-luaL_loadfilex| with `mode` equal to `NULL`.
 
@@ -5839,7 +5839,7 @@ Equivalent to |lrv-luaL_loadfilex| with `mode` equal to `NULL`.
 >
   int luaL_loadfilex (lua_State *L, const char *filename,
                                             const char *mode);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Loads a file as a Lua chunk. This function uses |lrv-lua_load| to load the chunk 
 in the file named `filename`. If `filename` is `NULL`, then it loads from the 
@@ -5859,7 +5859,7 @@ As |lrv-lua_load|, this function only loads the chunk; it does not run it.
                                                          *lrv-luaL_loadstring*
 >
   int luaL_loadstring (lua_State *L, const char *s);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Loads a string as a Lua chunk. This function uses |lrv-lua_load| to load the chunk 
 in the zero-terminated string `s`.
@@ -5875,7 +5875,7 @@ run it.
                                                              *lrv-luaL_newlib*
 >
   void luaL_newlib (lua_State *L, const luaL_Reg l[]);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Creates a new table and registers there the functions in the list `l`.
 
@@ -5893,7 +5893,7 @@ The array `l` must be the actual array, not a pointer to it.
                                                         *lrv-luaL_newlibtable*
 >
   void luaL_newlibtable (lua_State *L, const luaL_Reg l[]);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Creates a new table with a size optimized to store all entries in the array 
 `l` (but does not actually store them). It is intended to be used in 
@@ -5907,7 +5907,7 @@ macro. The array `l` must be the actual array, not a pointer to it.
                                                        *lrv-luaL_newmetatable*
 >
   int luaL_newmetatable (lua_State *L, const char *tname);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 If the registry already has the key `tname`, returns 0. Otherwise, creates a 
 new table to be used as a metatable for userdata, adds to this new table the 
@@ -5922,7 +5922,7 @@ associated with `tname` in the registry.
                                                            *lrv-luaL_newstate*
 >
   lua_State *luaL_newstate (void);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Creates a new Lua state. It calls |lrv-lua_newstate| with an allocator based on 
 the ISO C allocation functions and then sets a warning function and a panic 
@@ -5937,7 +5937,7 @@ error.
                                                            *lrv-luaL_openlibs*
 >
   void luaL_openlibs (lua_State *L);
-<                                                                 `[-0, +0, e]`
+<                                                                  `[-0, +0, e]`
 
 Opens all standard Lua libraries into the given state.
 
@@ -5946,7 +5946,7 @@ Opens all standard Lua libraries into the given state.
                                                                 *lrv-luaL_opt*
 >
   T luaL_opt (L, func, arg, dflt);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 This macro is defined as follows:
 >
@@ -5966,7 +5966,7 @@ expression `dflt` only if needed.
   lua_Integer luaL_optinteger (lua_State *L,
                              int arg,
                              lua_Integer d);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 If the function argument `arg` is an integer (or it is convertible to an 
 integer), returns this integer. If this argument is absent or is |lrv-nil|, 
@@ -5980,7 +5980,7 @@ returns `d`. Otherwise, raises an error.
                              int arg,
                              const char *d,
                              size_t *l);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 If the function argument `arg` is a string, returns this string. If this 
 argument is absent or is |lrv-nil|, returns `d`. Otherwise, raises an error.
@@ -5998,7 +5998,7 @@ conversions and caveats of that function apply here.
                                                           *lrv-luaL_optnumber*
 >
   lua_Number luaL_optnumber (lua_State *L, int arg, lua_Number d);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 If the function argument `arg` is a number, returns this number as a 
 `lua_Number`. If this argument is absent or is |lrv-nil|, returns `d`. 
@@ -6011,7 +6011,7 @@ Otherwise, raises an error.
   const char *luaL_optstring (lua_State *L,
                             int arg,
                             const char *d);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 If the function argument `arg` is a string, returns this string. If this 
 argument is absent or is |lrv-nil|, returns `d`. Otherwise, raises an error.
@@ -6021,7 +6021,7 @@ argument is absent or is |lrv-nil|, returns `d`. Otherwise, raises an error.
                                                          *lrv-luaL_prepbuffer*
 >
   char *luaL_prepbuffer (luaL_Buffer *B);
-<                                                                 `[-?, +?, m]`
+<                                                                  `[-?, +?, m]`
 
 Equivalent to |lrv-luaL_prepbuffsize| with the predefined size LUAL_BUFFERSIZE.
 
@@ -6030,7 +6030,7 @@ Equivalent to |lrv-luaL_prepbuffsize| with the predefined size LUAL_BUFFERSIZE.
                                                        *lrv-luaL_prepbuffsize*
 >
   char *luaL_prepbuffsize (luaL_Buffer *B, size_t sz);
-<                                                                 `[-?, +?, m]`
+<                                                                  `[-?, +?, m]`
 
 Returns an address to a space of size `sz` where you can copy a string to be 
 added to buffer `B` (see |lrv-luaL_Buffer|). After copying the string into this 
@@ -6042,7 +6042,7 @@ space you must call
                                                            *lrv-luaL_pushfail*
 >
   void luaL_pushfail (lua_State *L);
-<                                                               `[-0, +1, –]`
+<                                                                `[-0, +1, –]`
 
 Pushes the fail value onto the stack (see |lrv-section-libraries|).
 
@@ -6051,7 +6051,7 @@ Pushes the fail value onto the stack (see |lrv-section-libraries|).
                                                          *lrv-luaL_pushresult*
 >
   void luaL_pushresult (luaL_Buffer *B);
-<                                                                 `[-?, +1, m]`
+<                                                                  `[-?, +1, m]`
 
 Finishes the use of buffer `B` leaving the final string on the top of the 
 stack.
@@ -6061,7 +6061,7 @@ stack.
                                                      *lrv-luaL_pushresultsize*
 >
   void luaL_pushresultsize (luaL_Buffer *B, size_t sz);
-<                                                                 `[-?, +1, m]`
+<                                                                  `[-?, +1, m]`
 
 Equivalent to the sequence |lrv-luaL_addsize|, |lrv-luaL_pushresult|.
 
@@ -6070,7 +6070,7 @@ Equivalent to the sequence |lrv-luaL_addsize|, |lrv-luaL_pushresult|.
                                                                 *lrv-luaL_ref*
 >
   int luaL_ref (lua_State *L, int t);
-<                                                                 `[-1, +0, m]`
+<                                                                  `[-1, +0, m]`
 
 Creates and returns a `reference`, in the table at index `t`, for the object 
 on the top of the stack (and pops the object).
@@ -6094,7 +6094,7 @@ guaranteed to be different from any reference returned by |lrv-luaL_ref|.
   const char *name;
   lua_CFunction func;
 } luaL_Reg;
-<
+< 
 
 Type for arrays of functions to be registered by
 |lrv-luaL_setfuncs|.
@@ -6108,7 +6108,7 @@ are `NULL`.
 >
   void luaL_requiref (lua_State *L, const char *modname,
                     lua_CFunction openf, int glb);
-<                                                                 `[-0, +1, e]`
+<                                                                  `[-0, +1, e]`
 
 If `package.loaded[modname]` is not true, calls the function `openf` with the 
 string `modname` as an argument and sets the call result to 
@@ -6125,7 +6125,7 @@ Leaves a copy of the module on the stack.
                                                            *lrv-luaL_setfuncs*
 >
   void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup);
-<                                                               `[-nup, +0, m]`
+<                                                                `[-nup, +0, m]`
 
 Registers all functions in the array `l` (see |lrv-luaL_Reg|) into the table on 
 the top of the stack (below optional upvalues, see next).
@@ -6143,7 +6143,7 @@ a `NULL` value represents a placeholder, which is filled with false.
                                                        *lrv-luaL_setmetatable*
 >
   void luaL_setmetatable (lua_State *L, const char *tname);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Sets the metatable of the object on the top of the stack as the metatable 
 associated with name `tname` in the registry (see |lrv-luaL_newmetatable|).
@@ -6156,7 +6156,7 @@ associated with name `tname` in the registry (see |lrv-luaL_newmetatable|).
   FILE *f;
   lua_CFunction closef;
 } luaL_Stream;
-<
+< 
 
 The standard representation for file handles used by the standard I/O 
 library.
@@ -6181,7 +6181,7 @@ value to `NULL` to signal that the handle is closed.
                                                           *lrv-luaL_testudata*
 >
   void *luaL_testudata (lua_State *L, int arg, const char *tname);
-<                                                                 `[-0, +0, m]`
+<                                                                  `[-0, +0, m]`
 
 This function works like |lrv-luaL_checkudata|, except that, when the test fails, 
 it returns `NULL` instead of raising an error.
@@ -6191,7 +6191,7 @@ it returns `NULL` instead of raising an error.
                                                           *lrv-luaL_tolstring*
 >
   const char *luaL_tolstring (lua_State *L, int idx, size_t *len);
-<                                                                 `[-0, +1, e]`
+<                                                                  `[-0, +1, e]`
 
 Converts any Lua value at the given index to a C string in a reasonable 
 format. The resulting string is pushed onto the stack and also returned by the 
@@ -6208,7 +6208,7 @@ as argument, and uses the result of the call as its result.
 >
   void luaL_traceback (lua_State *L, lua_State *L1, const char *msg,
                      int level);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Creates and pushes a traceback of the stack `L1`. If `msg` is not `NULL`, it 
 is appended at the beginning of the traceback. The `level` parameter tells at 
@@ -6219,7 +6219,7 @@ which level to start the traceback.
                                                           *lrv-luaL_typeerror*
 >
   int luaL_typeerror (lua_State *L, int arg, const char *tname);
-<                                                                 `[-0, +0, v]`
+<                                                                  `[-0, +0, v]`
 
 Raises a type error for the argument `arg` of the C function that called it, 
 using a standard message;
@@ -6230,7 +6230,7 @@ using a standard message;
                                                            *lrv-luaL_typename*
 >
   const char *luaL_typename (lua_State *L, int index);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Returns the name of the type of the value at the given index.
 
@@ -6239,7 +6239,7 @@ Returns the name of the type of the value at the given index.
                                                               *lrv-luaL_unref*
 >
   void luaL_unref (lua_State *L, int t, int ref);
-<                                                               `[-0, +0, –]`
+<                                                                `[-0, +0, –]`
 
 Releases the reference `ref` from the table at index `t` (see |lrv-luaL_ref|). The 
 entry is removed from the table, so that the referred object can be collected. 
@@ -6254,7 +6254,7 @@ If `ref` is |lrv-LUA_NOREF| or
                                                               *lrv-luaL_where*
 >
   void luaL_where (lua_State *L, int lvl);
-<                                                                 `[-0, +1, m]`
+<                                                                  `[-0, +1, m]`
 
 Pushes onto the stack a string identifying the current position of the control 
 at level `lvl` in the call stack. Typically this string has the following 
@@ -6365,7 +6365,7 @@ implementations for some of its facilities.
                                                                   *lrv-assert*
 >
   assert (v [, message])
-<
+< 
 
 Raises an error if the value of its argument `v` is false (i.e., |lrv-nil| or 
 false); otherwise, returns all its arguments. In case of error,
@@ -6377,7 +6377,7 @@ failed!`"
                                                           *lrv-collectgarbage*
 >
   collectgarbage ([opt [, arg]])
-<
+< 
 
 This function is a generic interface to the garbage collector. It performs 
 different functions according to its first argument, `opt`:
@@ -6435,7 +6435,7 @@ This function should not be called by a finalizer.
                                                                   *lrv-dofile*
 >
   dofile ([filename])
-<Opens the named file and executes its content as a Lua chunk. When called 
+< Opens the named file and executes its content as a Lua chunk. When called 
 without arguments,
 `dofile` executes the content of the standard input (`stdin`). Returns all 
 values returned by the chunk. In case of errors, `dofile` propagates the error 
@@ -6446,7 +6446,7 @@ to its caller. (That is, `dofile` does not run in protected mode.)
                                                                    *lrv-error*
 >
   error (message [, level])
-<Raises an error (see |lrv-section-error|) with `message` as the error object. This function 
+< Raises an error (see |lrv-section-error|) with `message` as the error object. This function 
 never returns.
 
 Usually, `error` adds some information about the error position 
@@ -6462,7 +6462,7 @@ addition of error position information to the message.
                                                                       *lrv-_G*
 >
   _G
-<A global variable (not a function) that holds the global environment (see 
+< A global variable (not a function) that holds the global environment (see 
 |lrv-section-globalenv|). Lua itself does not use this variable; changing its value does 
 not affect any environment, nor vice versa.
 
@@ -6471,7 +6471,7 @@ not affect any environment, nor vice versa.
                                                             *lrv-getmetatable*
 >
   getmetatable (object)
-<
+< 
 
 If `object` does not have a metatable, returns |lrv-nil|. Otherwise, if the 
 object's metatable has a `__metatable` field, returns the associated value. 
@@ -6482,7 +6482,7 @@ Otherwise, returns the metatable of the given object.
                                                                   *lrv-ipairs*
 >
   ipairs (t)
-<
+< 
 
 Returns three values (an iterator function, the table `t`, and 0) so that the 
 construction
@@ -6499,7 +6499,7 @@ first absent index.
                                                                     *lrv-load*
 >
   load (chunk [, chunkname [, mode [, env]]])
-<
+< 
 
 Loads a chunk.
 
@@ -6548,7 +6548,7 @@ bytecode can crash the interpreter.
                                                                 *lrv-loadfile*
 >
   loadfile ([filename [, mode [, env]]])
-<
+< 
 
 Similar to |lrv-load|, but gets the chunk from file `filename` or from the 
 standard input, if no file name is given.
@@ -6558,7 +6558,7 @@ standard input, if no file name is given.
                                                                     *lrv-next*
 >
   next (table [, index])
-<
+< 
 
 Allows a program to traverse all fields of a table. Its first argument is a 
 table and its second argument is an index in this table. A call to `next` 
@@ -6584,7 +6584,7 @@ particular, you may set existing fields to nil.
                                                                    *lrv-pairs*
 >
   pairs (t)
-<
+< 
 
 If `t` has a metamethod `__pairs`, calls it with `t` as argument and returns 
 the first three results from the call.
@@ -6606,7 +6606,7 @@ the caveats of modifying the table during its traversal.
                                                                    *lrv-pcall*
 >
   pcall (f [, arg1, ···])
-<
+< 
 
 Calls the function `f` with the given arguments in 'protected mode'. This 
 means that any error inside `f` is not propagated; instead, `pcall` catches the 
@@ -6621,7 +6621,7 @@ errors caught by `pcall` do not call a message handler.
                                                                    *lrv-print*
 >
   print (···)
-<Receives any number of arguments and prints their values to `stdout`, 
+< Receives any number of arguments and prints their values to `stdout`, 
 converting each argument to a string following the same rules of 
 |lrv-tostring|.
 
@@ -6634,7 +6634,7 @@ control over the output, use |lrv-string.format| and |lrv-io.write|.
                                                                 *lrv-rawequal*
 >
   rawequal (v1, v2)
-<Checks whether `v1` is equal to `v2`, without invoking the `__eq` metamethod. 
+< Checks whether `v1` is equal to `v2`, without invoking the `__eq` metamethod. 
 Returns a boolean.
 
 
@@ -6642,7 +6642,7 @@ Returns a boolean.
                                                                   *lrv-rawget*
 >
   rawget (table, index)
-<Gets the real value of `table[index]`, without using the `__index` metavalue.
+< Gets the real value of `table[index]`, without using the `__index` metavalue.
 `table` must be a table;
 `index` may be any value.
 
@@ -6651,7 +6651,7 @@ Returns a boolean.
                                                                   *lrv-rawlen*
 >
   rawlen (v)
-<Returns the length of the object `v`, which must be a table or a string, 
+< Returns the length of the object `v`, which must be a table or a string, 
 without invoking the `__len` metamethod. Returns an integer.
 
 
@@ -6659,7 +6659,7 @@ without invoking the `__len` metamethod. Returns an integer.
                                                                   *lrv-rawset*
 >
   rawset (table, index, value)
-<Sets the real value of `table[index]` to `value`, without using the 
+< Sets the real value of `table[index]` to `value`, without using the 
 `__newindex` metavalue.
 `table` must be a table,
 `index` any value different from |lrv-nil| and NaN, and `value` any Lua 
@@ -6672,7 +6672,7 @@ This function returns `table`.
                                                                   *lrv-select*
 >
   select (index, ···)
-<
+< 
 
 If `index` is a number, returns all arguments after argument number `index`; a 
 negative number indexes from the end (-1 is the last argument). Otherwise, 
@@ -6684,7 +6684,7 @@ extra arguments it received.
                                                             *lrv-setmetatable*
 >
   setmetatable (table, metatable)
-<
+< 
 
 Sets the metatable for the given table. If `metatable` is |lrv-nil|, removes 
 the metatable of the given table. If the original metatable has a `__metatable` 
@@ -6700,7 +6700,7 @@ of other types from Lua code, you must use the debug library (|lrv-section-debug
                                                                 *lrv-tonumber*
 >
   tonumber (e [, base])
-<
+< 
 
 When called with no `base`,
 `tonumber` tries to convert its argument to a number. If the argument is 
@@ -6724,7 +6724,7 @@ fail.
                                                                 *lrv-tostring*
 >
   tostring (v)
-<
+< 
 
 Receives a value of any type and converts it to a string in a human-readable 
 format.
@@ -6743,7 +6743,7 @@ numbers are converted, use |lrv-string.format|.
                                                                     *lrv-type*
 >
   type (v)
-<
+< 
 
 Returns the type of its only argument, coded as a string. The possible results 
 of this function are
@@ -6760,7 +6760,7 @@ of this function are
                                                                 *lrv-_VERSION*
 >
   _VERSION
-<
+< 
 
 A global variable (not a function) that holds a string containing the running 
 Lua version. The current value of this variable is "`Lua 5.4`".
@@ -6770,7 +6770,7 @@ Lua version. The current value of this variable is "`Lua 5.4`".
                                                                     *lrv-warn*
 >
   warn (msg1, ···)
-<
+< 
 
 Emits a warning with a message composed by the concatenation of all its 
 arguments (which should be strings).
@@ -6786,7 +6786,7 @@ and "`@on`", to (re)start the emission; it ignores unknown control messages.
                                                                   *lrv-xpcall*
 >
   xpcall (f, msgh [, arg1, ···])
-<
+< 
 
 This function is similar to |lrv-pcall|, except that it sets a new message handler 
 `msgh`.
@@ -6805,7 +6805,7 @@ See |lrv-section-coroutine| for a general description of coroutines.
                                                          *lrv-coroutine.close*
 >
   coroutine.close (co)
-<
+< 
 
 Closes coroutine `co`, that is, closes all its pending to-be-closed variables 
 and puts the coroutine in a dead state. The given coroutine must be dead or 
@@ -6818,7 +6818,7 @@ otherwise returns true.
                                                         *lrv-coroutine.create*
 >
   coroutine.create (f)
-<
+< 
 
 Creates a new coroutine, with body `f`.
 `f` must be a function. Returns this new coroutine, an object with type 
@@ -6829,7 +6829,7 @@ Creates a new coroutine, with body `f`.
                                                    *lrv-coroutine.isyieldable*
 >
   coroutine.isyieldable ([co])
-<
+< 
 
 Returns true when the coroutine `co` can yield. The default for `co` is the 
 running coroutine.
@@ -6842,7 +6842,7 @@ is not inside a non-yieldable C function.
                                                         *lrv-coroutine.resume*
 >
   coroutine.resume (co [, val1, ···])
-<
+< 
 
 Starts or continues the execution of coroutine `co`. The first time you resume 
 a coroutine, it starts running its body. The values `val1`, ... are passed as 
@@ -6861,7 +6861,7 @@ terminates). If there is any error,
                                                        *lrv-coroutine.running*
 >
   coroutine.running ()
-<
+< 
 
 Returns the running coroutine plus a boolean, true when the running coroutine 
 is the main one.
@@ -6871,7 +6871,7 @@ is the main one.
                                                         *lrv-coroutine.status*
 >
   coroutine.status (co)
-<
+< 
 
 Returns the status of the coroutine `co`, as a string:
 `"running"`, if the coroutine is running (that is, it is the one that called 
@@ -6887,7 +6887,7 @@ function, or if it has stopped with an error.
                                                           *lrv-coroutine.wrap*
 >
   coroutine.wrap (f)
-<
+< 
 
 Creates a new coroutine, with body `f`;
 `f` must be a function. Returns a function that resumes the coroutine each time 
@@ -6901,7 +6901,7 @@ coroutine and propagates the error.
                                                          *lrv-coroutine.yield*
 >
   coroutine.yield (···)
-<
+< 
 
 Suspends the execution of the calling coroutine. Any arguments to `yield` are 
 passed as extra results to `resume`.
@@ -6922,7 +6922,7 @@ Everything else is exported in the table package.
                                                                  *lrv-require*
 >
   require (modname)
-<
+< 
 
 Loads the given module. The function starts by looking into the 
 |lrv-package.loaded| table to determine whether `modname` is already loaded. If it 
@@ -6968,7 +6968,7 @@ the module, then `require` raises an error.
                                                           *lrv-package.config*
 >
   package.config
-<
+< 
 
 A string describing some compile-time configurations for packages. This string 
 is a sequence of lines:
@@ -6996,7 +6996,7 @@ executable's directory. Default is '`!`'.
                                                            *lrv-package.cpath*
 >
   package.cpath
-<
+< 
 
 A string with the path used by |lrv-require| to search for a C loader.
 
@@ -7010,7 +7010,7 @@ environment variable LUA_CPATH, or a default path defined in `luaconf.h`.
                                                           *lrv-package.loaded*
 >
   package.loaded
-<
+< 
 
 A table used by |lrv-require| to control which modules are already loaded. When 
 you require a module `modname` and
@@ -7027,7 +7027,7 @@ table used by |lrv-require|. The real table is stored in the C registry (see
                                                          *lrv-package.loadlib*
 >
   package.loadlib (libname, funcname)
-<
+< 
 
 Dynamically links the host program with the C library `libname`.
 
@@ -7062,7 +7062,7 @@ dynamic library more often than not results in an access violation.)
                                                             *lrv-package.path*
 >
   package.path
-<
+< 
 
 A string with the path used by |lrv-require| to search for a Lua loader.
 
@@ -7078,7 +7078,7 @@ path.
                                                          *lrv-package.preload*
 >
   package.preload
-<
+< 
 
 A table to store loaders for specific modules (see |lrv-require|).
 
@@ -7092,7 +7092,7 @@ registry (see |lrv-section-registry|), indexed by the key LUA_PRELOAD_TABLE, a s
                                                        *lrv-package.searchers*
 >
   package.searchers
-<
+< 
 
 A table used by |lrv-require| to control how to find modules.
 
@@ -7158,7 +7158,7 @@ with a library.)
                                                       *lrv-package.searchpath*
 >
   package.searchpath (name, path [, sep [, rep]])
-<
+< 
 
 Searches for the given `name` in the given `path`.
 
@@ -7214,7 +7214,7 @@ The string library assumes one-byte character encodings.
                                                              *lrv-string.byte*
 >
   string.byte (s [, i [, j]])
-<Returns the internal numeric codes of the characters `s[i]`,
+< Returns the internal numeric codes of the characters `s[i]`,
 `s[i+1]`, ..., `s[j]`. The default value for `i` is 1; the default value for 
 `j` is `i`. These indices are corrected following the same rules of function 
 |lrv-string.sub|.
@@ -7226,7 +7226,7 @@ Numeric codes are not necessarily portable across platforms.
                                                              *lrv-string.char*
 >
   string.char (···)
-<Receives zero or more integers. Returns a string with length equal to the 
+< Receives zero or more integers. Returns a string with length equal to the 
 number of arguments, in which each character has the internal numeric code 
 equal to its corresponding argument.
 
@@ -7238,7 +7238,7 @@ across platforms.
                                                              *lrv-string.dump*
 >
   string.dump (function [, strip])
-<
+< 
 
 Returns a string containing a binary representation (a 'binary chunk') of the 
 given function, so that a later |lrv-load| on this string returns a copy of the 
@@ -7257,7 +7257,7 @@ adequate to your needs.)
                                                              *lrv-string.find*
 >
   string.find (s, pattern [, init [, plain]])
-<
+< 
 
 Looks for the first match of
 `pattern` (see |lrv-section-pm|) in the string `s`. If it finds a match, then `find` 
@@ -7276,7 +7276,7 @@ successful match the captured values are also returned, after the two indices.
                                                            *lrv-string.format*
 >
   string.format (formatstring, ···)
-<
+< 
 
 Returns a formatted version of its variable number of arguments following the 
 description given in its first argument, which must be a string. The format 
@@ -7329,7 +7329,7 @@ a string representing the pointer `NULL`.
                                                            *lrv-string.gmatch*
 >
   string.gmatch (s, pattern [, init])
-<Returns an iterator function that, each time it is called, returns the next 
+< Returns an iterator function that, each time it is called, returns the next 
 captures from `pattern` (see |lrv-section-pm|) over the string `s`. If `pattern` specifies 
 no captures, then the whole match is produced in each call. A third, optional 
 numeric argument `init` specifies where to start the search; its default value 
@@ -7364,7 +7364,7 @@ an anchor, as this would prevent the iteration.
                                                              *lrv-string.gsub*
 >
   string.gsub (s, pattern, repl [, n])
-<Returns a copy of `s` in which all (or the first `n`, if given) occurrences of 
+< Returns a copy of `s` in which all (or the first `n`, if given) occurrences of 
 the `pattern` (see |lrv-section-pm|) have been replaced by a replacement string specified 
 by `repl`, which can be a string, a table, or a function.
 `gsub` also returns, as its second value, the total number of matches that 
@@ -7424,7 +7424,7 @@ Here are some examples:
                                                               *lrv-string.len*
 >
   string.len (s)
-<
+< 
 
 Receives a string and returns its length. The empty string `""` has length 0. 
 Embedded zeros are counted, so `"a\000bc\000"` has length 5.
@@ -7434,7 +7434,7 @@ Embedded zeros are counted, so `"a\000bc\000"` has length 5.
                                                             *lrv-string.lower*
 >
   string.lower (s)
-<
+< 
 
 Receives a string and returns a copy of this string with all uppercase letters 
 changed to lowercase. All other characters are left unchanged. The definition 
@@ -7445,7 +7445,7 @@ of what an uppercase letter is depends on the current locale.
                                                             *lrv-string.match*
 >
   string.match (s, pattern [, init])
-<
+< 
 
 Looks for the first match of the `pattern` (see |lrv-section-pm|) in the string `s`. If it 
 finds one, then `match` returns the captures from the pattern; otherwise it 
@@ -7458,7 +7458,7 @@ the search; its default value is 1 and can be negative.
                                                              *lrv-string.pack*
 >
   string.pack (fmt, v1, v2, ···)
-<
+< 
 
 Returns a binary string containing the values `v1`, `v2`, etc. serialized in 
 binary form (packed) according to the format string `fmt` (see |lrv-section-pack|).
@@ -7468,7 +7468,7 @@ binary form (packed) according to the format string `fmt` (see |lrv-section-pack
                                                          *lrv-string.packsize*
 >
   string.packsize (fmt)
-<
+< 
 
 Returns the length of a string resulting from |lrv-string.pack| with the given 
 format. The format string cannot have the variable-length options
@@ -7479,7 +7479,7 @@ format. The format string cannot have the variable-length options
                                                               *lrv-string.rep*
 >
   string.rep (s, n [, sep])
-<
+< 
 
 Returns a string that is the concatenation of `n` copies of the string `s` 
 separated by the string `sep`. The default value for `sep` is the empty string 
@@ -7494,7 +7494,7 @@ to this function.)
                                                           *lrv-string.reverse*
 >
   string.reverse (s)
-<
+< 
 
 Returns a string that is the string `s` reversed.
 
@@ -7503,7 +7503,7 @@ Returns a string that is the string `s` reversed.
                                                               *lrv-string.sub*
 >
   string.sub (s, i [, j])
-<
+< 
 
 Returns the substring of `s` that starts at `i`  and continues until `j`;
 `i` and `j` can be negative. If `j` is absent, then it is assumed to be equal 
@@ -7522,7 +7522,7 @@ length, it is corrected to that length. If, after these corrections,
                                                            *lrv-string.unpack*
 >
   string.unpack (fmt, s [, pos])
-<
+< 
 
 Returns the values packed in string `s` (see |lrv-string.pack|) according 
 to the format string `fmt` (see |lrv-section-pack|). An optional `pos` marks where to start 
@@ -7534,7 +7534,7 @@ returns the index of the first unread byte in `s`.
                                                             *lrv-string.upper*
 >
   string.upper (s)
-<
+< 
 
 Receives a string and returns a copy of this string with all lowercase letters 
 changed to uppercase. All other characters are left unchanged. The definition 
@@ -7881,7 +7881,7 @@ so that all values up to `0x7FFFFFFF` are accepted.
                                                                *lrv-utf8.char*
 >
   utf8.char (···)
-<
+< 
 
 Receives zero or more integers, converts each one to its corresponding UTF-8 
 byte sequence and returns a string with the concatenation of all these 
@@ -7892,7 +7892,7 @@ sequences.
                                                         *lrv-utf8.charpattern*
 >
   utf8.charpattern
-<
+< 
 
 The pattern (a string, not a function) "`[\0-\x7F\xC2-\xFD][\x80-\xBF]*`" (see 
 |lrv-section-pm|), which matches exactly one UTF-8 byte sequence, assuming that the subject 
@@ -7903,7 +7903,7 @@ is a valid UTF-8 string.
                                                               *lrv-utf8.codes*
 >
   utf8.codes (s [, lax])
-<
+< 
 
 Returns values so that the construction
 >
@@ -7920,7 +7920,7 @@ error if it meets any invalid byte sequence.
                                                           *lrv-utf8.codepoint*
 >
   utf8.codepoint (s [, i [, j [, lax]]])
-<
+< 
 
 Returns the code points (as integers) from all characters in `s` that start 
 between byte position `i` and `j` (both included). The default for `i` is 1 and 
@@ -7931,7 +7931,7 @@ for `j` is `i`. It raises an error if it meets any invalid byte sequence.
                                                                 *lrv-utf8.len*
 >
   utf8.len (s [, i [, j [, lax]]])
-<
+< 
 
 Returns the number of UTF-8 characters in string `s` that start between 
 positions `i` and `j` (both inclusive). The default for `i` is 1 and for `j` is 
@@ -7943,7 +7943,7 @@ the first invalid byte.
                                                              *lrv-utf8.offset*
 >
   utf8.offset (s, n [, i])
-<
+< 
 
 Returns the position (in bytes) where the encoding of the
 `n`-th character of `s` (counting from position `i`) starts. A negative `n` 
@@ -7978,7 +7978,7 @@ in the tables given as arguments.
                                                             *lrv-table.concat*
 >
   table.concat (list [, sep [, i [, j]]])
-<
+< 
 
 Given a list where all elements are strings or numbers, returns the string 
 `list[i]..sep..list[i+1] ··· sep..list[j]`. The default value for `sep` is 
@@ -7990,7 +7990,7 @@ If `i` is greater than `j`, returns the empty string.
                                                             *lrv-table.insert*
 >
   table.insert (list, [pos,] value)
-<
+< 
 
 Inserts element `value` at position `pos` in `list`, shifting up the elements
 `list[pos], list[pos+1], ···, list[#list]`. The default value for `pos` is 
@@ -8002,7 +8002,7 @@ list `t`.
                                                               *lrv-table.move*
 >
   table.move (a1, f, e, t [,a2])
-<
+< 
 
 Moves elements from the table `a1` to the table `a2`, performing the 
 equivalent to the following multiple assignment:
@@ -8017,7 +8017,7 @@ Returns the destination table `a2`.
                                                               *lrv-table.pack*
 >
   table.pack (···)
-<
+< 
 
 Returns a new table with all arguments stored into keys 1, 2, etc. and with a 
 field "`n`" with the total number of arguments. Note that the resulting table 
@@ -8028,7 +8028,7 @@ may not be a sequence, if some arguments are |lrv-nil|.
                                                             *lrv-table.remove*
 >
   table.remove (list [, pos])
-<
+< 
 
 Removes from `list` the element at position `pos`, returning the value of the 
 removed element. When `pos` is an integer between 1 and `#list`, it shifts down 
@@ -8045,7 +8045,7 @@ removes the last element of the list `l`.
                                                               *lrv-table.sort*
 >
   table.sort (list [, comp])
-<
+< 
 
 Sorts the list elements in a given order, in-place, from `list[1]` to 
 `list[#list]`. If `comp` is given, then it must be a function that receives two 
@@ -8069,7 +8069,7 @@ positions changed by the sort.
                                                             *lrv-table.unpack*
 >
   table.unpack (list [, i [, j]])
-<
+< 
 
 Returns the elements from the given list. This function is equivalent to
 >
@@ -8099,7 +8099,7 @@ or a float otherwise.
                                                                 *lrv-math.abs*
 >
   math.abs (x)
-<
+< 
 
 Returns the maximum value between `x` and `-x`. (integer/float)
 
@@ -8108,7 +8108,7 @@ Returns the maximum value between `x` and `-x`. (integer/float)
                                                                *lrv-math.acos*
 >
   math.acos (x)
-<
+< 
 
 Returns the arc cosine of `x` (in radians).
 
@@ -8117,7 +8117,7 @@ Returns the arc cosine of `x` (in radians).
                                                                *lrv-math.asin*
 >
   math.asin (x)
-<
+< 
 
 Returns the arc sine of `x` (in radians).
 
@@ -8126,7 +8126,7 @@ Returns the arc sine of `x` (in radians).
                                                                *lrv-math.atan*
 >
   math.atan (y [, x])
-<
+< 
 
  Returns the arc tangent of `y/x` (in radians), using the signs of both 
 arguments to find the quadrant of the result. It also handles correctly the 
@@ -8140,7 +8140,7 @@ The default value for `x` is 1, so that the call
                                                                *lrv-math.ceil*
 >
   math.ceil (x)
-<
+< 
 
 Returns the smallest integral value greater than or equal to `x`.
 
@@ -8149,7 +8149,7 @@ Returns the smallest integral value greater than or equal to `x`.
                                                                 *lrv-math.cos*
 >
   math.cos (x)
-<
+< 
 
 Returns the cosine of `x` (assumed to be in radians).
 
@@ -8158,7 +8158,7 @@ Returns the cosine of `x` (assumed to be in radians).
                                                                 *lrv-math.deg*
 >
   math.deg (x)
-<
+< 
 
 Converts the angle `x` from radians to degrees.
 
@@ -8167,7 +8167,7 @@ Converts the angle `x` from radians to degrees.
                                                                 *lrv-math.exp*
 >
   math.exp (x)
-<
+< 
 
 Returns the value e<sup>x</sup> (where `e` is the base of natural 
 logarithms).
@@ -8177,7 +8177,7 @@ logarithms).
                                                               *lrv-math.floor*
 >
   math.floor (x)
-<
+< 
 
 Returns the largest integral value less than or equal to `x`.
 
@@ -8186,7 +8186,7 @@ Returns the largest integral value less than or equal to `x`.
                                                                *lrv-math.fmod*
 >
   math.fmod (x, y)
-<
+< 
 
 Returns the remainder of the division of `x` by `y` that rounds the quotient 
 towards zero. (integer/float)
@@ -8196,7 +8196,7 @@ towards zero. (integer/float)
                                                                *lrv-math.huge*
 >
   math.huge
-<
+< 
 
 The float value `HUGE_VAL`, a value greater than any other numeric value.
 
@@ -8205,7 +8205,7 @@ The float value `HUGE_VAL`, a value greater than any other numeric value.
                                                                 *lrv-math.log*
 >
   math.log (x [, base])
-<
+< 
 
 Returns the logarithm of `x` in the given base. The default for `base` is e 
 (so that the function returns the natural logarithm of `x`).
@@ -8215,7 +8215,7 @@ Returns the logarithm of `x` in the given base. The default for `base` is e
                                                                 *lrv-math.max*
 >
   math.max (x, ···)
-<
+< 
 
 Returns the argument with the maximum value, according to the Lua operator 
 `<`.
@@ -8225,14 +8225,14 @@ Returns the argument with the maximum value, according to the Lua operator
                                                          *lrv-math.maxinteger*
 >
   math.maxinteger
-<An integer with the maximum value for an integer.
+< An integer with the maximum value for an integer.
 
 
 
                                                                 *lrv-math.min*
 >
   math.min (x, ···)
-<
+< 
 
 Returns the argument with the minimum value, according to the Lua operator 
 `<`.
@@ -8242,14 +8242,14 @@ Returns the argument with the minimum value, according to the Lua operator
                                                          *lrv-math.mininteger*
 >
   math.mininteger
-<An integer with the minimum value for an integer.
+< An integer with the minimum value for an integer.
 
 
 
                                                                *lrv-math.modf*
 >
   math.modf (x)
-<
+< 
 
 Returns the integral part of `x` and the fractional part of `x`. Its second 
 result is always a float.
@@ -8259,7 +8259,7 @@ result is always a float.
                                                                  *lrv-math.pi*
 >
   math.pi
-<
+< 
 
 The value of 'π'.
 
@@ -8268,7 +8268,7 @@ The value of 'π'.
                                                                 *lrv-math.rad*
 >
   math.rad (x)
-<
+< 
 
 Converts the angle `x` from degrees to radians.
 
@@ -8277,7 +8277,7 @@ Converts the angle `x` from degrees to radians.
                                                              *lrv-math.random*
 >
   math.random ([m [, n]])
-<
+< 
 
 When called without arguments, returns a pseudo-random float with uniform 
 distribution in the range  '[0,1)'. When called with two integers `m` and `n`,
@@ -8300,7 +8300,7 @@ generate different sequences of results each time the program runs.
                                                          *lrv-math.randomseed*
 >
   math.randomseed ([x [, y]])
-<
+< 
 
 When called with at least one argument, the integer parameters `x` and `y` are 
 joined into a 128-bit seed that is used to reinitialize the pseudo-random 
@@ -8323,7 +8323,7 @@ deterministic sequence, for instance when debugging a program), you should call
                                                                 *lrv-math.sin*
 >
   math.sin (x)
-<
+< 
 
 Returns the sine of `x` (assumed to be in radians).
 
@@ -8332,7 +8332,7 @@ Returns the sine of `x` (assumed to be in radians).
                                                                *lrv-math.sqrt*
 >
   math.sqrt (x)
-<
+< 
 
 Returns the square root of `x`. (You can also use the expression `x^0.5` to 
 compute this value.)
@@ -8342,7 +8342,7 @@ compute this value.)
                                                                 *lrv-math.tan*
 >
   math.tan (x)
-<
+< 
 
 Returns the tangent of `x` (assumed to be in radians).
 
@@ -8351,7 +8351,7 @@ Returns the tangent of `x` (assumed to be in radians).
                                                           *lrv-math.tointeger*
 >
   math.tointeger (x)
-<
+< 
 
 If the value `x` is convertible to an integer, returns that integer. 
 Otherwise, returns fail.
@@ -8361,7 +8361,7 @@ Otherwise, returns fail.
                                                                *lrv-math.type*
 >
   math.type (x)
-<
+< 
 
 Returns "`integer`" if `x` is an integer,
 "`float`" if it is a float, or fail if `x` is not a number.
@@ -8371,7 +8371,7 @@ Returns "`integer`" if `x` is an integer,
                                                                 *lrv-math.ult*
 >
   math.ult (m, n)
-<
+< 
 
 Returns a boolean, true if and only if integer `m` is below integer `n` when 
 they are compared as unsigned integers.
@@ -8419,7 +8419,7 @@ because they rely on the global C variable `errno`.
                                                                 *lrv-io.close*
 >
   io.close ([file])
-<
+< 
 
 Equivalent to `file:close()`. Without a `file`, closes the default output 
 file.
@@ -8429,7 +8429,7 @@ file.
                                                                 *lrv-io.flush*
 >
   io.flush ()
-<
+< 
 
 Equivalent to `io.output():flush()`.
 
@@ -8438,7 +8438,7 @@ Equivalent to `io.output():flush()`.
                                                                 *lrv-io.input*
 >
   io.input ([file])
-<
+< 
 
 When called with a file name, it opens the named file (in text mode), and sets 
 its handle as the default input file. When called with a file handle, it simply 
@@ -8453,7 +8453,7 @@ raises the error, instead of returning an error code.
                                                                 *lrv-io.lines*
 >
   io.lines ([filename, ···])
-<
+< 
 
 Opens the given file name in read mode and returns an iterator function that 
 works like `file:lines(···)` over the opened file. When the iterator 
@@ -8478,7 +8478,7 @@ the error, instead of returning an error code.
                                                                  *lrv-io.open*
 >
   io.open (filename [, mode])
-<
+< 
 
 This function opens a file, in the mode specified in the string `mode`. In 
 case of success, it returns a new file handle.
@@ -8502,7 +8502,7 @@ systems to open the file in binary mode.
                                                                *lrv-io.output*
 >
   io.output ([file])
-<
+< 
 
 Similar to |lrv-io.input|, but operates over the default output file.
 
@@ -8511,7 +8511,7 @@ Similar to |lrv-io.input|, but operates over the default output file.
                                                                 *lrv-io.popen*
 >
   io.popen (prog [, mode])
-<
+< 
 
 This function is system dependent and is not available on all 
 platforms.
@@ -8525,7 +8525,7 @@ default) or to write data to this program (if `mode` is `"w"`).
                                                                  *lrv-io.read*
 >
   io.read (···)
-<
+< 
 
 Equivalent to `io.input():read(···)`.
 
@@ -8534,7 +8534,7 @@ Equivalent to `io.input():read(···)`.
                                                               *lrv-io.tmpfile*
 >
   io.tmpfile ()
-<
+< 
 
 In case of success, returns a handle for a temporary file. This file is opened 
 in update mode and it is automatically removed when the program ends.
@@ -8544,7 +8544,7 @@ in update mode and it is automatically removed when the program ends.
                                                                  *lrv-io.type*
 >
   io.type (obj)
-<
+< 
 
 Checks whether `obj` is a valid file handle. Returns the string `"file"` if 
 `obj` is an open file handle,
@@ -8556,7 +8556,7 @@ file handle.
                                                                 *lrv-io.write*
 >
   io.write (···)
-<
+< 
 
 Equivalent to `io.output():write(···)`.
 
@@ -8565,7 +8565,7 @@ Equivalent to `io.output():write(···)`.
                                                               *lrv-file:close*
 >
   file:close ()
-<
+< 
 
 Closes `file`. Note that files are automatically closed when their handles are 
 garbage collected, but that takes an unpredictable amount of time to 
@@ -8579,7 +8579,7 @@ When closing a file handle created with |lrv-io.popen|,
                                                               *lrv-file:flush*
 >
   file:flush ()
-<
+< 
 
 Saves any written data to `file`.
 
@@ -8588,7 +8588,7 @@ Saves any written data to `file`.
                                                               *lrv-file:lines*
 >
   file:lines (···)
-<
+< 
 
 Returns an iterator function that, each time it is called, reads the file 
 according to the given formats. When no format is given, uses "`l`" as a 
@@ -8606,7 +8606,7 @@ Unlike |lrv-io.lines|, this function does not close the file when the loop ends.
                                                                *lrv-file:read*
 >
   file:read (···)
-<
+< 
 
 Reads the file `file`, according to the given formats, which specify what to 
 read. For each format, the function returns a string or a number with the 
@@ -8651,7 +8651,7 @@ The formats "`l`" and "`L`" should be used only for text files.
                                                                *lrv-file:seek*
 >
   file:seek ([whence [, offset]])
-<
+< 
 
 Sets and gets the file position, measured from the beginning of the file, to 
 the position given by `offset` plus a base specified by the string `whence`, as 
@@ -8676,7 +8676,7 @@ the position to the end of the file, and returns its size.
                                                             *lrv-file:setvbuf*
 >
   file:setvbuf (mode [, size])
-<
+< 
 
 Sets the buffering mode for a file. There are three available modes:
 
@@ -8697,7 +8697,7 @@ underlying ISO&nbsp;C function `setvbuf` in your platform for more details.
                                                               *lrv-file:write*
 >
   file:write (···)
-<
+< 
 
 Writes the value of each of its arguments to `file`. The arguments must be 
 strings or numbers.
@@ -8716,7 +8716,7 @@ This library is implemented through table os.
                                                                 *lrv-os.clock*
 >
   os.clock ()
-<
+< 
 
 Returns an approximation of the amount in seconds of CPU time used by the 
 program, as returned by the underlying ISO&nbsp;C function `clock`.
@@ -8726,7 +8726,7 @@ program, as returned by the underlying ISO&nbsp;C function `clock`.
                                                                  *lrv-os.date*
 >
   os.date ([format [, time]])
-<
+< 
 
 Returns a string or a table containing date and time, formatted according to 
 the given string `format`.
@@ -8763,7 +8763,7 @@ C&nbsp;function `localtime`.
                                                              *lrv-os.difftime*
 >
   os.difftime (t2, t1)
-<
+< 
 
 Returns the difference, in seconds, from time `t1` to time `t2` (where the 
 times are values returned by |lrv-os.time|). In POSIX, Windows, and some other 
@@ -8774,7 +8774,7 @@ systems, this value is exactly `t2`'-'`t1`.
                                                               *lrv-os.execute*
 >
   os.execute ([command])
-<
+< 
 
 This function is equivalent to the ISO&nbsp;C function `system`. It passes 
 `command` to be executed by an operating system shell. Its first result is true 
@@ -8800,7 +8800,7 @@ When called without a `command`,
                                                                  *lrv-os.exit*
 >
   os.exit ([code [, close]])
-<
+< 
 
 Calls the ISO&nbsp;C function `exit` to terminate the host program. If `code` 
 is true, the returned status is `EXIT_SUCCESS`; if `code` is false, the 
@@ -8816,7 +8816,7 @@ argument `close` is true, the function closes the Lua state before exiting (see
                                                                *lrv-os.getenv*
 >
   os.getenv (varname)
-<
+< 
 
 Returns the value of the process environment variable `varname` or fail if the 
 variable is not defined.
@@ -8826,7 +8826,7 @@ variable is not defined.
                                                                *lrv-os.remove*
 >
   os.remove (filename)
-<
+< 
 
 Deletes the file (or empty directory, on POSIX systems) with the given name. 
 If this function fails, it returns fail plus a string describing the error and 
@@ -8837,7 +8837,7 @@ the error code. Otherwise, it returns true.
                                                                *lrv-os.rename*
 >
   os.rename (oldname, newname)
-<
+< 
 
 Renames the file or directory named `oldname` to `newname`. If this function 
 fails, it returns fail, plus a string describing the error and the error code. 
@@ -8848,7 +8848,7 @@ Otherwise, it returns true.
                                                             *lrv-os.setlocale*
 >
   os.setlocale (locale [, category])
-<
+< 
 
 Sets the current locale of the program.
 `locale` is a system-dependent string specifying a locale;
@@ -8874,7 +8874,7 @@ reliance on C&nbsp;function `setlocale`.
                                                                  *lrv-os.time*
 >
   os.time ([table])
-<
+< 
 
 Returns the current time when called without arguments, or a time representing 
 the local date and time specified by the given table. This table must have 
@@ -8907,7 +8907,7 @@ their valid ranges.
                                                               *lrv-os.tmpname*
 >
   os.tmpname ()
-<
+< 
 
 Returns a string with a file name that can be used for a temporary file. The 
 file must be explicitly opened before its use and explicitly removed when no 
@@ -8951,7 +8951,7 @@ The default is always the current thread.
                                                              *lrv-debug.debug*
 >
   debug.debug ()
-<
+< 
 
 Enters an interactive mode with the user, running each string that the user 
 enters. Using simple commands and other debug facilities, the user can inspect 
@@ -8968,7 +8968,7 @@ variables.
                                                            *lrv-debug.gethook*
 >
   debug.gethook ([thread])
-<
+< 
 
 Returns the current hook settings of the thread, as three values:
 
@@ -8983,7 +8983,7 @@ hook.
                                                            *lrv-debug.getinfo*
 >
   debug.getinfo ([thread,] f [, what])
-<
+< 
 
 Returns a table with information about a function. You can give the function 
 directly or you can give a number as the value of `f`, which means the function 
@@ -9012,7 +9012,7 @@ a table with all available information about the |lrv-print| function.
                                                           *lrv-debug.getlocal*
 >
   debug.getlocal ([thread,] f, local)
-<
+< 
 
 This function returns the name and the value of the local variable with index 
 `local` of the function at level `f` of the stack. This function accesses not 
@@ -9042,7 +9042,7 @@ name of function parameters.
                                                       *lrv-debug.getmetatable*
 >
   debug.getmetatable (value)
-<
+< 
 
 Returns the metatable of the given `value` or |lrv-nil| if it does not have a 
 metatable.
@@ -9052,7 +9052,7 @@ metatable.
                                                        *lrv-debug.getregistry*
 >
   debug.getregistry ()
-<
+< 
 
 Returns the registry table (see |lrv-section-registry|).
 
@@ -9061,7 +9061,7 @@ Returns the registry table (see |lrv-section-registry|).
                                                         *lrv-debug.getupvalue*
 >
   debug.getupvalue (f, up)
-<
+< 
 
 This function returns the name and the value of the upvalue with index `up` of 
 the function `f`. The function returns fail if there is no upvalue with the 
@@ -9082,7 +9082,7 @@ known names (variables from chunks saved without debug information).
                                                       *lrv-debug.getuservalue*
 >
   debug.getuservalue (u, n)
-<
+< 
 
 Returns the `n`-th user value associated to the userdata `u` plus a boolean, 
 false if the userdata does not have that value.
@@ -9092,7 +9092,7 @@ false if the userdata does not have that value.
                                                            *lrv-debug.sethook*
 >
   debug.sethook ([thread,] hook, mask [, count])
-<
+< 
 
 Sets the given function as the debug hook. The string `mask` and the number 
 `count` describe when the hook will be called. The string mask may have any 
@@ -9121,7 +9121,7 @@ level 2 to get more information about the running function. (Level 0 is the
                                                           *lrv-debug.setlocal*
 >
   debug.setlocal ([thread,] level, local, value)
-<
+< 
 
 This function assigns the value `value` to the local variable with index 
 `local` of the function at level `level` of the stack. The function returns 
@@ -9138,7 +9138,7 @@ names.
                                                       *lrv-debug.setmetatable*
 >
   debug.setmetatable (value, table)
-<
+< 
 
 Sets the metatable for the given `value` to the given `table` (which can be 
 |lrv-nil|). Returns `value`.
@@ -9148,7 +9148,7 @@ Sets the metatable for the given `value` to the given `table` (which can be
                                                         *lrv-debug.setupvalue*
 >
   debug.setupvalue (f, up, value)
-<
+< 
 
 This function assigns the value `value` to the upvalue with index `up` of the 
 function `f`. The function returns fail if there is no upvalue with the given 
@@ -9162,7 +9162,7 @@ for more information about upvalues.
                                                       *lrv-debug.setuservalue*
 >
   debug.setuservalue (udata, value, n)
-<
+< 
 
 Sets the given `value` as the `n`-th user value associated to the given 
 `udata`.
@@ -9176,7 +9176,7 @@ not have that value.
                                                          *lrv-debug.traceback*
 >
   debug.traceback ([thread,] [message [, level]])
-<
+< 
 
 If `message` is present but is neither a string nor |lrv-nil|, this function 
 returns `message` without further processing. Otherwise, it returns a string 
@@ -9189,7 +9189,7 @@ level to start the traceback (default is 1, the function calling `traceback`).
                                                          *lrv-debug.upvalueid*
 >
   debug.upvalueid (f, n)
-<
+< 
 
 Returns a unique identifier (as a light userdata) for the upvalue numbered `n` 
 from the given function.
@@ -9204,7 +9204,7 @@ for those upvalue indices.
                                                        *lrv-debug.upvaluejoin*
 >
   debug.upvaluejoin (f1, n1, f2, n2)
-<
+< 
 
 Make the `n1`-th upvalue of the Lua closure `f1` refer to the `n2`-th upvalue 
 of the Lua closure `f2`.
