@@ -17,3 +17,17 @@ let loaded_luarefvim = 0
 [vim-lua-ftplugin](https://github.com/idbrii/vim-lua-ftplugin) implements
 `xolox#lua#help()` and binds it to `K` which provides a superior documentation
 lookup solution to what's implemented here.
+
+
+# Updating the Lua Manual
+
+To update the Lua manual, replace v5.3 with your desired version:
+
+1. Download manual.of from: https://github.com/lua/lua/blob/v5.3/manual/manual.of
+1. Replace the Copyright notice/license in bin/2vimdoc.lua with: https://github.com/lua/lua/blob/v5.3/lua.h
+1. Change this output line bin/2vimdoc.lua:
+```lua
+t = io.output("../doc/lua53refvim.txt")
+```
+1. Replace any other outdated version references in bin/2vimdoc.lua.
+1. Run lua bin/2vimdoc.lua

@@ -1,5 +1,8 @@
 #!/usr/bin/env lua5.3
 
+-- Convert the Lua manual into vim help.
+-- Based on 2html from Lua: https://github.com/lua/lua/blob/v5.3/manual/2html
+
 package.path = package.path ..";./?.lua"
 local lume = require "lume"
 
