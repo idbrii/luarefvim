@@ -444,7 +444,7 @@ local Tex = {
   sect2 = section"h2",
   sect3 = section"h3",
   sect4 = section("h4", true),
-  simplesect = id,
+  simplesect = textblock,
   Tab2 = function (s) return Tag.table(s, {border=1}) end,
   row = Tag.tr,
   title = Tag.title,
