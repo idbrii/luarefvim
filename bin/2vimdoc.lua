@@ -636,5 +636,10 @@ t = t:gsub("\5", "")
 -- Handle weird items with |
 t = string.gsub(t, "||", "| ")
 
+-- With the concept of full document wordwrap, consider joining lines within a
+-- paragraph very early. Maybe before processing most tags so the tags can
+-- still apply their formatting?
+t = wordwrap(t)
+
 io.write(header, t, footer)
 
