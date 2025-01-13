@@ -222,6 +222,14 @@ local function antipara (t)
   return t
 end
 
+-- Collapse multiple consecutive paragraphs, but expand them into nice
+-- paragraphs.
+local function expandpara (t)
+  t = t:gsub("\1\1", "\1")
+  t = t:gsub("\1", "\n\n")
+  return t
+end
+
 
 Tag.pre = compose(Tag.pre, antipara)
 Tag.ul = compose(Tag.ul, antipara)
@@ -573,6 +581,7 @@ end
 -- read whole book
 t = io.read"*a"
 
+-- Store paragraph markers.
 t = string.gsub(t, "\n\n+", "\1")
 
 -- Make these items jumpable since they're all metatable keys.
@@ -591,7 +600,7 @@ t = string.gsub(t, "\3(.-)\3", ref)
 -- remove extra space (??)
 t = string.gsub(t, "%s*\4%s*", "")
 
-t = nopara(t)
+t = expandpara(t)
 
 -- TODO: can we avoid inserting these? I think it's from @item
 -- Handle weird items with |
